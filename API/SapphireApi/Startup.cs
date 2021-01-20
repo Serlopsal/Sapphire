@@ -34,6 +34,24 @@ namespace SapphireApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Custom Dependency injection
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            var origin = Configuration["AppSettings:Client_Url"].ToString();
+
+            services
+                .AddCors(
+                    options => {
+                        options.AddDefaultPolicy(
+                            builder => {
+                                builder
+                                    .WithOrigins(origin)
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod();
+                            }
+                        );
+                    }
+                );
 
             services
                 .AddControllers()
@@ -85,6 +103,8 @@ namespace SapphireApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
