@@ -21,6 +21,23 @@ dotnet add package Microsoft.EntityFrameworkCore.Tools --version 5.0.2
 dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson --version 5.0.2
 ```
 
+### Migrations
+
+#### Add Migration 
+dotnet ef migrations add MIGRATION_NAME
+
+#### Apply Migration on DB
+dotnet ef database update
+
+#### To unapply a specific migration(s):
+dotnet ef database update MIGRATION_NAME
+
+#### To unapply all migrations:
+dotnet ef database update 0
+
+#### To remove last migration:
+dotnet ef migrations remove
+
 ## Web Front-End - Angular
 
 ## Mobile - Android
