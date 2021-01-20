@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using SapphireApi.Data.Identity;
 
 namespace SapphireApi.Data{
-  public class Sapphire_Context: IdentityDbContext{
+  public class Sapphire_Context: IdentityDbContext<UserModel>{
     public Sapphire_Context(DbContextOptions options): base (options){}
     
     // Add Models DataSets [HERE]
@@ -13,6 +14,8 @@ namespace SapphireApi.Data{
 
       // Add Model Configuration Properties [HERE]
       // Ex: builder.ApplyConfiguration(new DataModelBuilder());
+
+      builder.ApplyConfiguration(new UserModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP

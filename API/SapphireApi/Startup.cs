@@ -18,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using SapphireApi.Data;
+using SapphireApi.Data.Identity;
 
 namespace SapphireApi
 {
@@ -34,13 +35,34 @@ namespace SapphireApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services
+                .AddControllers()
+                .AddNewtonsoftJson(
+                    options => {
+                        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    }
+                );
 
             services.AddDbContext<Sapphire_Context>(
                 options => {
                     options.UseSqlServer(
                         Configuration.GetConnectionString("Default")
                     );
+                }
+            );
+
+            services
+                .AddIdentity<UserModel, IdentityRole>()
+                .AddEntityFrameworkStores<Sapphire_Context>();
+
+            services.Configure<IdentityOptions>(
+                options => {
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequiredUniqueChars = 0;
+                    options.Password.RequireLowercase = true;
+                    options.Password.RequireNonAlphanumeric = true;
+                    options.Password.RequireUppercase = true;
                 }
             );
 
