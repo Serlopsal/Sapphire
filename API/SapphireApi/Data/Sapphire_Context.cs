@@ -25,6 +25,9 @@ namespace SapphireApi.Data{
             //     .HasOne(PK => PK.)
             //     .WithMany(FK => FK.)
             //     .HasForeignKey(PK => PK.);
+
+      // Seeding
+      new IdentitySeed(builder);
     }
   }
 }
