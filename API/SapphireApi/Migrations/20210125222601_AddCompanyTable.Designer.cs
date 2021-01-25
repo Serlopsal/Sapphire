@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SapphireApi.Data;
 
 namespace SapphireApi.Migrations
 {
     [DbContext(typeof(Sapphire_Context))]
-    partial class Sapphire_ContextModelSnapshot : ModelSnapshot
+    [Migration("20210125222601_AddCompanyTable")]
+    partial class AddCompanyTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,8 +50,8 @@ namespace SapphireApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cbb0f3cf-0290-4d56-a41f-01f8a99d991d",
-                            ConcurrencyStamp = "0104755b-26f0-4be3-91fb-878ee5a9b101",
+                            Id = "70cb7aad-1f89-48c1-9238-85b79cef0ac2",
+                            ConcurrencyStamp = "2ab4bbc0-fd03-4752-9ec9-e1a0e8a17368",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -142,8 +144,8 @@ namespace SapphireApi.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "426b62aa-425c-4431-8d11-a0157c2037ca",
-                            RoleId = "cbb0f3cf-0290-4d56-a41f-01f8a99d991d"
+                            UserId = "0340fb8e-4110-48a5-b113-4c33c15e5b64",
+                            RoleId = "70cb7aad-1f89-48c1-9238-85b79cef0ac2"
                         });
                 });
 
@@ -303,15 +305,15 @@ namespace SapphireApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "426b62aa-425c-4431-8d11-a0157c2037ca",
+                            Id = "0340fb8e-4110-48a5-b113-4c33c15e5b64",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d00a84f0-9c91-4fe8-a177-f86eeca98b6d",
+                            ConcurrencyStamp = "53928920-9359-409f-b7d7-eb2fc9f0d630",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEImN59j9Szmx4wKigtPZ+Yvc5azuZGLsYX+rY3dL5mZ6lLn9JJXNcaxG5KFScq0QUA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGlV4W2Swh6Xym45jPd2jMzOZQ4rGHYqsDBT0p5dShD2fq25FGKy037ZDJZ4FHyg5w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "885705f0-8450-4d7e-bf1c-605aa04616ca",
+                            SecurityStamp = "8d3127ad-0a73-4b52-af44-f30e214dc5da",
                             TwoFactorEnabled = false,
                             UserName = "Admin",
                             fullName = "Administrator"
