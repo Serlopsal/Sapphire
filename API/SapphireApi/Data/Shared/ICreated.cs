@@ -1,7 +1,7 @@
 using System;
 
 namespace SapphireApi.Data.Shared{
-  public interface ICreated {
+  internal interface ICreated {
     DateTime createdAt { get; set; }
   }
 }

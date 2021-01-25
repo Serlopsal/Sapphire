@@ -3,7 +3,7 @@ using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Adminsitration.SystemInitialization.Company;
 
 namespace SapphireApi.Data.Adminsitration.Country{
-  public class CountryModel: AuditableModel {
+  internal class CountryModel: AuditableModel {
     public CountryModel() {
       // Navigation Properties
       company = new HashSet<CompanyModel>();

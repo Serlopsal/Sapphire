@@ -5,7 +5,7 @@ using SapphireApi.Data.Adminsitration.Country;
 using SapphireApi.Data.Adminsitration.SystemInitialization.Company;
 
 namespace SapphireApi.Data{
-  public class Sapphire_Context: IdentityDbContext<UserModel>{
+  internal class Sapphire_Context: IdentityDbContext<UserModel>{
     public Sapphire_Context(DbContextOptions options): base (options){}
     
     // Add Models DataSets [HERE]

@@ -1,6 +1,6 @@
 namespace SapphireApi.Data.Shared.Normalize {
-  public class Schemas {
+  internal class Schemas {
     // public readonly static string KEY = "VALUE";
-    public readonly static string ADM = "ADM";
+    internal static readonly string ADM = "ADM";
   }
 }

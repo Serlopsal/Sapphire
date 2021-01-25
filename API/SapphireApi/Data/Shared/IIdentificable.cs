@@ -1,5 +1,5 @@
 namespace SapphireApi.Data.Shared {
-    public interface IIdentificable {
+    internal interface IIdentificable {
       int id { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SapphireApi.Data.Identity;
 
 namespace SapphireApi.Data {
-  public class IdentitySeed {
+  internal class IdentitySeed {
     public IdentitySeed(ModelBuilder builder){
 
       var roleID = Guid.NewGuid().ToString();
