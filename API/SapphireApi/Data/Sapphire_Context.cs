@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using SapphireApi.Data.Identity;
+using SapphireApi.Data.Adminsitration.Country;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -9,6 +10,8 @@ namespace SapphireApi.Data{
     // Add Models DataSets [HERE]
     // Ex: public DbSet<DataModel> Model { get; set; }
 
+    public DbSet<CountryModel> Country { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
 
@@ -16,6 +19,7 @@ namespace SapphireApi.Data{
       // Ex: builder.ApplyConfiguration(new DataModelBuilder());
 
       builder.ApplyConfiguration(new UserModelBuilder());
+      builder.ApplyConfiguration(new CountryModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP
