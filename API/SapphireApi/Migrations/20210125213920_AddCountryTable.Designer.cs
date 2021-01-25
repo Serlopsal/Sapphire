@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SapphireApi.Data;
 
 namespace SapphireApi.Migrations
 {
     [DbContext(typeof(Sapphire_Context))]
-    partial class Sapphire_ContextModelSnapshot : ModelSnapshot
+    [Migration("20210125213920_AddCountryTable")]
+    partial class AddCountryTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +51,7 @@ namespace SapphireApi.Migrations
                         new
                         {
                             Id = "cbb0f3cf-0290-4d56-a41f-01f8a99d991d",
-                            ConcurrencyStamp = "0104755b-26f0-4be3-91fb-878ee5a9b101",
+                            ConcurrencyStamp = "f896829d-b1c7-41b6-9678-4c2f07b49ba3",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -271,13 +273,13 @@ namespace SapphireApi.Migrations
                         {
                             Id = "426b62aa-425c-4431-8d11-a0157c2037ca",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d00a84f0-9c91-4fe8-a177-f86eeca98b6d",
+                            ConcurrencyStamp = "30a64b0f-2600-43f3-8d99-11f89084a2e2",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEImN59j9Szmx4wKigtPZ+Yvc5azuZGLsYX+rY3dL5mZ6lLn9JJXNcaxG5KFScq0QUA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJ5uOGD7OfzrngzBThcY0xgDklI0BRQW0BZBS0/fpPWoTBBfwcJ765JjMULwiApVnQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "885705f0-8450-4d7e-bf1c-605aa04616ca",
+                            SecurityStamp = "4c7aea90-211d-4e06-b245-4ae97d3d8824",
                             TwoFactorEnabled = false,
                             UserName = "Admin",
                             fullName = "Administrator"
