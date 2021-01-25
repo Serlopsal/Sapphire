@@ -11,8 +11,13 @@ namespace SapphireApi.Data.Adminsitration.Country{
       builder.ToTable(Tables.COUNTRY, Schemas.ADM);
 
       builder
-        .Property(model => model.Name)
+        .Property(model => model.name)
         .HasMaxLength(255)
+        .IsRequired();
+
+      builder
+        .Property(model => model.key)
+        .HasMaxLength(3)
         .IsRequired();
     }
   }

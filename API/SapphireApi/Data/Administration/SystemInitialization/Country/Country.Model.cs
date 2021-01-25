@@ -9,7 +9,7 @@ namespace SapphireApi.Data.Adminsitration.Country{
       company = new HashSet<CompanyModel>();
     }
     public string key { get; set; }
-    public string Name { get; set; }
+    public string name { get; set; }
 
     // Navigation Properties
     public virtual ICollection<CompanyModel> company { get; set; }
