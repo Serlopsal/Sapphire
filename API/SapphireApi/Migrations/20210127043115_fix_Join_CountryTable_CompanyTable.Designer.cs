@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SapphireApi.Data;
 
 namespace SapphireApi.Migrations
 {
     [DbContext(typeof(Sapphire_Context))]
-    partial class Sapphire_ContextModelSnapshot : ModelSnapshot
+    [Migration("20210127043115_fix_Join_CountryTable_CompanyTable")]
+    partial class fix_Join_CountryTable_CompanyTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -300,9 +302,6 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int?>("companyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("fullName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -318,8 +317,6 @@ namespace SapphireApi.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("companyId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -386,24 +383,9 @@ namespace SapphireApi.Migrations
                     b.Navigation("country");
                 });
 
-            modelBuilder.Entity("SapphireApi.Data.Identity.UserModel", b =>
-                {
-                    b.HasOne("SapphireApi.Data.Adminsitration.SystemInitialization.Company.CompanyModel", "company")
-                        .WithMany("users")
-                        .HasForeignKey("companyId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("company");
-                });
-
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.Country.CountryModel", b =>
                 {
                     b.Navigation("company");
-                });
-
-            modelBuilder.Entity("SapphireApi.Data.Adminsitration.SystemInitialization.Company.CompanyModel", b =>
-                {
-                    b.Navigation("users");
                 });
 #pragma warning restore 612, 618
         }

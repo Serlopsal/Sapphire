@@ -33,11 +33,22 @@ namespace SapphireApi.Data{
         //   .WithMany(FK => FK.[NAV_PROP_TO_MANY])
         //   .HasForeignKey(PK => PK.[KEY_OF_ONE]);
 
+      // Configure Relationsships
+
+      // 1 Country => * Company
       builder
         .Entity<CompanyModel>()
         .HasOne(PK => PK.country)
         .WithMany(FK => FK.company)
-        .HasForeignKey(PK => PK.id)
+        .HasForeignKey(PK => PK.countryId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+      // 1 Company => * User
+      builder
+        .Entity<UserModel>()
+        .HasOne(PK => PK.company)
+        .WithMany(FK => FK.users)
+        .HasForeignKey(PK => PK.companyId)
         .OnDelete(DeleteBehavior.Restrict);
 
       // Seeding
