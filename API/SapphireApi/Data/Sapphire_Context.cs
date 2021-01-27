@@ -41,7 +41,8 @@ namespace SapphireApi.Data{
         .OnDelete(DeleteBehavior.Restrict);
 
       // Seeding
-      new IdentitySeed(builder);
+      // ONLY FIRST
+      // new IdentitySeed(builder);
     }
   }
 }

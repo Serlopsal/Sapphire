@@ -21,6 +21,32 @@ namespace SapphireApi.Data.Adminsitration.SystemInitialization.Company{
         .Property(model => model.companyAddress)
         .HasMaxLength(255)
         .IsRequired();
+
+      builder
+        .Property(model => model.mainCur)
+        .HasMaxLength(3)
+        .IsRequired();
+
+      builder
+        .Property(model => model.phone1)
+        .HasMaxLength(8);
+
+      builder
+        .Property(model => model.phone2)
+        .HasMaxLength(8);
+
+      builder
+        .Property(model => model.sysCur)
+        .HasMaxLength(3)
+        .IsRequired();
+
+      builder
+        .Property(model => model.webPage)
+        .HasMaxLength(100);
+      
+      builder
+        .Property(model => model.zipCode)
+        .HasMaxLength(5);
     }
   }
 }

@@ -44,15 +44,6 @@ namespace SapphireApi.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "cbb0f3cf-0290-4d56-a41f-01f8a99d991d",
-                            ConcurrencyStamp = "0104755b-26f0-4be3-91fb-878ee5a9b101",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -138,13 +129,6 @@ namespace SapphireApi.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "426b62aa-425c-4431-8d11-a0157c2037ca",
-                            RoleId = "cbb0f3cf-0290-4d56-a41f-01f8a99d991d"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -173,11 +157,6 @@ namespace SapphireApi.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -187,6 +166,11 @@ namespace SapphireApi.Migrations
                         .IsRequired()
                         .HasMaxLength(3)
                         .HasColumnType("nvarchar(3)");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
@@ -203,6 +187,9 @@ namespace SapphireApi.Migrations
                     b.Property<int>("id")
                         .HasColumnType("int")
                         .UseIdentityColumn();
+
+                    b.Property<string>("city")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("companyAddress")
                         .IsRequired()
@@ -222,10 +209,36 @@ namespace SapphireApi.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
+                    b.Property<string>("mainCur")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<string>("phone1")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<string>("phone2")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<string>("sysCur")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("webPage")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("zipCode")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
 
                     b.HasKey("id");
 
@@ -301,23 +314,6 @@ namespace SapphireApi.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "426b62aa-425c-4431-8d11-a0157c2037ca",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "d00a84f0-9c91-4fe8-a177-f86eeca98b6d",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEImN59j9Szmx4wKigtPZ+Yvc5azuZGLsYX+rY3dL5mZ6lLn9JJXNcaxG5KFScq0QUA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "885705f0-8450-4d7e-bf1c-605aa04616ca",
-                            TwoFactorEnabled = false,
-                            UserName = "Admin",
-                            fullName = "Administrator"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
