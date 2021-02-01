@@ -4,6 +4,7 @@ using SapphireApi.Data.Identity;
 using SapphireApi.Data.Adminsitration.Country;
 using SapphireApi.Data.Adminsitration.SystemInitialization.Company;
 using SapphireApi.Data.Adminsitration.Setup.UOM;
+using SapphireApi.Data.Adminsitration.Setup.UOM.Converter;
 
 namespace SapphireApi.Data{
   internal class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -15,6 +16,7 @@ namespace SapphireApi.Data{
     public DbSet<CountryModel> Country { get; set; }
     public DbSet<CompanyModel> Company { get; set; }
     public DbSet<UOMModel> UOM { get; set; }
+    public DbSet<UOMConverterModel> UOMConverter { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
@@ -26,6 +28,7 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new CountryModelBuilder());
       builder.ApplyConfiguration(new CompanyModelBuilder());
       builder.ApplyConfiguration(new UOMModelBuilder());
+      builder.ApplyConfiguration(new UOMConverterModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP
@@ -52,6 +55,20 @@ namespace SapphireApi.Data{
         .HasOne(PK => PK.company)
         .WithMany(FK => FK.users)
         .HasForeignKey(PK => PK.companyId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+      builder
+        .Entity<UOMConverterModel>()
+        .HasOne(PK => PK.fromOne)
+        .WithMany(FK => FK.uomConverter_from)
+        .HasForeignKey(PK => PK.fromOneId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+      builder
+        .Entity<UOMConverterModel>()
+        .HasOne(PK => PK.toMany)
+        .WithMany(FK => FK.uomConverter_to)
+        .HasForeignKey(PK => PK.toManyId)
         .OnDelete(DeleteBehavior.Restrict);
 
       // Seeding
