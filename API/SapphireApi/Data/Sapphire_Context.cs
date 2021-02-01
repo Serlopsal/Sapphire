@@ -6,6 +6,7 @@ using SapphireApi.Data.Adminsitration.SystemInitialization.Company;
 using SapphireApi.Data.Adminsitration.Setup.UOM;
 using SapphireApi.Data.Adminsitration.Setup.UOM.Converter;
 using SapphireApi.Data.Inventory.ItemsGroup;
+using SapphireApi.Data.Inventory.Manufacters;
 
 namespace SapphireApi.Data{
   internal class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -18,6 +19,7 @@ namespace SapphireApi.Data{
     public DbSet<CompanyModel> Company { get; set; }
     public DbSet<UOMModel> UOM { get; set; }
     public DbSet<UOMConverterModel> UOMConverter { get; set; }
+    public DbSet<ManufacterModel> Manufacter { get; set; }
     public DbSet<ItemsGroupModel> ItemsGroup { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder){
@@ -31,6 +33,7 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new CompanyModelBuilder());
       builder.ApplyConfiguration(new UOMModelBuilder());
       builder.ApplyConfiguration(new UOMConverterModelBuilder());
+      builder.ApplyConfiguration(new ManufacterModelBuilder());
       builder.ApplyConfiguration(new ItemsGroupModelBuilder());
 
       // Add Relationships Configuration [HERE]
