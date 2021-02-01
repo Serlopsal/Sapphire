@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using SapphireApi.Data.Identity;
 using SapphireApi.Data.Adminsitration.Country;
 using SapphireApi.Data.Adminsitration.SystemInitialization.Company;
+using SapphireApi.Data.Adminsitration.Setup.UOM;
 
 namespace SapphireApi.Data{
   internal class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -13,6 +14,7 @@ namespace SapphireApi.Data{
 
     public DbSet<CountryModel> Country { get; set; }
     public DbSet<CompanyModel> Company { get; set; }
+    public DbSet<UOMModel> UOM { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
@@ -23,6 +25,7 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new UserModelBuilder());
       builder.ApplyConfiguration(new CountryModelBuilder());
       builder.ApplyConfiguration(new CompanyModelBuilder());
+      builder.ApplyConfiguration(new UOMModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP
