@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SapphireApi.Data;
 
 namespace SapphireApi.Migrations
 {
     [DbContext(typeof(Sapphire_Context))]
-    partial class Sapphire_ContextModelSnapshot : ModelSnapshot
+    [Migration("20210201210335_MRCTable_ITBTable_ITMTable_FKUOM")]
+    partial class MRCTable_ITBTable_ITMTable_FKUOM
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

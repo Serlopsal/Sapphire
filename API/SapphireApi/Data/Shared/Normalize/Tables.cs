@@ -7,5 +7,6 @@ namespace SapphireApi.Data.Shared.Normalize {
     internal static readonly string UOMConverter = "UomConverter";
     internal static readonly string MANUFACTER = "Manufacter";
     internal static readonly string ITEMS_GROUP = "ItemsGroup";
+    internal static readonly string ITEMS = "Items";
   }
 }

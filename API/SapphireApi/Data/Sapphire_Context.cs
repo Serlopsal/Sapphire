@@ -7,6 +7,7 @@ using SapphireApi.Data.Adminsitration.Setup.UOM;
 using SapphireApi.Data.Adminsitration.Setup.UOM.Converter;
 using SapphireApi.Data.Inventory.ItemsGroup;
 using SapphireApi.Data.Inventory.Manufacters;
+using SapphireApi.Data.Inventory.Items;
 
 namespace SapphireApi.Data{
   internal class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -21,6 +22,7 @@ namespace SapphireApi.Data{
     public DbSet<UOMConverterModel> UOMConverter { get; set; }
     public DbSet<ManufacterModel> Manufacter { get; set; }
     public DbSet<ItemsGroupModel> ItemsGroup { get; set; }
+    public DbSet<ItemModel> Item { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
@@ -35,6 +37,7 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new UOMConverterModelBuilder());
       builder.ApplyConfiguration(new ManufacterModelBuilder());
       builder.ApplyConfiguration(new ItemsGroupModelBuilder());
+      builder.ApplyConfiguration(new ItemModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP
@@ -76,6 +79,41 @@ namespace SapphireApi.Data{
         .WithMany(FK => FK.uomConverter_to)
         .HasForeignKey(PK => PK.toManyId)
         .OnDelete(DeleteBehavior.Restrict);
+
+      builder
+        .Entity<ItemModel>()
+        .HasOne(PK => PK.itemsGroup)
+        .WithMany(FK => FK.items)
+        .HasForeignKey(PK => PK.itemsGroupId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+      builder
+        .Entity<ItemModel>()
+        .HasOne(PK => PK.manufacter)
+        .WithMany(FK => FK.items)
+        .HasForeignKey(PK => PK.mrcCode)
+        .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+          .Entity<ItemModel>()
+          .HasOne(PK => PK.purchaseUOM)
+          .WithMany(FK => FK.purItm)
+          .HasForeignKey(PK => PK.purchaseUomId)
+          .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+          .Entity<ItemModel>()
+          .HasOne(PK => PK.sellUOM)
+          .WithMany(FK => FK.sellItm)
+          .HasForeignKey(PK => PK.sellUomId)
+          .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+          .Entity<ItemModel>()
+          .HasOne(PK => PK.inventoryUOM)
+          .WithMany(FK => FK.invItm)
+          .HasForeignKey(PK => PK.inventoryUomId)
+          .OnDelete(DeleteBehavior.Restrict);
 
       // Seeding
       // ONLY FIRST
