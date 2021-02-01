@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace SapphireApi.Data.Identity{
-  public partial class UserModelBuilder : IEntityTypeConfiguration<UserModel>
+  internal partial class UserModelBuilder : IEntityTypeConfiguration<UserModel>
   {
     public void Configure(EntityTypeBuilder<UserModel> builder)
     {      

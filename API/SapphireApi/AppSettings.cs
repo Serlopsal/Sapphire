@@ -1,5 +1,5 @@
 namespace SapphireApi{
-  public class AppSettings{
+  internal class AppSettings{
     public string JWT_Secret { get; set; }
   }
 }
