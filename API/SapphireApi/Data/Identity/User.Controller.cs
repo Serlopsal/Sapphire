@@ -15,7 +15,7 @@ using SapphireApi.Data.Identity.SharedModels;
 namespace SapphireApi.Data.Identity {
   [Route("api/[controller]")]
   [ApiController]
-  internal class UserController : ControllerBase {
+  public class UserController : ControllerBase {
     private Sapphire_Context _context;
     private UserManager<UserModel> _userManager;
     private SignInManager<UserModel> _signInManager;

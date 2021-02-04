@@ -10,7 +10,7 @@ using SapphireApi.Data.Inventory.Manufacters;
 using SapphireApi.Data.Inventory.Items;
 
 namespace SapphireApi.Data{
-  internal class Sapphire_Context: IdentityDbContext<UserModel>{
+  public class Sapphire_Context: IdentityDbContext<UserModel>{
     public Sapphire_Context(DbContextOptions options): base (options){}
     
     // Add Models DataSets [HERE]

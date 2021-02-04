@@ -4,7 +4,7 @@ using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Shared.Normalize;
 
 namespace SapphireApi.Data.Inventory.Items {
-  internal partial class ItemModelBuilder : AuditableModelBuilder<ItemModel> {
+  public partial class ItemModelBuilder : AuditableModelBuilder<ItemModel> {
     public override void Configure(EntityTypeBuilder<ItemModel> builder) {
       base.Configure(builder);
 
