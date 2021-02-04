@@ -17,9 +17,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_ENVIRONMENT=Docker
+      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
-    command: bash -c "sleep 5 && dotnet /var/www/app/publish/SapphireApi.dll"
+    command: ash -c "sleep 5 && dotnet /var/www/app/publish/SapphireApi.dll"
     expose: 
       - 80 
       - 443   
