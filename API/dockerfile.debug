@@ -1,6 +1,5 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0 as builder
 WORKDIR /var/www
-COPY ./docker-entrypoint.debug.sh .
 COPY SapphireApi .
 RUN dotnet publish -c Relase -o /var/www/app/publish
 WORKDIR /var/www/app/publish

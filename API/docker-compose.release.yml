@@ -5,6 +5,16 @@ services:
     environment: 
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Admin@123
+      - MSSQL_PID=Developer
+      - MSSQL_DATA_DIR=/var/opt/mssql/Sapphire/data
+      - MSSQL_LOG_DIR=/var/opt/mssql/Sapphire/log
+      - MSSQL_BACKUP_DIR=/var/opt/mssql/Sapphire/bak
+      - MSSQL_MEMORY_LIMIT_MB=4096
+      - MSSQL_AGENT_ENABLED=true  #requires string, not bool
+      - MSSQL_TCP_PORT=1433
+      - MSSQL_COLLATION=Latin1_General_CI_AI
+    volumes: 
+      - ./vol/mssql:/var/opt/mssql/Sapphire
     ports:
       - 1433:1433
     expose:
