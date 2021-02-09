@@ -10,4 +10,3 @@ WORKDIR /var/www/app/publish
 RUN apk add icu-libs
 COPY --from=builder  /https/aspnetapp.pfx /https/aspnetapp.pfx 
 COPY --from=builder /var/www/app/publish . 
-COPY ./docker-entrypoint.release.sh .
