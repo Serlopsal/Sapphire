@@ -4,7 +4,7 @@ using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Shared.Normalize;
 
 namespace SapphireApi.Data.Adminsitration.Country{
-  internal partial class CountryModelBuilder: AuditableModelBuilder<CountryModel> {
+  public partial class CountryModelBuilder: AuditableModelBuilder<CountryModel> {
     public override void Configure(EntityTypeBuilder<CountryModel> builder) {
       base.Configure(builder);
 

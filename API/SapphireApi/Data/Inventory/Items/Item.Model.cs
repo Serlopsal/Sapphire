@@ -4,7 +4,7 @@ using SapphireApi.Data.Inventory.Manufacters;
 using SapphireApi.Data.Shared.Models;
 
 namespace SapphireApi.Data.Inventory.Items{
-  internal class ItemModel: AuditableModel{
+  public class ItemModel: AuditableModel{
     public string itemCode { get; set; }
     public string itemName { get; set; }
     public int itemsGroupId { get; set; } // FK ItemsGroup

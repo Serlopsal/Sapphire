@@ -4,7 +4,7 @@ using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Shared.Normalize;
 
 namespace SapphireApi.Data.Adminsitration.Setup.UOM {
-  internal class UOMModelBuilder : AuditableModelBuilder<UOMModel> {
+  public class UOMModelBuilder : AuditableModelBuilder<UOMModel> {
     public override void Configure(EntityTypeBuilder<UOMModel> builder) {
       base.Configure(builder);
 

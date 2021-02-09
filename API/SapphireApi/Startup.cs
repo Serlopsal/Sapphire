@@ -45,7 +45,8 @@ namespace SapphireApi
                         options.AddDefaultPolicy(
                             builder => {
                                 builder
-                                    .WithOrigins(origin)
+                                // TODO: CHANGE ORIGIN ALLOWED => .WithOrigins(origin)
+                                    .AllowAnyOrigin()
                                     .AllowAnyHeader()
                                     .AllowAnyMethod();
                             }
@@ -91,7 +92,7 @@ namespace SapphireApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Sapphire_Context db)
         {
             if (env.IsDevelopment())
             {
@@ -112,6 +113,9 @@ namespace SapphireApi
             {
                 endpoints.MapControllers();
             });
+
+            if( db.Database.GetPendingMigrations().Count() > 0 ) 
+                db.Database.Migrate();
         }
     }
 }

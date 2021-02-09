@@ -1,7 +1,7 @@
 using System;
 
 namespace SapphireApi.Data.Shared {
-  internal interface IUpdated {
+  public interface IUpdated {
     DateTime updatedAt {get; set; }
   } 
 }

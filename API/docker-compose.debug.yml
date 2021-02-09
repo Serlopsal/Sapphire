@@ -1,0 +1,31 @@
+services:
+  
+  sql:
+    image: mcr.microsoft.com/mssql/server:2019-CU8-ubuntu-16.04
+    environment: 
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Admin@123
+    ports:
+      - 1433:1433
+    expose:
+      - 1433
+    container_name: sql
+
+  api:
+    image: sapphire-api:latest
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_ENVIRONMENT=Docker
+    command: bash -c "sleep 5 && dotnet /var/www/app/publish/SapphireApi.dll"
+    expose: 
+      - 80 
+      - 443   
+      - 1433   
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - sql
+    depends_on:
+      - sql
