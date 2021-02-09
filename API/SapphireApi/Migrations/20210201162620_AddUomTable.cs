@@ -8,7 +8,7 @@ namespace SapphireApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "UOM",
+                name: "OUOM",
                 schema: "ADM",
                 columns: table => new
                 {
@@ -28,7 +28,7 @@ namespace SapphireApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UOM",
+                name: "OUOM",
                 schema: "ADM");
         }
     }

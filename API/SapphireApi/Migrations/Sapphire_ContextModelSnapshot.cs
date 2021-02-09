@@ -179,7 +179,7 @@ namespace SapphireApi.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("COUNTRY", "ADM");
+                    b.ToTable("OCRY", "ADM");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.Setup.UOM.Converter.UOMConverterModel", b =>
@@ -214,7 +214,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("toManyId");
 
-                    b.ToTable("UomConverter", "ADM");
+                    b.ToTable("OUGP", "ADM");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.Setup.UOM.UOMModel", b =>
@@ -244,7 +244,7 @@ namespace SapphireApi.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("UOM", "ADM");
+                    b.ToTable("OUOM", "ADM");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.SystemInitialization.Company.CompanyModel", b =>
@@ -310,7 +310,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("countryId");
 
-                    b.ToTable("COMPANY", "ADM");
+                    b.ToTable("OADM", "ADM");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Identity.UserModel", b =>
@@ -462,7 +462,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("sellUomId");
 
-                    b.ToTable("Items", "INV");
+                    b.ToTable("OITM", "INV");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.ItemsGroup.ItemsGroupModel", b =>
@@ -489,7 +489,7 @@ namespace SapphireApi.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("ItemsGroup", "INV");
+                    b.ToTable("OITB", "INV");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Manufacters.ManufacterModel", b =>
@@ -516,7 +516,7 @@ namespace SapphireApi.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Manufacter", "INV");
+                    b.ToTable("OMRC", "INV");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

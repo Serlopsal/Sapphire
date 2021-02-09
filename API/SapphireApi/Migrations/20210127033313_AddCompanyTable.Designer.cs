@@ -181,7 +181,7 @@ namespace SapphireApi.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("COUNTRY", "ADM");
+                    b.ToTable("OCRY", "ADM");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.SystemInitialization.Company.CompanyModel", b =>
@@ -244,7 +244,7 @@ namespace SapphireApi.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("COMPANY", "ADM");
+                    b.ToTable("OADM", "ADM");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Identity.UserModel", b =>

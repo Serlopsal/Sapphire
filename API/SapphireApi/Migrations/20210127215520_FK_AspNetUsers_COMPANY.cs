@@ -22,7 +22,7 @@ namespace SapphireApi.Migrations
                 table: "AspNetUsers",
                 column: "companyId",
                 principalSchema: "ADM",
-                principalTable: "COMPANY",
+                principalTable: "OADM",
                 principalColumn: "id",
                 onDelete: ReferentialAction.Restrict);
         }

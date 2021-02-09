@@ -11,7 +11,7 @@ namespace SapphireApi.Migrations
                 name: "INV");
 
             migrationBuilder.CreateTable(
-                name: "ItemsGroup",
+                name: "OITB",
                 schema: "INV",
                 columns: table => new
                 {
@@ -27,7 +27,7 @@ namespace SapphireApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Manufacter",
+                name: "OMRC",
                 schema: "INV",
                 columns: table => new
                 {
@@ -43,7 +43,7 @@ namespace SapphireApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Items",
+                name: "OITM",
                 schema: "INV",
                 columns: table => new
                 {
@@ -72,35 +72,35 @@ namespace SapphireApi.Migrations
                         name: "FK_Items_ItemsGroup_itemsGroupId",
                         column: x => x.itemsGroupId,
                         principalSchema: "INV",
-                        principalTable: "ItemsGroup",
+                        principalTable: "OITB",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Items_Manufacter_mrcCode",
                         column: x => x.mrcCode,
                         principalSchema: "INV",
-                        principalTable: "Manufacter",
+                        principalTable: "OMRC",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Items_UOM_inventoryUomId",
                         column: x => x.inventoryUomId,
                         principalSchema: "ADM",
-                        principalTable: "UOM",
+                        principalTable: "OUOM",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Items_UOM_purchaseUomId",
                         column: x => x.purchaseUomId,
                         principalSchema: "ADM",
-                        principalTable: "UOM",
+                        principalTable: "OUOM",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Items_UOM_sellUomId",
                         column: x => x.sellUomId,
                         principalSchema: "ADM",
-                        principalTable: "UOM",
+                        principalTable: "OUOM",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -108,46 +108,46 @@ namespace SapphireApi.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Items_inventoryUomId",
                 schema: "INV",
-                table: "Items",
+                table: "OITM",
                 column: "inventoryUomId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Items_itemsGroupId",
                 schema: "INV",
-                table: "Items",
+                table: "OITM",
                 column: "itemsGroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Items_mrcCode",
                 schema: "INV",
-                table: "Items",
+                table: "OITM",
                 column: "mrcCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Items_purchaseUomId",
                 schema: "INV",
-                table: "Items",
+                table: "OITM",
                 column: "purchaseUomId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Items_sellUomId",
                 schema: "INV",
-                table: "Items",
+                table: "OITM",
                 column: "sellUomId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Items",
+                name: "OITM",
                 schema: "INV");
 
             migrationBuilder.DropTable(
-                name: "ItemsGroup",
+                name: "OITB",
                 schema: "INV");
 
             migrationBuilder.DropTable(
-                name: "Manufacter",
+                name: "OMRC",
                 schema: "INV");
         }
     }

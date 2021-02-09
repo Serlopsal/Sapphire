@@ -9,21 +9,21 @@ namespace SapphireApi.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_COMPANY_COUNTRY_id",
                 schema: "ADM",
-                table: "COMPANY");
+                table: "OADM");
 
             migrationBuilder.CreateIndex(
                 name: "IX_COMPANY_countryId",
                 schema: "ADM",
-                table: "COMPANY",
+                table: "OADM",
                 column: "countryId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_COMPANY_COUNTRY_countryId",
                 schema: "ADM",
-                table: "COMPANY",
+                table: "OADM",
                 column: "countryId",
                 principalSchema: "ADM",
-                principalTable: "COUNTRY",
+                principalTable: "OCRY",
                 principalColumn: "id",
                 onDelete: ReferentialAction.Restrict);
         }
@@ -33,20 +33,20 @@ namespace SapphireApi.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_COMPANY_COUNTRY_countryId",
                 schema: "ADM",
-                table: "COMPANY");
+                table: "OADM");
 
             migrationBuilder.DropIndex(
                 name: "IX_COMPANY_countryId",
                 schema: "ADM",
-                table: "COMPANY");
+                table: "OADM");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_COMPANY_COUNTRY_id",
                 schema: "ADM",
-                table: "COMPANY",
+                table: "OADM",
                 column: "id",
                 principalSchema: "ADM",
-                principalTable: "COUNTRY",
+                principalTable: "OCRY",
                 principalColumn: "id",
                 onDelete: ReferentialAction.Restrict);
         }

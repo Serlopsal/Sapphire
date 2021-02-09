@@ -8,7 +8,7 @@ namespace SapphireApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "UomConverter",
+                name: "OUGP",
                 schema: "ADM",
                 columns: table => new
                 {
@@ -27,14 +27,14 @@ namespace SapphireApi.Migrations
                         name: "FK_UomConverter_UOM_fromOneId",
                         column: x => x.fromOneId,
                         principalSchema: "ADM",
-                        principalTable: "UOM",
+                        principalTable: "OUOM",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UomConverter_UOM_toManyId",
                         column: x => x.toManyId,
                         principalSchema: "ADM",
-                        principalTable: "UOM",
+                        principalTable: "OUOM",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -42,20 +42,20 @@ namespace SapphireApi.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_UomConverter_fromOneId",
                 schema: "ADM",
-                table: "UomConverter",
+                table: "OUGP",
                 column: "fromOneId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UomConverter_toManyId",
                 schema: "ADM",
-                table: "UomConverter",
+                table: "OUGP",
                 column: "toManyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UomConverter",
+                name: "OUGP",
                 schema: "ADM");
         }
     }
