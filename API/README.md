@@ -38,10 +38,26 @@ dotnet ef database update 0
 #### To remove last migration:
 dotnet ef migrations remove
 
-## Web Front-End - Angular
+### Docker Images
+Exec the commands in files `docker-image-builder.<ENVIRONMENT>.ps1`
+or
 
-## Mobile - Android
+#### Windows
+Execute in PowerShell the commands
+ 
+ ``` PS1
+ cd <path_of_git>/api
+ ./docker-image-builder.<ENVIRONMENT>.ps1
+ ```
+ 
+ #### macOS 
+ Execute in Terminal the commands
 
+ ``` zsh
+ cd <path_of_git>/api
+ chmod 777  ./docker-image-builder.<ENVIRONMENT>.ps1
+ ./docker-image-builder.<ENVIRONMENT>.ps1
+ ```
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
