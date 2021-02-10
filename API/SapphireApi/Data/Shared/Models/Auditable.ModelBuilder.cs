@@ -20,6 +20,18 @@ namespace SapphireApi.Data.Shared.Models {
         .ValueGeneratedOnAddOrUpdate()
         .Metadata
         .SetAfterSaveBehavior(PropertySaveBehavior.Throw);
+
+      builder
+        .HasOne(PK => PK.creatorUsr)
+        .WithMany()
+        .HasForeignKey(PK => PK.createdBy)
+        .OnDelete(DeleteBehavior.Restrict);
+
+      builder
+        .HasOne(PK => PK.updaterUsr)
+        .WithMany()
+        .HasForeignKey(PK => PK.updatedBy)
+        .OnDelete(DeleteBehavior.Restrict);
     }
   }
 }
