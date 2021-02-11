@@ -8,10 +8,21 @@ using SapphireApi.Data.Adminsitration.Setup.UOM.Converter;
 using SapphireApi.Data.Inventory.ItemsGroup;
 using SapphireApi.Data.Inventory.Manufacters;
 using SapphireApi.Data.Inventory.Items;
+using System.Linq;
+using SapphireApi.Data.Shared.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
-    public Sapphire_Context(DbContextOptions options): base (options){}
+    internal readonly IHttpContextAccessor _httpContext;
+
+    public Sapphire_Context(DbContextOptions options, IHttpContextAccessor httpContext): base (options) {
+      _httpContext = httpContext;
+    }
     
     // Add Models DataSets [HERE]
     // Ex: public DbSet<DataModel> Model { get; set; }
@@ -118,6 +129,30 @@ namespace SapphireApi.Data{
       // Seeding
       // ONLY FIRST
       // new IdentitySeed(builder);
+    }
+
+    private void Sign(){
+      var uid = this.getUID();
+      var selectedEntityList = ChangeTracker.Entries()  
+                              .Where(x => x.Entity is AuditableModel && (x.State == EntityState.Added || x.State == EntityState.Modified));  
+   
+      foreach(var entity in selectedEntityList)
+        if(entity.State == EntityState.Added){
+          ((AuditableModel)entity.Entity).createdBy = uid;
+          ((AuditableModel)entity.Entity).updatedBy = uid;
+        } else if(entity.State == EntityState.Modified){
+          ((AuditableModel)entity.Entity).updatedBy = uid;
+        } 
+    }
+    public override int SaveChanges()
+    {
+      Sign();
+      return base.SaveChanges();
+    }
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+      Sign();
+      return base.SaveChangesAsync(cancellationToken);
     }
   }
 }

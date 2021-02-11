@@ -39,7 +39,8 @@ namespace SapphireApi
 
             var origin = Configuration["AppSettings:Client_Url"].ToString();
 
-
+            services.AddHttpContextAccessor();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SapphireApi", Version = "v1" });
