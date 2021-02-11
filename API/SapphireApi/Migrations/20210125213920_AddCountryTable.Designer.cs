@@ -46,15 +46,6 @@ namespace SapphireApi.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "cbb0f3cf-0290-4d56-a41f-01f8a99d991d",
-                            ConcurrencyStamp = "f896829d-b1c7-41b6-9678-4c2f07b49ba3",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -140,13 +131,6 @@ namespace SapphireApi.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "426b62aa-425c-4431-8d11-a0157c2037ca",
-                            RoleId = "cbb0f3cf-0290-4d56-a41f-01f8a99d991d"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -197,7 +181,7 @@ namespace SapphireApi.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("COUNTRY", "ADM");
+                    b.ToTable("OCRY", "ADM");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Identity.UserModel", b =>
@@ -269,23 +253,6 @@ namespace SapphireApi.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "426b62aa-425c-4431-8d11-a0157c2037ca",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "30a64b0f-2600-43f3-8d99-11f89084a2e2",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ5uOGD7OfzrngzBThcY0xgDklI0BRQW0BZBS0/fpPWoTBBfwcJ765JjMULwiApVnQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "4c7aea90-211d-4e06-b245-4ae97d3d8824",
-                            TwoFactorEnabled = false,
-                            UserName = "Admin",
-                            fullName = "Administrator"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

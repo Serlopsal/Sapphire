@@ -39,6 +39,40 @@ namespace SapphireApi
 
             var origin = Configuration["AppSettings:Client_Url"].ToString();
 
+            services.AddHttpContextAccessor();
+            
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SapphireApi", Version = "v1" });
+            });
+            
+            services.AddDbContext<Sapphire_Context>(
+                options => {
+                    options.UseSqlServer(
+                        Configuration.GetConnectionString("Default")
+                    );
+                }
+            );
+
+            services
+                .AddIdentity<UserModel, IdentityRole>(options => {
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequiredUniqueChars = 0;
+                    options.Password.RequireLowercase = true;
+                    options.Password.RequireNonAlphanumeric = true;
+                    options.Password.RequireUppercase = true;
+                })
+                .AddEntityFrameworkStores<Sapphire_Context>();
+
+            services
+                .AddControllers()
+                .AddNewtonsoftJson(
+                    options => {
+                        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    }
+                );
+
             services
                 .AddCors(
                     options => {
@@ -54,41 +88,37 @@ namespace SapphireApi
                     }
                 );
 
-            services
-                .AddControllers()
-                .AddNewtonsoftJson(
-                    options => {
-                        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-                    }
-                );
+            // JWT
+            // the key must have at least 16 characters
+            var strKey = Configuration["AppSettings:JWT_Secret"].ToString();
+            var key = Encoding.UTF8.GetBytes(strKey);
 
-            services.AddDbContext<Sapphire_Context>(
-                options => {
-                    options.UseSqlServer(
-                        Configuration.GetConnectionString("Default")
-                    );
+            services.AddAuthentication(
+                builder =>{
+                    builder.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    builder.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    builder.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 }
-            );
+            ).AddJwtBearer(options=>{
+                // Define your own configuration
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = false;
+                options.TokenValidationParameters = new TokenValidationParameters{
 
-            services
-                .AddIdentity<UserModel, IdentityRole>()
-                .AddEntityFrameworkStores<Sapphire_Context>();
+                    // Desviación del reloj
+                    ClockSkew = TimeSpan.Zero,
 
-            services.Configure<IdentityOptions>(
-                options => {
-                    options.Password.RequireDigit = true;
-                    options.Password.RequiredLength = 8;
-                    options.Password.RequiredUniqueChars = 0;
-                    options.Password.RequireLowercase = true;
-                    options.Password.RequireNonAlphanumeric = true;
-                    options.Password.RequireUppercase = true;
-                }
-            );
+                    ValidateIssuer = false,
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SapphireApi", Version = "v1" });
+                    ValidateAudience = false,
+
+                    ValidateIssuerSigningKey = true,
+                    // this is the secret key for JWT
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                };
             });
+
+            services.AddAuthorization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -106,6 +136,8 @@ namespace SapphireApi
             app.UseRouting();
 
             app.UseCors();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

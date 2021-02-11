@@ -2,6 +2,7 @@ using System;
 
 namespace SapphireApi.Data.Shared {
   public interface IUpdated {
-    DateTime updatedAt {get; set; }
+    DateTime updatedAt { get; set; }
+    string updatedBy { get; set; } 
   } 
 }

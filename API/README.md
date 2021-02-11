@@ -38,6 +38,17 @@ dotnet ef database update 0
 #### To remove last migration:
 dotnet ef migrations remove
 
+### Generate an Controller with CLI
+```zsh
+dotnet-aspnet-codegenerator controller -name [CONTROLLER_NAME] -api -m [namespace].[classname] -dc Sapphire_Context -outDir [FILE_OUTPUT_PATH] -namespace [namespace]
+```
+
+Example:
+
+```zsh
+dotnet-aspnet-codegenerator controller -name CountryController -api -m SapphireApi.Data.Adminsitration.Country.CountryModel -dc Sapphire_Context -outDir Data\\Administration\\SystemInitialization\\Country -namespace SapphireApi.Data.Adminsitration.Country
+```
+
 ### Docker Images
 Exec the commands in files `docker-image-builder.<ENVIRONMENT>.ps1`
 or

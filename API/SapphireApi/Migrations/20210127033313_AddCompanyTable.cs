@@ -8,7 +8,7 @@ namespace SapphireApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "COMPANY",
+                name: "OADM",
                 schema: "ADM",
                 columns: table => new
                 {
@@ -34,7 +34,7 @@ namespace SapphireApi.Migrations
                         name: "FK_COMPANY_COUNTRY_id",
                         column: x => x.id,
                         principalSchema: "ADM",
-                        principalTable: "COUNTRY",
+                        principalTable: "OCRY",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -43,7 +43,7 @@ namespace SapphireApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "COMPANY",
+                name: "OADM",
                 schema: "ADM");
         }
     }
