@@ -1,10 +1,15 @@
+using System.Collections.Generic;
 using SapphireApi.Data.Adminsitration.Setup.UOM;
+using SapphireApi.Data.Inventory.Batches;
 using SapphireApi.Data.Inventory.ItemsGroup;
 using SapphireApi.Data.Inventory.Manufacters;
 using SapphireApi.Data.Shared.Models;
 
 namespace SapphireApi.Data.Inventory.Items{
   public class ItemModel: AuditableModel{
+    public ItemModel() {
+      batches = new HashSet<BatchModel>();
+    }
     public string itemCode { get; set; }
     public string itemName { get; set; }
     public int itemsGroupId { get; set; } // FK ItemsGroup
@@ -23,5 +28,6 @@ namespace SapphireApi.Data.Inventory.Items{
     public virtual UOMModel purchaseUOM { get; set; }
     public virtual UOMModel sellUOM { get; set; }
     public virtual UOMModel inventoryUOM { get; set; }
+    public virtual ICollection<BatchModel> batches { get; set; }
   }
 }

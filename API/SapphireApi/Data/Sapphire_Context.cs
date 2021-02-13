@@ -15,6 +15,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.Threading;
+using SapphireApi.Data.Inventory.Batches;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -34,6 +35,8 @@ namespace SapphireApi.Data{
     public DbSet<ManufacterModel> Manufacter { get; set; }
     public DbSet<ItemsGroupModel> ItemsGroup { get; set; }
     public DbSet<ItemModel> Item { get; set; }
+    public DbSet<BatchModel> Batch { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
@@ -49,6 +52,7 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new ManufacterModelBuilder());
       builder.ApplyConfiguration(new ItemsGroupModelBuilder());
       builder.ApplyConfiguration(new ItemModelBuilder());
+      builder.ApplyConfiguration(new BatchModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP
@@ -124,6 +128,13 @@ namespace SapphireApi.Data{
           .HasOne(PK => PK.inventoryUOM)
           .WithMany(FK => FK.invItm)
           .HasForeignKey(PK => PK.inventoryUomId)
+          .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+          .Entity<BatchModel>()
+          .HasOne(PK => PK.item)
+          .WithMany(FK => FK.batches)
+          .HasForeignKey(PK => PK.itemCode)
           .OnDelete(DeleteBehavior.Restrict);
 
       // Seeding

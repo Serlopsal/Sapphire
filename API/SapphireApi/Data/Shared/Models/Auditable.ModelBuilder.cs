@@ -17,7 +17,7 @@ namespace SapphireApi.Data.Shared.Models {
       builder
         .Property(model => model.createdBy)
         .IsRequired()
-        .HasMaxLength(48);
+        .HasMaxLength(450);
 
       builder
         .Property(model => model.updatedAt)
@@ -29,7 +29,7 @@ namespace SapphireApi.Data.Shared.Models {
       builder
         .Property(model => model.updatedBy)
         .IsRequired()
-        .HasMaxLength(48);
+        .HasMaxLength(450);
 
       builder
         .HasOne(PK => PK.creatorUsr)

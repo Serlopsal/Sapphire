@@ -8,5 +8,6 @@ namespace SapphireApi.Data.Shared.Normalize {
     public static readonly string MANUFACTER = "OMRC";
     public static readonly string ITEMS_GROUP = "OITB";
     public static readonly string ITEMS = "OITM";
+    public static readonly string BATCH = "OBTN";
   }
 }
