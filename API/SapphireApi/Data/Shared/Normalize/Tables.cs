@@ -1,6 +1,8 @@
 namespace SapphireApi.Data.Shared.Normalize {
   public class Tables {
     // public readonly static string KEY = "VALUE";
+    internal static readonly string OBJECTS = "OOBJ";
+    public static readonly string SERIES = "ONNM";
     public static readonly string COUNTRY = "OCRY";
     public static readonly string COMPANY = "OADM";
     public static readonly string UOM = "OUOM";

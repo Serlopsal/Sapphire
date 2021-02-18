@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.Threading;
 using SapphireApi.Data.Inventory.Batches;
+using SapphireApi.Data.Adminsitration.Setup.Objects;
+using SapphireApi.Data.Adminsitration.Setup.Series;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -28,6 +30,8 @@ namespace SapphireApi.Data{
     // Add Models DataSets [HERE]
     // Ex: public DbSet<DataModel> Model { get; set; }
 
+    public DbSet<ObjectModel> Objects { get; set; }
+    public DbSet<SerieModel> Series { get; set; }
     public DbSet<CountryModel> Country { get; set; }
     public DbSet<CompanyModel> Company { get; set; }
     public DbSet<UOMModel> UOM { get; set; }
@@ -45,6 +49,8 @@ namespace SapphireApi.Data{
       // Ex: builder.ApplyConfiguration(new DataModelBuilder());
 
       builder.ApplyConfiguration(new UserModelBuilder());
+      builder.ApplyConfiguration(new ObjectModelBuilder());
+      builder.ApplyConfiguration(new SerieModelBuilder());
       builder.ApplyConfiguration(new CountryModelBuilder());
       builder.ApplyConfiguration(new CompanyModelBuilder());
       builder.ApplyConfiguration(new UOMModelBuilder());
@@ -63,7 +69,24 @@ namespace SapphireApi.Data{
         //   .WithMany(FK => FK.[NAV_PROP_TO_MANY])
         //   .HasForeignKey(PK => PK.[KEY_OF_ONE]);
 
-      // Configure Relationsships
+      // Configure Relationships
+
+      // 1 Object => 1 Series
+      builder
+        .Entity<ObjectModel>()
+        .HasOne(PK => PK.deafultSerie)
+        .WithOne(FK => FK.objects)
+        .HasForeignKey<ObjectModel>(PK => PK.defaultSerieId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+      // 1 Object => * Series
+      builder
+        .Entity<SerieModel>()
+        .HasOne(PK => PK.obj)
+        .WithMany(FK => FK.series)
+        .HasForeignKey(PK => PK.objType)
+        .OnDelete(DeleteBehavior.Restrict);
+
 
       // 1 Country => * Company
       builder
