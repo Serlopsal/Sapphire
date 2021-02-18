@@ -24,7 +24,6 @@ services:
   api:
     image: sapphire-api:release
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_ENVIRONMENT=Docker
       - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false

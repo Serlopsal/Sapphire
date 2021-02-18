@@ -14,10 +14,9 @@ services:
   api:
     image: sapphire-api:debug
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_ENVIRONMENT=Docker
-    command: bash -c "sleep 10 && dotnet /var/www/app/publish/SapphireApi.dll"
+    command: bash -c "sleep 15 && dotnet /var/www/app/publish/SapphireApi.dll"
     expose: 
       - 80 
       - 443   
