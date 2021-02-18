@@ -1,5 +1,8 @@
+using System;
+
 namespace SapphireApi.Data.Shared.Models {
-  public abstract class DocumentableModel: AuditableModel, ICancelable, IPrintable, IClosable, INumerable, ICommentable, IReferenceable {
+  public abstract class DocumentableModel: AuditableModel, ICalendarizable, ICancelable, IPrintable, IClosable, INumerable, ICommentable, IReferenceable {
+    public DateTime docDate { get; set; }
     public bool isCanceled { get; set; }
     public bool isPrinted { get; set; }
     public bool isClosed { get; set; }
