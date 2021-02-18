@@ -9,6 +9,10 @@ namespace SapphireApi.Data.Shared.Models {
       base.Configure(builder);
 
       builder
+        .Property(model => model.docDate)
+        .IsRequired();
+
+      builder
         .Property(model => model.isCanceled)
         .HasColumnName("isCanceled")
         .IsRequired()
