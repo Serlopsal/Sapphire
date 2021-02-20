@@ -1,4 +1,5 @@
 using System;
+using SapphireApi.Data.Adminsitration.Setup.Series;
 
 namespace SapphireApi.Data.Shared.Models {
   public abstract class DocumentableModel: AuditableModel, ICalendarizable, ICancelable, IPrintable, IClosable, INumerable, ICommentable, IReferenceable {
@@ -9,5 +10,7 @@ namespace SapphireApi.Data.Shared.Models {
     public int docNum { get; set; }
     public string reference { get; set; }
     public string comment { get; set; }
+    public int serieId { get; set; }
+    public virtual SerieModel serie { get; set; }
   } 
 }

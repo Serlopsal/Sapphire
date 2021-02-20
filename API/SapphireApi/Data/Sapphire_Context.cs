@@ -18,6 +18,9 @@ using System.Threading;
 using SapphireApi.Data.Inventory.Batches;
 using SapphireApi.Data.Adminsitration.Setup.Objects;
 using SapphireApi.Data.Adminsitration.Setup.Series;
+using SapphireApi.Data.Inventory.Transactions.IO.KindOfMovements;
+using SapphireApi.Data.Inventory.Transactions.IO.Receipts;
+using SapphireApi.Data.Inventory.Transactions.IO.Dispatches;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -30,24 +33,31 @@ namespace SapphireApi.Data{
     // Add Models DataSets [HERE]
     // Ex: public DbSet<DataModel> Model { get; set; }
 
+    // SCHEMA [ADM]
     public DbSet<ObjectModel> Objects { get; set; }
     public DbSet<SerieModel> Series { get; set; }
     public DbSet<CountryModel> Country { get; set; }
     public DbSet<CompanyModel> Company { get; set; }
     public DbSet<UOMModel> UOM { get; set; }
     public DbSet<UOMConverterModel> UOMConverter { get; set; }
+
+    // SCHEMA [INV]
     public DbSet<ManufacterModel> Manufacter { get; set; }
     public DbSet<ItemsGroupModel> ItemsGroup { get; set; }
     public DbSet<ItemModel> Item { get; set; }
     public DbSet<BatchModel> Batch { get; set; }
-
+    public DbSet<KoMModel> KindOfMovements { get; set; }
+    public DbSet<ReceiptModel> ItemsReceipts { get; set; }
+    public DbSet<ReceiptDetailsModel> ItemsReceiptDetails { get; set; }
+    public DbSet<DispatchModel> ItemDispatches { get; set; }
+    public DbSet<DispatchDetailsModel> ItemDispatchDetails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
 
       // Add Model Configuration Properties [HERE]
       // Ex: builder.ApplyConfiguration(new DataModelBuilder());
-
+      // SCHEMA [ADM]
       builder.ApplyConfiguration(new UserModelBuilder());
       builder.ApplyConfiguration(new ObjectModelBuilder());
       builder.ApplyConfiguration(new SerieModelBuilder());
@@ -55,10 +65,16 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new CompanyModelBuilder());
       builder.ApplyConfiguration(new UOMModelBuilder());
       builder.ApplyConfiguration(new UOMConverterModelBuilder());
+      // SCHEMA [INV]
       builder.ApplyConfiguration(new ManufacterModelBuilder());
       builder.ApplyConfiguration(new ItemsGroupModelBuilder());
       builder.ApplyConfiguration(new ItemModelBuilder());
       builder.ApplyConfiguration(new BatchModelBuilder());
+      builder.ApplyConfiguration(new KoMModelBuilder());
+      builder.ApplyConfiguration(new ReceiptModelBuilder());
+      builder.ApplyConfiguration(new ReceiptDetailsModelBuilder());
+      builder.ApplyConfiguration(new DispatchModelBuilder());
+      builder.ApplyConfiguration(new DispatchDetailsModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP
@@ -70,6 +86,15 @@ namespace SapphireApi.Data{
         //   .HasForeignKey(PK => PK.[KEY_OF_ONE]);
 
       // Configure Relationships
+      
+      // Shadowed Relationships
+      //    AuditableModel
+      //        CreatedBy
+      //        UpdatedBy
+      //    DocumentableModel
+      //        Serie
+      //    IOTransactionsModel
+      //        KoM
 
       // 1 Object => 1 Series
       builder
@@ -87,7 +112,6 @@ namespace SapphireApi.Data{
         .HasForeignKey(PK => PK.objType)
         .OnDelete(DeleteBehavior.Restrict);
 
-
       // 1 Country => * Company
       builder
         .Entity<CompanyModel>()
@@ -104,6 +128,7 @@ namespace SapphireApi.Data{
         .HasForeignKey(PK => PK.companyId)
         .OnDelete(DeleteBehavior.Restrict);
 
+      // 1 UOM (From) => * Converter
       builder
         .Entity<UOMConverterModel>()
         .HasOne(PK => PK.fromOne)
@@ -111,6 +136,7 @@ namespace SapphireApi.Data{
         .HasForeignKey(PK => PK.fromOneId)
         .OnDelete(DeleteBehavior.Restrict);
 
+      // 1 UOM (To) => * Converter
       builder
         .Entity<UOMConverterModel>()
         .HasOne(PK => PK.toMany)
@@ -118,6 +144,7 @@ namespace SapphireApi.Data{
         .HasForeignKey(PK => PK.toManyId)
         .OnDelete(DeleteBehavior.Restrict);
 
+      // 1 Item Group => * Items
       builder
         .Entity<ItemModel>()
         .HasOne(PK => PK.itemsGroup)
@@ -125,6 +152,7 @@ namespace SapphireApi.Data{
         .HasForeignKey(PK => PK.itemsGroupId)
         .OnDelete(DeleteBehavior.Restrict);
 
+      // 1 Manufacter => * Items
       builder
         .Entity<ItemModel>()
         .HasOne(PK => PK.manufacter)
@@ -132,6 +160,7 @@ namespace SapphireApi.Data{
         .HasForeignKey(PK => PK.mrcCode)
         .OnDelete(DeleteBehavior.Restrict);
 
+        // 1 UOM (Purchase) => * Items
         builder
           .Entity<ItemModel>()
           .HasOne(PK => PK.purchaseUOM)
@@ -139,6 +168,7 @@ namespace SapphireApi.Data{
           .HasForeignKey(PK => PK.purchaseUomId)
           .OnDelete(DeleteBehavior.Restrict);
 
+        // 1 UOM (Sell) => * Items
         builder
           .Entity<ItemModel>()
           .HasOne(PK => PK.sellUOM)
@@ -146,6 +176,7 @@ namespace SapphireApi.Data{
           .HasForeignKey(PK => PK.sellUomId)
           .OnDelete(DeleteBehavior.Restrict);
 
+        // 1 UOM (Inventory) => * Items
         builder
           .Entity<ItemModel>()
           .HasOne(PK => PK.inventoryUOM)
@@ -153,6 +184,7 @@ namespace SapphireApi.Data{
           .HasForeignKey(PK => PK.inventoryUomId)
           .OnDelete(DeleteBehavior.Restrict);
 
+        // 1 UOM (Item) => * Batches
         builder
           .Entity<BatchModel>()
           .HasOne(PK => PK.item)

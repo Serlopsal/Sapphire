@@ -9,6 +9,11 @@ namespace SapphireApi.Data.Shared.Models {
       base.Configure(builder);
 
       builder
+        .Property(model => model.id)
+        .HasColumnName("docId")
+        .IsRequired();
+
+      builder
         .Property(model => model.docDate)
         .IsRequired();
 
@@ -38,6 +43,7 @@ namespace SapphireApi.Data.Shared.Models {
         .Property(model => model.comment)
         .HasMaxLength(255);
         
+      DocumentableModelRelationshipsBuilder<TEntity>.BuildRelationships(builder);
     }
   }
 }
