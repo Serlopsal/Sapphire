@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Adminsitration.SystemInitialization.Company;
 
-namespace SapphireApi.Data.Adminsitration.Country{
+namespace SapphireApi.Data.Adminsitration.Locations.Country{
   public class CountryModel: AuditableModel {
     public CountryModel() {
       // Navigation Properties

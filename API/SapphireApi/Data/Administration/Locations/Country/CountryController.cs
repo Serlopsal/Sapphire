@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace SapphireApi.Data.Adminsitration.Country
-{
+namespace SapphireApi.Data.Adminsitration.Locations.Country {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]

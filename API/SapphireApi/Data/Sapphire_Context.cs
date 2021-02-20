@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using SapphireApi.Data.Identity;
-using SapphireApi.Data.Adminsitration.Country;
+using SapphireApi.Data.Adminsitration.Locations.Country;
 using SapphireApi.Data.Adminsitration.SystemInitialization.Company;
 using SapphireApi.Data.Adminsitration.Setup.UOM;
 using SapphireApi.Data.Adminsitration.Setup.UOM.Converter;

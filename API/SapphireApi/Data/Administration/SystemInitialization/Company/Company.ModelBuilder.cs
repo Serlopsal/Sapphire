@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SapphireApi.Data.Adminsitration.Country;
+using SapphireApi.Data.Adminsitration.Locations.Country;
 using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Shared.Normalize;
 

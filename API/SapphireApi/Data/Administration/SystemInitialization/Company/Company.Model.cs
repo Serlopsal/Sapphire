@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using SapphireApi.Data.Adminsitration.Country;
+using SapphireApi.Data.Adminsitration.Locations.Country;
 using SapphireApi.Data.Identity;
 using SapphireApi.Data.Shared.Models;
 
