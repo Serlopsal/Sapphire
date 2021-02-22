@@ -22,6 +22,7 @@ using SapphireApi.Data.Inventory.Transactions.IO.KindOfMovements;
 using SapphireApi.Data.Inventory.Transactions.IO.Receipts;
 using SapphireApi.Data.Inventory.Transactions.IO.Dispatches;
 using SapphireApi.Data.Adminsitration.Locations.Cities;
+using SapphireApi.Data.Inventory.Warehouses;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -44,6 +45,7 @@ namespace SapphireApi.Data{
     public DbSet<UOMConverterModel> UOMConverter { get; set; }
 
     // SCHEMA [INV]
+    public DbSet<WarehouseModel> Warehouse { get; set; }
     public DbSet<ManufacterModel> Manufacter { get; set; }
     public DbSet<ItemsGroupModel> ItemsGroup { get; set; }
     public DbSet<ItemModel> Item { get; set; }
@@ -69,6 +71,7 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new UOMModelBuilder());
       builder.ApplyConfiguration(new UOMConverterModelBuilder());
       // SCHEMA [INV]
+      builder.ApplyConfiguration(new WarehouseModelBuilder());
       builder.ApplyConfiguration(new ManufacterModelBuilder());
       builder.ApplyConfiguration(new ItemsGroupModelBuilder());
       builder.ApplyConfiguration(new ItemModelBuilder());
@@ -129,6 +132,14 @@ namespace SapphireApi.Data{
         .HasOne(PK => PK.country)
         .WithMany(FK => FK.cities)
         .HasForeignKey(PK => PK.countryId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+      // 1 City => * Warehouse
+      builder
+        .Entity<WarehouseModel>()
+        .HasOne(PK => PK.city)
+        .WithMany(FK => FK.warehouses)
+        .HasForeignKey(PK => PK.cityId)
         .OnDelete(DeleteBehavior.Restrict);
 
       // 1 Company => * User
