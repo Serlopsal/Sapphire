@@ -171,8 +171,8 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
@@ -233,8 +233,8 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
 
                     b.Property<int>("uomType")
                         .HasColumnType("int");
@@ -372,8 +372,8 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("fullName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)")
                         .HasColumnName("FullName");
 
                     b.HasKey("Id");

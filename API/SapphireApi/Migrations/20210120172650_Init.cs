@@ -26,7 +26,7 @@ namespace SapphireApi.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

@@ -13,13 +13,11 @@ namespace SapphireApi.Data.Inventory.Batches {
 
       builder
         .Property(model => model.batchNum)
-        .IsRequired()
-        .HasMaxLength(50);
+        .IsLongCode();
 
       builder
         .Property(model => model.mnfSerial)
-        .IsRequired()
-        .HasMaxLength(50);
+        .IsLongCode();
 
       builder
         .Property(model => model.expDate)

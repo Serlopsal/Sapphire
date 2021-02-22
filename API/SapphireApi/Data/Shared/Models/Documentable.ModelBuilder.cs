@@ -20,20 +20,17 @@ namespace SapphireApi.Data.Shared.Models {
       builder
         .Property(model => model.isCanceled)
         .HasColumnName("isCanceled")
-        .IsRequired()
-        .HasDefaultValue(false);
+        .IsFalsy();
 
       builder
         .Property(model => model.isClosed)
         .HasColumnName("isClosed")
-        .IsRequired()
-        .HasDefaultValue(false);
+        .IsFalsy();
 
       builder
         .Property(model => model.isPrinted)
         .HasColumnName("isPrinted")
-        .IsRequired()
-        .HasDefaultValue(false);
+        .IsFalsy();
         
       builder
         .Property(model => model.reference)

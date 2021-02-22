@@ -12,13 +12,11 @@ namespace SapphireApi.Data.Inventory.Items {
 
       builder
         .Property(model => model.itemCode)
-        .HasMaxLength(50)
-        .IsRequired();
+        .IsLongCode();
 
       builder
         .Property(model => model.itemName)
-        .HasMaxLength(255)
-        .IsRequired();
+        .IsName();
 
       builder
         .Property(model => model.itemsGroupId)

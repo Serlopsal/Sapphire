@@ -13,13 +13,11 @@ namespace SapphireApi.Data.Adminsitration.Setup.Series{
 
       builder
         .Property(model => model.seriesName)
-        .HasMaxLength(8)
-        .IsRequired();
+        .IsCode();
 
       builder
         .Property(model => model.isClosed)
-        .HasDefaultValue(false)
-        .IsRequired();
+        .IsFalsy();
     }
   }
 }

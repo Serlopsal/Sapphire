@@ -222,8 +222,8 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("fullName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)")
                         .HasColumnName("FullName");
 
                     b.HasKey("Id");

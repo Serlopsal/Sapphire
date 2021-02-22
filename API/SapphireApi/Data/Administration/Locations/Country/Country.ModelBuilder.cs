@@ -12,13 +12,11 @@ namespace SapphireApi.Data.Adminsitration.Locations.Country{
 
       builder
         .Property(model => model.name)
-        .HasMaxLength(255)
-        .IsRequired();
+        .IsName();
 
       builder
         .Property(model => model.key)
-        .HasMaxLength(3)
-        .IsRequired();
+        .IsShortCode();
     }
   }
 }

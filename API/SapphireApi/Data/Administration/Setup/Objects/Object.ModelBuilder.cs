@@ -18,8 +18,7 @@ namespace SapphireApi.Data.Adminsitration.Setup.Objects{
 
       builder
         .Property(model => model.description)
-        .HasMaxLength(100)
-        .IsRequired();
+        .IsDescription();
 
       builder
         .Property(model => model.docPrefix)

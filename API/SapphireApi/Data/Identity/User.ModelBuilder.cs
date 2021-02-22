@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SapphireApi.Data.Shared.Models;
 
 namespace SapphireApi.Data.Identity{
   public partial class UserModelBuilder : IEntityTypeConfiguration<UserModel> {
@@ -7,8 +8,7 @@ namespace SapphireApi.Data.Identity{
       builder
         .Property(model => model.fullName)
         .HasColumnName("FullName")
-        .HasMaxLength(100)
-        .IsRequired();
+        .IsName();
     }
   }
 }

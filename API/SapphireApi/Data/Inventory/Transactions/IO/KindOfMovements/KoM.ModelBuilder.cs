@@ -12,8 +12,7 @@ namespace SapphireApi.Data.Inventory.Transactions.IO.KindOfMovements {
 
       builder
         .Property(model => model.name)
-        .HasMaxLength(120)
-        .IsRequired();
+        .IsName();
     }
   }
 }

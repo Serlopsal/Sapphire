@@ -13,8 +13,7 @@ namespace SapphireApi.Data.Inventory.ItemsGroup {
 
       builder
         .Property(model => model.itmsGrpNam)
-        .HasMaxLength(100)
-        .IsRequired();
+        .IsName();
     }
   }
 }
