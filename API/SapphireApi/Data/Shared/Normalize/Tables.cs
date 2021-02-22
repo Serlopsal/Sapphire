@@ -4,6 +4,7 @@ namespace SapphireApi.Data.Shared.Normalize {
     internal static readonly string OBJECTS = "OOBJ";
     public static readonly string SERIES = "ONNM";
     public static readonly string COUNTRY = "OCRY";
+    internal static readonly string CITIES = "OCST";
     public static readonly string COMPANY = "OADM";
     public static readonly string UOM = "OUOM";
     public static readonly string UOMConverter = "OUGP";

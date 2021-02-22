@@ -21,6 +21,7 @@ using SapphireApi.Data.Adminsitration.Setup.Series;
 using SapphireApi.Data.Inventory.Transactions.IO.KindOfMovements;
 using SapphireApi.Data.Inventory.Transactions.IO.Receipts;
 using SapphireApi.Data.Inventory.Transactions.IO.Dispatches;
+using SapphireApi.Data.Adminsitration.Locations.Cities;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -37,6 +38,7 @@ namespace SapphireApi.Data{
     public DbSet<ObjectModel> Objects { get; set; }
     public DbSet<SerieModel> Series { get; set; }
     public DbSet<CountryModel> Country { get; set; }
+    public DbSet<CityModel> City { get; set; }
     public DbSet<CompanyModel> Company { get; set; }
     public DbSet<UOMModel> UOM { get; set; }
     public DbSet<UOMConverterModel> UOMConverter { get; set; }
@@ -62,6 +64,7 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new ObjectModelBuilder());
       builder.ApplyConfiguration(new SerieModelBuilder());
       builder.ApplyConfiguration(new CountryModelBuilder());
+      builder.ApplyConfiguration(new CityModelBuilder());
       builder.ApplyConfiguration(new CompanyModelBuilder());
       builder.ApplyConfiguration(new UOMModelBuilder());
       builder.ApplyConfiguration(new UOMConverterModelBuilder());
@@ -117,6 +120,14 @@ namespace SapphireApi.Data{
         .Entity<CompanyModel>()
         .HasOne(PK => PK.country)
         .WithMany(FK => FK.company)
+        .HasForeignKey(PK => PK.countryId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+      // 1 Country => * Cities
+      builder
+        .Entity<CityModel>()
+        .HasOne(PK => PK.country)
+        .WithMany(FK => FK.cities)
         .HasForeignKey(PK => PK.countryId)
         .OnDelete(DeleteBehavior.Restrict);
 
