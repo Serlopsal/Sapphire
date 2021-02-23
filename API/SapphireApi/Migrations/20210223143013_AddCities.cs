@@ -3,21 +3,19 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SapphireApi.Migrations
 {
-    public partial class AddWarehousesTable : Migration
+    public partial class AddCities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "OWHS",
-                schema: "INV",
+                name: "OCST",
+                schema: "ADM",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    whsCode = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
-                    whsName = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
-                    cityId = table.Column<int>(type: "int", nullable: false),
-                    address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    name = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
+                    countryId = table.Column<int>(type: "int", nullable: false),
                     createdAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     createdBy = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     updatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
@@ -25,59 +23,52 @@ namespace SapphireApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OWHS", x => x.id);
+                    table.PrimaryKey("PK_OCST", x => x.id);
                     table.ForeignKey(
-                        name: "FK_OWHS_AspNetUsers_createdBy",
+                        name: "FK_OCST_AspNetUsers_createdBy",
                         column: x => x.createdBy,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OWHS_AspNetUsers_updatedBy",
+                        name: "FK_OCST_AspNetUsers_updatedBy",
                         column: x => x.updatedBy,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OWHS_OCST_cityId",
-                        column: x => x.cityId,
+                        name: "FK_OCST_OCRY_countryId",
+                        column: x => x.countryId,
                         principalSchema: "ADM",
-                        principalTable: "OCST",
+                        principalTable: "OCRY",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OWHS_cityId",
-                schema: "INV",
-                table: "OWHS",
-                column: "cityId");
+                name: "IX_OCST_countryId",
+                schema: "ADM",
+                table: "OCST",
+                column: "countryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OWHS_createdBy",
-                schema: "INV",
-                table: "OWHS",
+                name: "IX_OCST_createdBy",
+                schema: "ADM",
+                table: "OCST",
                 column: "createdBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OWHS_updatedBy",
-                schema: "INV",
-                table: "OWHS",
+                name: "IX_OCST_updatedBy",
+                schema: "ADM",
+                table: "OCST",
                 column: "updatedBy");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OWHS_whsCode",
-                schema: "INV",
-                table: "OWHS",
-                column: "whsCode",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OWHS",
-                schema: "INV");
+                name: "OCST",
+                schema: "ADM");
         }
     }
 }

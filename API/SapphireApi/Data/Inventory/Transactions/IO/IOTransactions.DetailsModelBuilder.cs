@@ -15,6 +15,8 @@ namespace SapphireApi.Data.Inventory.Transactions.IO {
       builder
         .Property(model => model.quantity)
         .IsRequired();
+      
+      IOTransactionDetailsModelRelationshipsBuilder<TEntity, DetailOf>.BuildRelationships(builder);
     }
   }
 }

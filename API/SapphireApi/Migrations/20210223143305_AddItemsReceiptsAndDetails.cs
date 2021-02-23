@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SapphireApi.Migrations
 {
-    public partial class AddReceiptTableWithDetails : Migration
+    public partial class AddItemsReceiptsAndDetails : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,7 +26,8 @@ namespace SapphireApi.Migrations
                     reference = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     comment = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     serieId = table.Column<int>(type: "int", nullable: false),
-                    komId = table.Column<int>(type: "int", nullable: false)
+                    komId = table.Column<int>(type: "int", nullable: false),
+                    whsCode = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,12 +50,19 @@ namespace SapphireApi.Migrations
                         principalSchema: "INV",
                         principalTable: "OKOM",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_OIGN_ONNM_serieId",
                         column: x => x.serieId,
                         principalSchema: "ADM",
                         principalTable: "ONNM",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OIGN_OWHS_whsCode",
+                        column: x => x.whsCode,
+                        principalSchema: "INV",
+                        principalTable: "OWHS",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -73,8 +81,7 @@ namespace SapphireApi.Migrations
                     docDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     isClosed = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     itemCode = table.Column<int>(type: "int", nullable: false),
-                    quantity = table.Column<float>(type: "real", nullable: false),
-                    itemid = table.Column<int>(type: "int", nullable: true)
+                    quantity = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,8 +106,8 @@ namespace SapphireApi.Migrations
                         principalColumn: "docId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_IGN1_OITM_itemid",
-                        column: x => x.itemid,
+                        name: "FK_IGN1_OITM_itemCode",
+                        column: x => x.itemCode,
                         principalSchema: "INV",
                         principalTable: "OITM",
                         principalColumn: "id",
@@ -114,10 +121,10 @@ namespace SapphireApi.Migrations
                 column: "createdBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IGN1_itemid",
+                name: "IX_IGN1_itemCode",
                 schema: "INV",
                 table: "IGN1",
-                column: "itemid");
+                column: "itemCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IGN1_updatedBy",
@@ -148,6 +155,12 @@ namespace SapphireApi.Migrations
                 schema: "INV",
                 table: "OIGN",
                 column: "updatedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OIGN_whsCode",
+                schema: "INV",
+                table: "OIGN",
+                column: "whsCode");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

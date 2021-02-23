@@ -31,13 +31,18 @@ namespace SapphireApi.Migrations
                 {
                     table.PrimaryKey("PK_COMPANY", x => x.id);
                     table.ForeignKey(
-                        name: "FK_COMPANY_COUNTRY_id",
-                        column: x => x.id,
+                        name: "FK_COMPANY_COUNTRY_countryId",
+                        column: x => x.countryId,
                         principalSchema: "ADM",
                         principalTable: "OCRY",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
+            migrationBuilder.CreateIndex(
+                name: "IX_COMPANY_countryId",
+                schema: "ADM",
+                table: "OADM",
+                column: "countryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
