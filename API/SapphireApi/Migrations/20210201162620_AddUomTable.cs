@@ -14,7 +14,7 @@ namespace SapphireApi.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    name = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
                     uomType = table.Column<int>(type: "int", nullable: false),
                     createdAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     updatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")

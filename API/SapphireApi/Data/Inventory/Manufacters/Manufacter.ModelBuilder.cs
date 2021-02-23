@@ -12,8 +12,7 @@ namespace SapphireApi.Data.Inventory.Manufacters {
 
       builder
         .Property(model => model.firmName)
-        .HasMaxLength(100)
-        .IsRequired();
+        .IsName();
     }
   }
 }

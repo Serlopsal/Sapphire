@@ -7,6 +7,11 @@ namespace SapphireApi.Data.Shared.Models {
     public override void Configure(EntityTypeBuilder<TEntity> builder){
       base.Configure(builder);
 
+      this.ConfigureWithoutBase(builder);
+    }
+
+    public void ConfigureWithoutBase(EntityTypeBuilder<TEntity> builder){
+      
       builder
         .Property(model => model.createdAt)
         .HasDefaultValueSql("GETDATE()")
@@ -17,7 +22,7 @@ namespace SapphireApi.Data.Shared.Models {
       builder
         .Property(model => model.createdBy)
         .IsRequired()
-        .HasMaxLength(48);
+        .HasMaxLength(450);
 
       builder
         .Property(model => model.updatedAt)
@@ -29,19 +34,9 @@ namespace SapphireApi.Data.Shared.Models {
       builder
         .Property(model => model.updatedBy)
         .IsRequired()
-        .HasMaxLength(48);
+        .HasMaxLength(450);
 
-      builder
-        .HasOne(PK => PK.creatorUsr)
-        .WithMany()
-        .HasForeignKey(PK => PK.createdBy)
-        .OnDelete(DeleteBehavior.Restrict);
-
-      builder
-        .HasOne(PK => PK.updaterUsr)
-        .WithMany()
-        .HasForeignKey(PK => PK.updatedBy)
-        .OnDelete(DeleteBehavior.Restrict);
+      AuditableModelRelationShips<TEntity>.BuildRelationShips(builder);
     }
   }
 }

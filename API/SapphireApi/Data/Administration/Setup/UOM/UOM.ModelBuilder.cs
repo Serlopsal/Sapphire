@@ -12,8 +12,7 @@ namespace SapphireApi.Data.Adminsitration.Setup.UOM {
 
       builder
         .Property(model => model.name)
-        .HasMaxLength(100)
-        .IsRequired();
+        .IsName();
     }
   }
 }

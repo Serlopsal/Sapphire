@@ -1,8 +1,7 @@
 using System;
 
 namespace SapphireApi.Data.Shared{
-  public interface IExpitable {
-    DateTime docDate { get; set; }
+  public interface IExpirable {
     DateTime docDueDate { get; set; }
   }
 }
