@@ -57,6 +57,7 @@ namespace SapphireApi.Data{
     public DbSet<ReceiptDetailsModel> ItemsReceiptDetails { get; set; }
     public DbSet<DispatchModel> ItemDispatches { get; set; }
     public DbSet<DispatchDetailsModel> ItemDispatchDetails { get; set; }
+    public DbSet<DispatchBatchDetailModel> ItemDispatchBatchDetail { get; set; }
     public DbSet<TransferRequestModel> TrasnferRequest { get; set; }
     public DbSet<TransferRequestDetailsModel> TrasnferRequestDetails { get; set; }
     public DbSet<TransferenceModel> Transference { get; set; }
@@ -87,6 +88,7 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new ReceiptDetailsModelBuilder());
       builder.ApplyConfiguration(new DispatchModelBuilder());
       builder.ApplyConfiguration(new DispatchDetailsModelBuilder());
+      builder.ApplyConfiguration(new DispatchBatchDetailModelBuilder());
       builder.ApplyConfiguration(new TransferRequestModelBuilder());
       builder.ApplyConfiguration(new TransferRequestDetailsModelBuilder());
       builder.ApplyConfiguration(new TransferenceModelBuilder());
