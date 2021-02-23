@@ -8,6 +8,8 @@ namespace SapphireApi.Data.Shared.Models {
     public override void Configure(EntityTypeBuilder<TEntity> builder) {
       // Avoid Configure Key
       base.ConfigureWithoutBase(builder);
+      // Configure relationships of base
+      IdentificableModelRelationshipsBuilder<TEntity>.BuildRelationships(builder);
 
       // Configuring Key [START]
       builder

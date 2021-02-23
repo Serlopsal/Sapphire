@@ -6,6 +6,8 @@ namespace SapphireApi.Data.Shared.Models {
     public virtual void Configure(EntityTypeBuilder<TEntity> builder){
       builder.HasKey(b => b.id);
       builder.Property(p => p.id).UseIdentityColumn();
+
+      IdentificableModelRelationshipsBuilder<TEntity>.BuildRelationships(builder);
     }
   }
 }
