@@ -23,6 +23,7 @@ using SapphireApi.Data.Inventory.Transactions.IO.Receipts;
 using SapphireApi.Data.Inventory.Transactions.IO.Dispatches;
 using SapphireApi.Data.Adminsitration.Locations.Cities;
 using SapphireApi.Data.Inventory.Warehouses;
+using SapphireApi.Data.Inventory.Transactions.Transferences.Request;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -55,6 +56,8 @@ namespace SapphireApi.Data{
     public DbSet<ReceiptDetailsModel> ItemsReceiptDetails { get; set; }
     public DbSet<DispatchModel> ItemDispatches { get; set; }
     public DbSet<DispatchDetailsModel> ItemDispatchDetails { get; set; }
+    public DbSet<TransferRequestModel> TrasnferRequest { get; set; }
+    public DbSet<TransferRequestDetailsModel> TrasnferRequestDetails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
@@ -81,6 +84,8 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new ReceiptDetailsModelBuilder());
       builder.ApplyConfiguration(new DispatchModelBuilder());
       builder.ApplyConfiguration(new DispatchDetailsModelBuilder());
+      builder.ApplyConfiguration(new TransferRequestModelBuilder());
+      builder.ApplyConfiguration(new TransferRequestDetailsModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP
@@ -108,6 +113,12 @@ namespace SapphireApi.Data{
       //        KoM
       //        Warehouse
       //    IOTransactionsDetailsModels
+      //        Items
+      //
+      //    TransferTrasnsactionsModels
+      //        FromWhs
+      //        ToWhs
+      //    TransferTrasnsactionsDetailsModels
       //        Items
 
       // 1 Object => 1 Series
