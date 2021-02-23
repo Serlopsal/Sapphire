@@ -44,7 +44,7 @@ namespace SapphireApi.Migrations
                         principalSchema: "ADM",
                         principalTable: "OCST",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

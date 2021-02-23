@@ -1250,7 +1250,7 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Adminsitration.Locations.Cities.CityModel", "city")
                         .WithMany("warehouses")
                         .HasForeignKey("cityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
