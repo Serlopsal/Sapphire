@@ -10,6 +10,12 @@ namespace SapphireApi.Data.Inventory.Transactions.IO {
         .WithMany()
         .HasForeignKey(PK => PK.komId)
         .OnDelete(DeleteBehavior.Restrict);
+
+      builder
+        .HasOne(PK => PK.warehouse)
+        .WithMany()
+        .HasForeignKey(PK => PK.whsCode)
+        .OnDelete(DeleteBehavior.Restrict);
     }
   }
 }
