@@ -24,6 +24,7 @@ using SapphireApi.Data.Inventory.Transactions.IO.Dispatches;
 using SapphireApi.Data.Adminsitration.Locations.Cities;
 using SapphireApi.Data.Inventory.Warehouses;
 using SapphireApi.Data.Inventory.Transactions.Transferences.Request;
+using SapphireApi.Data.Inventory.Transactions.Transferences.Documents;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -58,6 +59,8 @@ namespace SapphireApi.Data{
     public DbSet<DispatchDetailsModel> ItemDispatchDetails { get; set; }
     public DbSet<TransferRequestModel> TrasnferRequest { get; set; }
     public DbSet<TransferRequestDetailsModel> TrasnferRequestDetails { get; set; }
+    public DbSet<TransferenceModel> Transference { get; set; }
+    public DbSet<TransferenceDetailsModel> TrasnferenceDetails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
@@ -86,6 +89,8 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new DispatchDetailsModelBuilder());
       builder.ApplyConfiguration(new TransferRequestModelBuilder());
       builder.ApplyConfiguration(new TransferRequestDetailsModelBuilder());
+      builder.ApplyConfiguration(new TransferenceModelBuilder());
+      builder.ApplyConfiguration(new TransferenceDetailsModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP

@@ -20,5 +20,7 @@ namespace SapphireApi.Data.Shared.Normalize {
     internal static readonly string ITEMS_DISPATCH_DETAILS = "IGE1";
     internal static readonly string TRANSFER_REQUEST = "OWTQ";
     internal static readonly string TRANSFER_REQUEST_DETAILS = "WTQ1";
+    internal static readonly string TRANSFERENCE = "OWTR";
+    internal static readonly string TRANSFERENCE_DETAILS = "WTR1";
   }
 }
