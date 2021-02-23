@@ -10,8 +10,8 @@ using SapphireApi.Data;
 namespace SapphireApi.Migrations
 {
     [DbContext(typeof(Sapphire_Context))]
-    [Migration("20210222013757_AddWarehousesTable")]
-    partial class AddWarehousesTable
+    [Migration("20210223143413_AddItemsDispatchesAndDetails")]
+    partial class AddItemsDispatchesAndDetails
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -853,9 +853,6 @@ namespace SapphireApi.Migrations
                     b.Property<int>("itemCode")
                         .HasColumnType("int");
 
-                    b.Property<int?>("itemid")
-                        .HasColumnType("int");
-
                     b.Property<float>("quantity")
                         .HasColumnType("real");
 
@@ -873,7 +870,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("createdBy");
 
-                    b.HasIndex("itemid");
+                    b.HasIndex("itemCode");
 
                     b.HasIndex("updatedBy");
 
@@ -946,6 +943,9 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("whsCode")
+                        .HasColumnType("int");
+
                     b.HasKey("id");
 
                     b.HasIndex("createdBy");
@@ -955,6 +955,8 @@ namespace SapphireApi.Migrations
                     b.HasIndex("serieId");
 
                     b.HasIndex("updatedBy");
+
+                    b.HasIndex("whsCode");
 
                     b.ToTable("OIGE", "INV");
                 });
@@ -1008,9 +1010,6 @@ namespace SapphireApi.Migrations
                     b.Property<int>("itemCode")
                         .HasColumnType("int");
 
-                    b.Property<int?>("itemid")
-                        .HasColumnType("int");
-
                     b.Property<float>("quantity")
                         .HasColumnType("real");
 
@@ -1028,7 +1027,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("createdBy");
 
-                    b.HasIndex("itemid");
+                    b.HasIndex("itemCode");
 
                     b.HasIndex("updatedBy");
 
@@ -1101,6 +1100,9 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("whsCode")
+                        .HasColumnType("int");
+
                     b.HasKey("id");
 
                     b.HasIndex("createdBy");
@@ -1110,6 +1112,8 @@ namespace SapphireApi.Migrations
                     b.HasIndex("serieId");
 
                     b.HasIndex("updatedBy");
+
+                    b.HasIndex("whsCode");
 
                     b.ToTable("OIGN", "INV");
                 });
@@ -1531,7 +1535,9 @@ namespace SapphireApi.Migrations
 
                     b.HasOne("SapphireApi.Data.Inventory.Items.ItemModel", "item")
                         .WithMany()
-                        .HasForeignKey("itemid");
+                        .HasForeignKey("itemCode")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Inventory.Transactions.IO.Dispatches.DispatchModel", "master")
                         .WithMany()
@@ -1565,7 +1571,7 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Inventory.Transactions.IO.KindOfMovements.KoMModel", "kom")
                         .WithMany()
                         .HasForeignKey("komId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Adminsitration.Setup.Series.SerieModel", "serie")
@@ -1580,6 +1586,12 @@ namespace SapphireApi.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("SapphireApi.Data.Inventory.Warehouses.WarehouseModel", "warehouse")
+                        .WithMany()
+                        .HasForeignKey("whsCode")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("creatorUsr");
 
                     b.Navigation("kom");
@@ -1587,6 +1599,8 @@ namespace SapphireApi.Migrations
                     b.Navigation("serie");
 
                     b.Navigation("updaterUsr");
+
+                    b.Navigation("warehouse");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.IO.Receipts.ReceiptDetailsModel", b =>
@@ -1599,7 +1613,9 @@ namespace SapphireApi.Migrations
 
                     b.HasOne("SapphireApi.Data.Inventory.Items.ItemModel", "item")
                         .WithMany()
-                        .HasForeignKey("itemid");
+                        .HasForeignKey("itemCode")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Inventory.Transactions.IO.Receipts.ReceiptModel", "master")
                         .WithMany()
@@ -1633,7 +1649,7 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Inventory.Transactions.IO.KindOfMovements.KoMModel", "kom")
                         .WithMany()
                         .HasForeignKey("komId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Adminsitration.Setup.Series.SerieModel", "serie")
@@ -1648,6 +1664,12 @@ namespace SapphireApi.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("SapphireApi.Data.Inventory.Warehouses.WarehouseModel", "warehouse")
+                        .WithMany()
+                        .HasForeignKey("whsCode")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("creatorUsr");
 
                     b.Navigation("kom");
@@ -1655,6 +1677,8 @@ namespace SapphireApi.Migrations
                     b.Navigation("serie");
 
                     b.Navigation("updaterUsr");
+
+                    b.Navigation("warehouse");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Warehouses.WarehouseModel", b =>
@@ -1662,7 +1686,7 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Adminsitration.Locations.Cities.CityModel", "city")
                         .WithMany("warehouses")
                         .HasForeignKey("cityId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")

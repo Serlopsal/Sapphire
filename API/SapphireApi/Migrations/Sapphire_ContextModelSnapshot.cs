@@ -851,9 +851,6 @@ namespace SapphireApi.Migrations
                     b.Property<int>("itemCode")
                         .HasColumnType("int");
 
-                    b.Property<int?>("itemid")
-                        .HasColumnType("int");
-
                     b.Property<float>("quantity")
                         .HasColumnType("real");
 
@@ -871,7 +868,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("createdBy");
 
-                    b.HasIndex("itemid");
+                    b.HasIndex("itemCode");
 
                     b.HasIndex("updatedBy");
 
@@ -944,9 +941,6 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("warehouseid")
-                        .HasColumnType("int");
-
                     b.Property<int>("whsCode")
                         .HasColumnType("int");
 
@@ -960,7 +954,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.HasIndex("warehouseid");
+                    b.HasIndex("whsCode");
 
                     b.ToTable("OIGE", "INV");
                 });
@@ -1014,9 +1008,6 @@ namespace SapphireApi.Migrations
                     b.Property<int>("itemCode")
                         .HasColumnType("int");
 
-                    b.Property<int?>("itemid")
-                        .HasColumnType("int");
-
                     b.Property<float>("quantity")
                         .HasColumnType("real");
 
@@ -1034,7 +1025,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("createdBy");
 
-                    b.HasIndex("itemid");
+                    b.HasIndex("itemCode");
 
                     b.HasIndex("updatedBy");
 
@@ -1107,9 +1098,6 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("warehouseid")
-                        .HasColumnType("int");
-
                     b.Property<int>("whsCode")
                         .HasColumnType("int");
 
@@ -1123,7 +1111,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.HasIndex("warehouseid");
+                    b.HasIndex("whsCode");
 
                     b.ToTable("OIGN", "INV");
                 });
@@ -1545,7 +1533,9 @@ namespace SapphireApi.Migrations
 
                     b.HasOne("SapphireApi.Data.Inventory.Items.ItemModel", "item")
                         .WithMany()
-                        .HasForeignKey("itemid");
+                        .HasForeignKey("itemCode")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Inventory.Transactions.IO.Dispatches.DispatchModel", "master")
                         .WithMany()
@@ -1579,7 +1569,7 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Inventory.Transactions.IO.KindOfMovements.KoMModel", "kom")
                         .WithMany()
                         .HasForeignKey("komId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Adminsitration.Setup.Series.SerieModel", "serie")
@@ -1596,7 +1586,9 @@ namespace SapphireApi.Migrations
 
                     b.HasOne("SapphireApi.Data.Inventory.Warehouses.WarehouseModel", "warehouse")
                         .WithMany()
-                        .HasForeignKey("warehouseid");
+                        .HasForeignKey("whsCode")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("creatorUsr");
 
@@ -1619,7 +1611,9 @@ namespace SapphireApi.Migrations
 
                     b.HasOne("SapphireApi.Data.Inventory.Items.ItemModel", "item")
                         .WithMany()
-                        .HasForeignKey("itemid");
+                        .HasForeignKey("itemCode")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Inventory.Transactions.IO.Receipts.ReceiptModel", "master")
                         .WithMany()
@@ -1653,7 +1647,7 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Inventory.Transactions.IO.KindOfMovements.KoMModel", "kom")
                         .WithMany()
                         .HasForeignKey("komId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Adminsitration.Setup.Series.SerieModel", "serie")
@@ -1670,7 +1664,9 @@ namespace SapphireApi.Migrations
 
                     b.HasOne("SapphireApi.Data.Inventory.Warehouses.WarehouseModel", "warehouse")
                         .WithMany()
-                        .HasForeignKey("warehouseid");
+                        .HasForeignKey("whsCode")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("creatorUsr");
 
@@ -1688,7 +1684,7 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Adminsitration.Locations.Cities.CityModel", "city")
                         .WithMany("warehouses")
                         .HasForeignKey("cityId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
