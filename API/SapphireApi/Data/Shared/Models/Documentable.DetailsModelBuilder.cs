@@ -41,6 +41,18 @@ namespace SapphireApi.Data.Shared.Models {
         .IsRequired()
         .HasDefaultValue(false);
 
+      builder
+        .Property(model => model.itemCode)
+        .IsRequired();
+
+      builder
+        .Property(model => model.quantity)
+        .IsRequired();
+
+      builder
+        .Property(model => model.openQty)
+        .IsRequired();
+
       DocumentableDetailsModelRelationshipsBuilder<TEntity, DetailOf>.BuildRelationships(builder);
     }
   }
