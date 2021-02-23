@@ -94,13 +94,21 @@ namespace SapphireApi.Data{
       // Configure Relationships
       
       // Shadowed Relationships
-      //    AuditableModel
+      //
+      //    AuditableModels
       //        CreatedBy
       //        UpdatedBy
-      //    DocumentableModel
+      //
+      //    DocumentableModels
       //        Serie
-      //    IOTransactionsModel
+      //    DocumentableDetailsModels
+      //      DocumentableModels
+      //
+      //    IOTransactionsModels
       //        KoM
+      //        Warehouse
+      //    IOTransactionsDetailsModels
+      //        Items
 
       // 1 Object => 1 Series
       builder
