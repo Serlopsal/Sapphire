@@ -10,6 +10,8 @@ namespace SapphireApi.Data.Inventory.Transactions.IO {
       builder
         .Property(model => model.komId)
         .IsRequired();
+
+      IOTransactionModelRelationShips<TEntity>.BuildRelationships(builder);
     }
   }
 }

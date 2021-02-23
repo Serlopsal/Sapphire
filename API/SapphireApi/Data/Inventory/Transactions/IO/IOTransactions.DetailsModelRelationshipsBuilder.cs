@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SapphireApi.Data.Shared.Models;
 
 namespace SapphireApi.Data.Inventory.Transactions.IO {
-  public class IOTransactionDetailsModelRelationshipsBuilder<TEntity, DetailOf>
+  public static class IOTransactionDetailsModelRelationshipsBuilder<TEntity, DetailOf>
   where TEntity: IOTransactionDetailsModel<DetailOf>
   where DetailOf: IOTransactionModel {
-    public void BuildRelationships(EntityTypeBuilder<TEntity> builder) {
+    public static void BuildRelationships(EntityTypeBuilder<TEntity> builder) {
 
       builder
         .HasOne(PK => PK.item)
