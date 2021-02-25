@@ -14,7 +14,7 @@ namespace SapphireApi.Data.Shared.Models {
       builder
         .HasOne(model => model.batch)
         .WithMany()
-        .HasForeignKey(model => model.batchId)
+        .HasForeignKey(model => new { model.itemCode, model.batchNum })
         .OnDelete(DeleteBehavior.Restrict);
 
       builder

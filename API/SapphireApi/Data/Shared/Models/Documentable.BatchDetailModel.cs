@@ -6,7 +6,7 @@ namespace SapphireApi.Data.Shared.Models {
   public abstract class DocumentableBatchDetailModel<BatchOf, DetailOf>: AuditableModel, IClosable 
   where BatchOf: DocumentableDetailsModel<DetailOf>
   where DetailOf: DocumentableModel {
-    public int batchId { get; set; }
+    public string batchNum { get; set; }
     public int itemCode { get; set; }
     public int masterId { get; set; }
     public int masterLine { get; set; }

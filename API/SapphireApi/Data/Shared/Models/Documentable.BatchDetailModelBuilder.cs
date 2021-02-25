@@ -15,7 +15,7 @@ namespace SapphireApi.Data.Shared.Models {
       builder.ToTable(Tables.ITEMS_DISPATCH_BATCH_DETAILS, Schemas.INV);
 
       builder
-        .Property(model => model.batchId)
+        .Property(model => model.batchNum)
         .IsRequired();
       
       builder

@@ -15,6 +15,10 @@ namespace SapphireApi.Data.Inventory.Items {
         .IsLongCode();
 
       builder
+        .HasIndex(model => model.itemCode)
+        .IsUnique();
+
+      builder
         .Property(model => model.itemName)
         .IsName();
 
