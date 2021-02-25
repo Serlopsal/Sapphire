@@ -51,7 +51,7 @@ namespace SapphireApi.Migrations
                     createdBy = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     updatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     updatedBy = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    batchId = table.Column<int>(type: "int", nullable: false),
+                    batchNum = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     itemCode = table.Column<int>(type: "int", nullable: false),
                     masterId = table.Column<int>(type: "int", nullable: false),
                     masterLine = table.Column<int>(type: "int", nullable: false),
@@ -82,11 +82,11 @@ namespace SapphireApi.Migrations
                         principalColumns: new[] { "docId", "lineNum" },
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_IGE2_OBTN_batchId",
-                        column: x => x.batchId,
+                        name: "FK_IGE2_OBTN_itemCode_batchNum",
+                        columns: x => new { x.itemCode, x.batchNum },
                         principalSchema: "INV",
                         principalTable: "OBTN",
-                        principalColumn: "id",
+                        principalColumns: new[] { "itemCode", "batchNum" },
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_IGE2_OITM_itemCode",
@@ -105,22 +105,16 @@ namespace SapphireApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_IGE2_batchId",
-                schema: "INV",
-                table: "IGE2",
-                column: "batchId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_IGE2_createdBy",
                 schema: "INV",
                 table: "IGE2",
                 column: "createdBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IGE2_itemCode",
+                name: "IX_IGE2_itemCode_batchNum",
                 schema: "INV",
                 table: "IGE2",
-                column: "itemCode");
+                columns: new[] { "itemCode", "batchNum" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_IGE2_masterId_masterLine",

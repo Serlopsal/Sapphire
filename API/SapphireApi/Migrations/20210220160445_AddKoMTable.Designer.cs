@@ -592,11 +592,8 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("id");
-
+                    b.HasKey("itemCode", "batchNum");
                     b.HasIndex("createdBy");
-
-                    b.HasIndex("itemCode");
 
                     b.HasIndex("updatedBy");
 
@@ -689,6 +686,8 @@ namespace SapphireApi.Migrations
                     b.HasIndex("sellUomId");
 
                     b.HasIndex("updatedBy");
+
+                    b.HasIndex("itemCode").IsUnique();
 
                     b.ToTable("OITM", "INV");
                 });

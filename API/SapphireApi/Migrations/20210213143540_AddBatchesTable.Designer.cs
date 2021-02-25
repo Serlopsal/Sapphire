@@ -499,11 +499,9 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("id");
+                    b.HasKey("itemCode", "batchNum");
 
                     b.HasIndex("createdBy");
-
-                    b.HasIndex("itemCode");
 
                     b.HasIndex("updatedBy");
 
@@ -594,6 +592,8 @@ namespace SapphireApi.Migrations
                     b.HasIndex("purchaseUomId");
 
                     b.HasIndex("sellUomId");
+
+                    b.HasIndex("itemCode").IsUnique();
 
                     b.HasIndex("updatedBy");
 

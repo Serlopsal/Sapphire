@@ -196,7 +196,7 @@ namespace SapphireApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OBTN", x => x.id);
+                    table.PrimaryKey("PK_OBTN", x => new { x.itemCode, x.batchNum });
                     table.ForeignKey(
                         name: "FK_OBTN_AspNetUsers_createdBy",
                         column: x => x.createdBy,
@@ -223,12 +223,6 @@ namespace SapphireApi.Migrations
                 schema: "INV",
                 table: "OBTN",
                 column: "createdBy");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OBTN_itemCode",
-                schema: "INV",
-                table: "OBTN",
-                column: "itemCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OBTN_updatedBy",

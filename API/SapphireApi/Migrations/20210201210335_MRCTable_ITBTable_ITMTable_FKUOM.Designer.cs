@@ -464,6 +464,8 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("sellUomId");
 
+                    b.HasIndex("itemCode").IsUnique();
+
                     b.ToTable("OITM", "INV");
                 });
 

@@ -512,6 +512,8 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("sellUomId");
 
+                    b.HasIndex("itemCode").IsUnique();
+
                     b.HasIndex("updatedBy");
 
                     b.ToTable("OITM", "INV");

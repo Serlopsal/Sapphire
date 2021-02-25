@@ -134,6 +134,13 @@ namespace SapphireApi.Migrations
                 schema: "INV",
                 table: "OITM",
                 column: "sellUomId");
+                
+            migrationBuilder.CreateIndex(
+                name: "IX_OITM_itemCode",
+                schema: "INV",
+                table: "OITM",
+                column: "itemCode",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

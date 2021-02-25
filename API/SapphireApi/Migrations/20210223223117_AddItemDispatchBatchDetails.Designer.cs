@@ -619,7 +619,6 @@ namespace SapphireApi.Migrations
             modelBuilder.Entity("SapphireApi.Data.Inventory.Batches.BatchModel", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
@@ -671,11 +670,9 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("id");
+                    b.HasKey("itemCode", "batchNum");
 
                     b.HasIndex("createdBy");
-
-                    b.HasIndex("itemCode");
 
                     b.HasIndex("objType");
 
@@ -763,6 +760,9 @@ namespace SapphireApi.Migrations
                     b.HasIndex("createdBy");
 
                     b.HasIndex("inventoryUomId");
+
+                    b.HasIndex("itemCode")
+                        .IsUnique();
 
                     b.HasIndex("itemsGroupId");
 
@@ -878,8 +878,9 @@ namespace SapphireApi.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("batchId")
-                        .HasColumnType("int");
+                    b.Property<string>("batchNum")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
@@ -926,15 +927,13 @@ namespace SapphireApi.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("batchId");
-
                     b.HasIndex("createdBy");
-
-                    b.HasIndex("itemCode");
 
                     b.HasIndex("objType");
 
                     b.HasIndex("updatedBy");
+
+                    b.HasIndex("itemCode", "batchNum");
 
                     b.HasIndex("masterId", "masterLine");
 
@@ -2071,7 +2070,7 @@ namespace SapphireApi.Migrations
                 {
                     b.HasOne("SapphireApi.Data.Inventory.Batches.BatchModel", "batch")
                         .WithMany()
-                        .HasForeignKey("batchId")
+                        .HasForeignKey("itemCode", "batchNum")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
