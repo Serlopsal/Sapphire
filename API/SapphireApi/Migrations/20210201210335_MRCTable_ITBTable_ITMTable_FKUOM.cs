@@ -47,8 +47,6 @@ namespace SapphireApi.Migrations
                 schema: "INV",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     itemCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     itemName = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
                     itemsGroupId = table.Column<int>(type: "int", nullable: false),
@@ -67,37 +65,37 @@ namespace SapphireApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Items", x => x.id);
+                    table.PrimaryKey("PK_OITM", x => x.itemCode);
                     table.ForeignKey(
-                        name: "FK_Items_ItemsGroup_itemsGroupId",
+                        name: "FK_OITM_ItemsGroup_itemsGroupId",
                         column: x => x.itemsGroupId,
                         principalSchema: "INV",
                         principalTable: "OITB",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Items_Manufacter_mrcCode",
+                        name: "FK_OITM_Manufacter_mrcCode",
                         column: x => x.mrcCode,
                         principalSchema: "INV",
                         principalTable: "OMRC",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Items_UOM_inventoryUomId",
+                        name: "FK_OITM_UOM_inventoryUomId",
                         column: x => x.inventoryUomId,
                         principalSchema: "ADM",
                         principalTable: "OUOM",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Items_UOM_purchaseUomId",
+                        name: "FK_OITM_UOM_purchaseUomId",
                         column: x => x.purchaseUomId,
                         principalSchema: "ADM",
                         principalTable: "OUOM",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Items_UOM_sellUomId",
+                        name: "FK_OITM_UOM_sellUomId",
                         column: x => x.sellUomId,
                         principalSchema: "ADM",
                         principalTable: "OUOM",
@@ -106,41 +104,34 @@ namespace SapphireApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Items_inventoryUomId",
+                name: "IX_OITM_inventoryUomId",
                 schema: "INV",
                 table: "OITM",
                 column: "inventoryUomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Items_itemsGroupId",
+                name: "IX_OITM_itemsGroupId",
                 schema: "INV",
                 table: "OITM",
                 column: "itemsGroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Items_mrcCode",
+                name: "IX_OITM_mrcCode",
                 schema: "INV",
                 table: "OITM",
                 column: "mrcCode");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Items_purchaseUomId",
+                name: "IX_OITM_purchaseUomId",
                 schema: "INV",
                 table: "OITM",
                 column: "purchaseUomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Items_sellUomId",
+                name: "IX_OITM_sellUomId",
                 schema: "INV",
                 table: "OITM",
                 column: "sellUomId");
-                
-            migrationBuilder.CreateIndex(
-                name: "IX_OITM_itemCode",
-                schema: "INV",
-                table: "OITM",
-                column: "itemCode",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

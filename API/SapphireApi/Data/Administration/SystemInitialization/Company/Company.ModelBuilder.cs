@@ -5,7 +5,7 @@ using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Shared.Normalize;
 
 namespace SapphireApi.Data.Adminsitration.SystemInitialization.Company{
-  public class CompanyModelBuilder: AuditableModelBuilder<CompanyModel> {
+  public class CompanyModelBuilder: IdentificableModelBuilder<CompanyModel> {
     public override void Configure(EntityTypeBuilder<CompanyModel> builder)
     {
       base.Configure(builder);

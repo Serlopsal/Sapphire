@@ -180,9 +180,7 @@ namespace SapphireApi.Migrations
                 schema: "INV",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    itemCode = table.Column<int>(type: "int", nullable: false),
+                    itemCode = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     batchNum = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     mnfSerial = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     expDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -214,7 +212,7 @@ namespace SapphireApi.Migrations
                         column: x => x.itemCode,
                         principalSchema: "INV",
                         principalTable: "OITM",
-                        principalColumn: "id",
+                        principalColumn: "itemCode",
                         onDelete: ReferentialAction.Restrict);
                 });
 

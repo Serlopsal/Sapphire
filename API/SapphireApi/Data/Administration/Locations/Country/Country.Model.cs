@@ -4,7 +4,7 @@ using SapphireApi.Data.Adminsitration.SystemInitialization.Company;
 using SapphireApi.Data.Adminsitration.Locations.Cities;
 
 namespace SapphireApi.Data.Adminsitration.Locations.Country{
-  public class CountryModel: AuditableModel {
+  public class CountryModel: IdentificableModel {
     public CountryModel() {
       // Navigation Properties
       company = new HashSet<CompanyModel>();

@@ -449,11 +449,6 @@ namespace SapphireApi.Migrations
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Batches.BatchModel", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
                     b.Property<string>("batchNum")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -475,8 +470,10 @@ namespace SapphireApi.Migrations
                     b.Property<DateTime>("inDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("itemCode")
-                        .HasColumnType("int");
+                    b.Property<string>("itemCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("mnfDate")
                         .HasColumnType("datetime2");
@@ -509,12 +506,7 @@ namespace SapphireApi.Migrations
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Items.ItemModel", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
+                {                    
                     b.Property<string>("barCode")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -579,7 +571,7 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("id");
+                    b.HasKey("itemCode");
 
                     b.HasIndex("createdBy");
 
@@ -592,8 +584,6 @@ namespace SapphireApi.Migrations
                     b.HasIndex("purchaseUomId");
 
                     b.HasIndex("sellUomId");
-
-                    b.HasIndex("itemCode").IsUnique();
 
                     b.HasIndex("updatedBy");
 

@@ -5,7 +5,7 @@ using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Shared.Normalize;
 
 namespace SapphireApi.Data.Inventory.ItemsGroup {
-  public partial class ItemsGroupModelBuilder : AuditableModelBuilder<ItemsGroupModel> {
+  public partial class ItemsGroupModelBuilder : IdentificableModelBuilder<ItemsGroupModel> {
     public override void Configure(EntityTypeBuilder<ItemsGroupModel> builder) {
       base.Configure(builder);
 

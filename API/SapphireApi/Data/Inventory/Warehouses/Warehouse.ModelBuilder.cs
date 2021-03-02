@@ -13,10 +13,8 @@ namespace SapphireApi.Data.Inventory.Warehouses {
       builder
         .Property(model => model.whsCode)
         .IsCode();
-      
-      builder
-        .HasIndex(model => model.whsCode)
-        .IsUnique();
+
+      builder.HasKey(model => model.whsCode);
 
       builder
         .Property( model => model.whsName)

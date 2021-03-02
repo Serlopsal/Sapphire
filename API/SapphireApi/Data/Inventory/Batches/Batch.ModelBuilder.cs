@@ -7,14 +7,8 @@ namespace SapphireApi.Data.Inventory.Batches {
   public class BatchModelBuilder: AuditableModelBuilder<BatchModel> {
     public override void Configure(EntityTypeBuilder<BatchModel> builder)
     {
-      // Avoid Configure Key
-      base.ConfigureWithoutBase(builder);
+      base.Configure(builder);
       
-      // Configure relationships of base
-      IdentificableModelRelationshipsBuilder<BatchModel>.BuildRelationships(builder);
-
-      builder.Property(p => p.id).UseIdentityColumn();
-
       // Configuring Key [START]
       builder
         .HasKey(

@@ -8,15 +8,13 @@ namespace SapphireApi.Data.Inventory.Items {
     public override void Configure(EntityTypeBuilder<ItemModel> builder) {
       base.Configure(builder);
 
+      builder.HasKey(model => model.itemCode);
+
       builder.ToTable(Tables.ITEMS, Schemas.INV);
 
       builder
         .Property(model => model.itemCode)
         .IsLongCode();
-
-      builder
-        .HasIndex(model => model.itemCode)
-        .IsUnique();
 
       builder
         .Property(model => model.itemName)

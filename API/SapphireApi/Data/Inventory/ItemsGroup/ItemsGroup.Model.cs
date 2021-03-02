@@ -3,7 +3,7 @@ using SapphireApi.Data.Inventory.Items;
 using SapphireApi.Data.Shared.Models;
 
 namespace SapphireApi.Data.Inventory.ItemsGroup {
-  public class ItemsGroupModel: AuditableModel {
+  public class ItemsGroupModel: IdentificableModel {
     public ItemsGroupModel() {
       items = new HashSet<ItemModel>();
     }

@@ -618,10 +618,6 @@ namespace SapphireApi.Migrations
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Batches.BatchModel", b =>
                 {
-                    b.Property<int>("id")
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
                     b.Property<string>("batchNum")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -643,8 +639,10 @@ namespace SapphireApi.Migrations
                     b.Property<DateTime>("inDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("itemCode")
-                        .HasColumnType("int");
+                    b.Property<string>("itemCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("mnfDate")
                         .HasColumnType("datetime2");
@@ -683,11 +681,6 @@ namespace SapphireApi.Migrations
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Items.ItemModel", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
                     b.Property<string>("barCode")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -755,14 +748,11 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("id");
+                    b.HasKey("itemCode");
 
                     b.HasIndex("createdBy");
 
                     b.HasIndex("inventoryUomId");
-
-                    b.HasIndex("itemCode")
-                        .IsUnique();
 
                     b.HasIndex("itemsGroupId");
 
@@ -897,8 +887,10 @@ namespace SapphireApi.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<int>("itemCode")
-                        .HasColumnType("int");
+                    b.Property<string>("itemCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("masterId")
                         .HasColumnType("int");
@@ -969,8 +961,10 @@ namespace SapphireApi.Migrations
                         .HasDefaultValue(false)
                         .HasColumnName("isClosed");
 
-                    b.Property<int>("itemCode")
-                        .HasColumnType("int");
+                    b.Property<string>("itemCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
@@ -1073,8 +1067,10 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("whsCode")
-                        .HasColumnType("int");
+                    b.Property<string>("whsCode")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.HasKey("id");
 
@@ -1144,8 +1140,10 @@ namespace SapphireApi.Migrations
                         .HasDefaultValue(false)
                         .HasColumnName("isClosed");
 
-                    b.Property<int>("itemCode")
-                        .HasColumnType("int");
+                    b.Property<string>("itemCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
@@ -1248,8 +1246,10 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("whsCode")
-                        .HasColumnType("int");
+                    b.Property<string>("whsCode")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.HasKey("id");
 
@@ -1297,8 +1297,10 @@ namespace SapphireApi.Migrations
                         .HasDefaultValue(false)
                         .HasColumnName("isClosed");
 
-                    b.Property<int>("itemCode")
-                        .HasColumnType("int");
+                    b.Property<string>("itemCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
@@ -1360,8 +1362,10 @@ namespace SapphireApi.Migrations
                     b.Property<int>("docNum")
                         .HasColumnType("int");
 
-                    b.Property<int>("fromWhsId")
-                        .HasColumnType("int");
+                    b.Property<string>("fromWhsCode")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<bool>("isCanceled")
                         .ValueGeneratedOnAdd()
@@ -1391,8 +1395,10 @@ namespace SapphireApi.Migrations
                     b.Property<int>("serieId")
                         .HasColumnType("int");
 
-                    b.Property<int>("toWhsId")
-                        .HasColumnType("int");
+                    b.Property<string>("toWhsCode")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
@@ -1408,13 +1414,13 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("createdBy");
 
-                    b.HasIndex("fromWhsId");
+                    b.HasIndex("fromWhsCode");
 
                     b.HasIndex("objType");
 
                     b.HasIndex("serieId");
 
-                    b.HasIndex("toWhsId");
+                    b.HasIndex("toWhsCode");
 
                     b.HasIndex("updatedBy");
 
@@ -1450,8 +1456,10 @@ namespace SapphireApi.Migrations
                         .HasDefaultValue(false)
                         .HasColumnName("isClosed");
 
-                    b.Property<int>("itemCode")
-                        .HasColumnType("int");
+                    b.Property<string>("itemCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
@@ -1513,8 +1521,10 @@ namespace SapphireApi.Migrations
                     b.Property<int>("docNum")
                         .HasColumnType("int");
 
-                    b.Property<int>("fromWhsId")
-                        .HasColumnType("int");
+                    b.Property<string>("fromWhsCode")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<bool>("isCanceled")
                         .ValueGeneratedOnAdd()
@@ -1544,8 +1554,10 @@ namespace SapphireApi.Migrations
                     b.Property<int>("serieId")
                         .HasColumnType("int");
 
-                    b.Property<int>("toWhsId")
-                        .HasColumnType("int");
+                    b.Property<string>("toWhsCode")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
@@ -1561,13 +1573,13 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("createdBy");
 
-                    b.HasIndex("fromWhsId");
+                    b.HasIndex("fromWhsCode");
 
                     b.HasIndex("objType");
 
                     b.HasIndex("serieId");
 
-                    b.HasIndex("toWhsId");
+                    b.HasIndex("toWhsCode");
 
                     b.HasIndex("updatedBy");
 
@@ -1576,11 +1588,6 @@ namespace SapphireApi.Migrations
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Warehouses.WarehouseModel", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
                     b.Property<string>("address")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -1622,7 +1629,7 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("nvarchar(120)");
 
-                    b.HasKey("id");
+                    b.HasKey("whsCode");
 
                     b.HasIndex("cityId");
 
@@ -1631,9 +1638,6 @@ namespace SapphireApi.Migrations
                     b.HasIndex("objType");
 
                     b.HasIndex("updatedBy");
-
-                    b.HasIndex("whsCode")
-                        .IsUnique();
 
                     b.ToTable("OWHS", "INV");
                 });
@@ -2369,7 +2373,7 @@ namespace SapphireApi.Migrations
 
                     b.HasOne("SapphireApi.Data.Inventory.Warehouses.WarehouseModel", "fromWhs")
                         .WithMany()
-                        .HasForeignKey("fromWhsId")
+                        .HasForeignKey("fromWhsCode")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2387,7 +2391,7 @@ namespace SapphireApi.Migrations
 
                     b.HasOne("SapphireApi.Data.Inventory.Warehouses.WarehouseModel", "toWhs")
                         .WithMany()
-                        .HasForeignKey("toWhsId")
+                        .HasForeignKey("toWhsCode")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2463,7 +2467,7 @@ namespace SapphireApi.Migrations
 
                     b.HasOne("SapphireApi.Data.Inventory.Warehouses.WarehouseModel", "fromWhs")
                         .WithMany()
-                        .HasForeignKey("fromWhsId")
+                        .HasForeignKey("fromWhsCode")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2481,7 +2485,7 @@ namespace SapphireApi.Migrations
 
                     b.HasOne("SapphireApi.Data.Inventory.Warehouses.WarehouseModel", "toWhs")
                         .WithMany()
-                        .HasForeignKey("toWhsId")
+                        .HasForeignKey("toWhsCode")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

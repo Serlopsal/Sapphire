@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace SapphireApi.Data.Shared.Models {
-  public abstract class DocumentableModelBuilder<TEntity>: AuditableModelBuilder<TEntity> where TEntity: DocumentableModel {
+  public abstract class DocumentableModelBuilder<TEntity>: IdentificableModelBuilder<TEntity> where TEntity: DocumentableModel {
     public override void Configure(EntityTypeBuilder<TEntity> builder)
     {
       base.Configure(builder);

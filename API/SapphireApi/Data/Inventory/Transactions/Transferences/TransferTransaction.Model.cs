@@ -3,8 +3,8 @@ using SapphireApi.Data.Shared.Models;
 
 namespace SapphireApi.Data.Inventory.Transactions.Transferences {
   public abstract class TransferTransactionModel: DocumentableModel {
-    public int fromWhsId { get; set; }
-    public int toWhsId { get; set; }
+    public string fromWhsCode { get; set; }
+    public string toWhsCode { get; set; }
     public virtual WarehouseModel fromWhs { get; set; }
     public virtual WarehouseModel toWhs { get; set; }
   }

@@ -12,8 +12,6 @@ namespace SapphireApi.Migrations
                 schema: "INV",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     whsCode = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     whsName = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
                     cityId = table.Column<int>(type: "int", nullable: false),
@@ -25,7 +23,7 @@ namespace SapphireApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OWHS", x => x.id);
+                    table.PrimaryKey("PK_OWHS", x => x.whsCode);
                     table.ForeignKey(
                         name: "FK_OWHS_AspNetUsers_createdBy",
                         column: x => x.createdBy,
@@ -64,13 +62,6 @@ namespace SapphireApi.Migrations
                 schema: "INV",
                 table: "OWHS",
                 column: "updatedBy");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OWHS_whsCode",
-                schema: "INV",
-                table: "OWHS",
-                column: "whsCode",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

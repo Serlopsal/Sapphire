@@ -393,11 +393,6 @@ namespace SapphireApi.Migrations
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Items.ItemModel", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
                     b.Property<string>("barCode")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -452,7 +447,7 @@ namespace SapphireApi.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.HasKey("id");
+                    b.HasKey("itemCode");
 
                     b.HasIndex("inventoryUomId");
 
@@ -463,8 +458,6 @@ namespace SapphireApi.Migrations
                     b.HasIndex("purchaseUomId");
 
                     b.HasIndex("sellUomId");
-
-                    b.HasIndex("itemCode").IsUnique();
 
                     b.ToTable("OITM", "INV");
                 });

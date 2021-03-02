@@ -26,8 +26,8 @@ namespace SapphireApi.Migrations
                     reference = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     comment = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     serieId = table.Column<int>(type: "int", nullable: false),
-                    fromWhsId = table.Column<int>(type: "int", nullable: false),
-                    toWhsId = table.Column<int>(type: "int", nullable: false)
+                    fromWhsCode = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    toWhsCode = table.Column<string>(type: "nvarchar(50)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,18 +52,18 @@ namespace SapphireApi.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OWTR_OWHS_fromWhsId",
-                        column: x => x.fromWhsId,
+                        name: "FK_OWTR_OWHS_fromWhsCode",
+                        column: x => x.fromWhsCode,
                         principalSchema: "INV",
                         principalTable: "OWHS",
-                        principalColumn: "id",
+                        principalColumn: "whsCode",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OWTR_OWHS_toWhsId",
-                        column: x => x.toWhsId,
+                        name: "FK_OWTR_OWHS_toWhsCode",
+                        column: x => x.toWhsCode,
                         principalSchema: "INV",
                         principalTable: "OWHS",
-                        principalColumn: "id",
+                        principalColumn: "whsCode",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -121,10 +121,10 @@ namespace SapphireApi.Migrations
                 column: "createdBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OWTR_fromWhsId",
+                name: "IX_OWTR_fromWhsCode",
                 schema: "INV",
                 table: "OWTR",
-                column: "fromWhsId");
+                column: "fromWhsCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OWTR_serieId",
@@ -133,10 +133,10 @@ namespace SapphireApi.Migrations
                 column: "serieId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OWTR_toWhsId",
+                name: "IX_OWTR_toWhsCode",
                 schema: "INV",
                 table: "OWTR",
-                column: "toWhsId");
+                column: "toWhsCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OWTR_updatedBy",

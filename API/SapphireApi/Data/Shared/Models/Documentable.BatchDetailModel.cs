@@ -3,11 +3,11 @@ using SapphireApi.Data.Inventory.Batches;
 using SapphireApi.Data.Inventory.Items;
 
 namespace SapphireApi.Data.Shared.Models {
-  public abstract class DocumentableBatchDetailModel<BatchOf, DetailOf>: AuditableModel, IClosable 
+  public abstract class DocumentableBatchDetailModel<BatchOf, DetailOf>: IdentificableModel, IClosable 
   where BatchOf: DocumentableDetailsModel<DetailOf>
   where DetailOf: DocumentableModel {
     public string batchNum { get; set; }
-    public int itemCode { get; set; }
+    public string itemCode { get; set; }
     public int masterId { get; set; }
     public int masterLine { get; set; }
     public float quantity { get; set; }

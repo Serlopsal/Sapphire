@@ -52,7 +52,7 @@ namespace SapphireApi.Migrations
                     updatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     updatedBy = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     batchNum = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    itemCode = table.Column<int>(type: "int", nullable: false),
+                    itemCode = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     masterId = table.Column<int>(type: "int", nullable: false),
                     masterLine = table.Column<int>(type: "int", nullable: false),
                     quantity = table.Column<float>(type: "real", nullable: false),
@@ -93,7 +93,7 @@ namespace SapphireApi.Migrations
                         column: x => x.itemCode,
                         principalSchema: "INV",
                         principalTable: "OITM",
-                        principalColumn: "id",
+                        principalColumn: "itemCode",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_IGE2_OOBJ_objType",

@@ -4,7 +4,7 @@ using SapphireApi.Data.Inventory.Warehouses;
 using SapphireApi.Data.Shared.Models;
 
 namespace SapphireApi.Data.Adminsitration.Locations.Cities {
-  public class CityModel: AuditableModel {
+  public class CityModel: IdentificableModel {
     public CityModel(){
       warehouses = new HashSet<WarehouseModel>();
     }
