@@ -80,7 +80,7 @@ namespace SapphireApi.Migrations
                     updatedBy = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     docDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     isClosed = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    itemCode = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    itemCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     quantity = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
