@@ -40,7 +40,7 @@ namespace SapphireApi.Data.Shared.Models {
 
       builder
         .Property(model => model.itemCode)
-        .IsRequired();
+        .IsLongCode();
 
       builder
         .Property(model => model.quantity)

@@ -9,11 +9,11 @@ namespace SapphireApi.Data.Inventory.Transactions.Transferences {
 
       builder
         .Property(model => model.fromWhsCode)
-        .IsRequired();
+        .IsCode();
 
       builder
         .Property(model => model.toWhsCode)
-        .IsRequired();
+        .IsCode();
 
       TransferTransactionModelRelationshipsBuilder<TEntity>.BuildRelationships(builder);
     }

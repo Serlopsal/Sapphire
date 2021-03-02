@@ -75,36 +75,6 @@ namespace SapphireApi.Migrations
                 nullable: false,
                 defaultValue: "");
 
-            migrationBuilder.AlterColumn<string>(
-                name: "whsCode",
-                schema: "INV",
-                table: "OIGN",
-                type: "nvarchar(8)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(8)",
-                oldMaxLength: 8);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "whsCode",
-                schema: "INV",
-                table: "OIGE",
-                type: "nvarchar(8)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(8)",
-                oldMaxLength: 8);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "itemCode",
-                schema: "INV",
-                table: "IGE2",
-                type: "nvarchar(50)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(50)",
-                oldMaxLength: 50);
-
             migrationBuilder.CreateIndex(
                 name: "IX_OOBJ_createdBy",
                 schema: "ADM",
@@ -247,42 +217,6 @@ namespace SapphireApi.Migrations
                 name: "updatedBy",
                 schema: "INV",
                 table: "OKOM");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "whsCode",
-                schema: "INV",
-                table: "OIGN",
-                type: "nvarchar(8)",
-                maxLength: 8,
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(8)",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "whsCode",
-                schema: "INV",
-                table: "OIGE",
-                type: "nvarchar(8)",
-                maxLength: 8,
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(8)",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "itemCode",
-                schema: "INV",
-                table: "IGE2",
-                type: "nvarchar(50)",
-                maxLength: 50,
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(50)",
-                oldNullable: true);
         }
     }
 }

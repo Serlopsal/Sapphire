@@ -908,6 +908,8 @@ namespace SapphireApi.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<string>("itemCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("masterId")
@@ -981,6 +983,7 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("itemCode")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("objType")
@@ -1085,6 +1088,8 @@ namespace SapphireApi.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("whsCode")
+                        .IsRequired()
+                        .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
                     b.HasKey("id");
@@ -1181,6 +1186,7 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("itemCode")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("objType")
@@ -1285,6 +1291,8 @@ namespace SapphireApi.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("whsCode")
+                        .IsRequired()
+                        .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
                     b.HasKey("id");
@@ -1335,6 +1343,7 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("itemCode")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("objType")
@@ -1399,6 +1408,7 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("fromWhsCode")
                         .IsRequired()
+                        .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
                     b.Property<bool>("isCanceled")
@@ -1431,6 +1441,7 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("toWhsCode")
                         .IsRequired()
+                        .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
                     b.Property<DateTime>("updatedAt")
@@ -1491,6 +1502,7 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("itemCode")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("objType")
@@ -1555,6 +1567,7 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("fromWhsCode")
                         .IsRequired()
+                        .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
                     b.Property<bool>("isCanceled")
@@ -1587,6 +1600,7 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("toWhsCode")
                         .IsRequired()
+                        .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
                     b.Property<DateTime>("updatedAt")
@@ -2126,7 +2140,8 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Inventory.Items.ItemModel", "item")
                         .WithMany()
                         .HasForeignKey("itemCode")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
                         .WithMany()
@@ -2143,7 +2158,8 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Inventory.Batches.BatchModel", "batch")
                         .WithMany()
                         .HasForeignKey("itemCode", "batchNum")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Inventory.Transactions.IO.Dispatches.DispatchDetailsModel", "master")
                         .WithMany()
@@ -2242,7 +2258,8 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Inventory.Warehouses.WarehouseModel", "warehouse")
                         .WithMany()
                         .HasForeignKey("whsCode")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("creatorUsr");
 
@@ -2362,7 +2379,8 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Inventory.Warehouses.WarehouseModel", "warehouse")
                         .WithMany()
                         .HasForeignKey("whsCode")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("creatorUsr");
 

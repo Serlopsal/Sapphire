@@ -15,6 +15,10 @@ namespace SapphireApi.Data.Shared.Models {
       builder.ToTable(Tables.ITEMS_DISPATCH_BATCH_DETAILS, Schemas.INV);
 
       builder
+        .Property(model => model.itemCode)
+        .IsLongCode();
+
+      builder
         .Property(model => model.batchNum)
         .IsRequired();
       
