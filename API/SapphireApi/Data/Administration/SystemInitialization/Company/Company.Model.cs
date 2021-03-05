@@ -4,7 +4,7 @@ using SapphireApi.Data.Identity;
 using SapphireApi.Data.Shared.Models;
 
 namespace SapphireApi.Data.Adminsitration.SystemInitialization.Company{
-  public class CompanyModel: AuditableModel {
+  public class CompanyModel: IdentificableModel {
     public CompanyModel() {
       // Navigation Properties
       users = new HashSet<UserModel>();

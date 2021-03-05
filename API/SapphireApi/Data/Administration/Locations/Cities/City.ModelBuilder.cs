@@ -3,7 +3,7 @@ using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Shared.Normalize;
 
 namespace SapphireApi.Data.Adminsitration.Locations.Cities {
-  public class CityModelBuilder: AuditableModelBuilder<CityModel> {
+  public class CityModelBuilder: IdentificableModelBuilder<CityModel> {
     public override void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<CityModel> builder) {
       base.Configure(builder);
 

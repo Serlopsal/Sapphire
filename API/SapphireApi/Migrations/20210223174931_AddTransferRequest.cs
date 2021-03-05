@@ -26,8 +26,8 @@ namespace SapphireApi.Migrations
                     reference = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     comment = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     serieId = table.Column<int>(type: "int", nullable: false),
-                    fromWhsId = table.Column<int>(type: "int", nullable: false),
-                    toWhsId = table.Column<int>(type: "int", nullable: false)
+                    fromWhsCode = table.Column<string>(type: "nvarchar(8)", nullable: false),
+                    toWhsCode = table.Column<string>(type: "nvarchar(8)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,17 +53,17 @@ namespace SapphireApi.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_OWTQ_OWHS_fromWhsId",
-                        column: x => x.fromWhsId,
+                        column: x => x.fromWhsCode,
                         principalSchema: "INV",
                         principalTable: "OWHS",
-                        principalColumn: "id",
+                        principalColumn: "whsCode",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_OWTQ_OWHS_toWhsId",
-                        column: x => x.toWhsId,
+                        column: x => x.toWhsCode,
                         principalSchema: "INV",
                         principalTable: "OWHS",
-                        principalColumn: "id",
+                        principalColumn: "whsCode",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -80,7 +80,7 @@ namespace SapphireApi.Migrations
                     updatedBy = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     docDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     isClosed = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    itemCode = table.Column<int>(type: "int", nullable: false),
+                    itemCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     quantity = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
@@ -103,7 +103,7 @@ namespace SapphireApi.Migrations
                         column: x => x.itemCode,
                         principalSchema: "INV",
                         principalTable: "OITM",
-                        principalColumn: "id",
+                        principalColumn: "itemCode",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_WTQ1_OWTQ_docId",
@@ -121,10 +121,10 @@ namespace SapphireApi.Migrations
                 column: "createdBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OWTQ_fromWhsId",
+                name: "IX_OWTQ_fromWhsCode",
                 schema: "INV",
                 table: "OWTQ",
-                column: "fromWhsId");
+                column: "fromWhsCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OWTQ_serieId",
@@ -133,10 +133,10 @@ namespace SapphireApi.Migrations
                 column: "serieId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OWTQ_toWhsId",
+                name: "IX_OWTQ_toWhsCode",
                 schema: "INV",
                 table: "OWTQ",
-                column: "toWhsId");
+                column: "toWhsCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OWTQ_updatedBy",

@@ -4,7 +4,7 @@ using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Shared.Normalize;
 
 namespace SapphireApi.Data.Inventory.Manufacters {
-  public partial class ManufacterModelBuilder : AuditableModelBuilder<ManufacterModel> {
+  public partial class ManufacterModelBuilder : IdentificableModelBuilder<ManufacterModel> {
     public override void Configure(EntityTypeBuilder<ManufacterModel> builder) {
       base.Configure(builder);
 

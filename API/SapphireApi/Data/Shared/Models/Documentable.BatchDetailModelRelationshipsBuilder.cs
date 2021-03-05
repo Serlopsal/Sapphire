@@ -14,13 +14,19 @@ namespace SapphireApi.Data.Shared.Models {
       builder
         .HasOne(model => model.batch)
         .WithMany()
-        .HasForeignKey(model => model.batchId)
+        .HasForeignKey(model => new { model.itemCode, model.batchNum })
         .OnDelete(DeleteBehavior.Restrict);
 
       builder
         .HasOne(model => model.item)
         .WithMany()
         .HasForeignKey(model => model.itemCode)
+        .OnDelete(DeleteBehavior.Restrict);
+
+      builder
+        .HasOne(PK => PK.master)
+        .WithMany()
+        .HasForeignKey(PK => new{PK.masterId, PK.masterLine})
         .OnDelete(DeleteBehavior.Restrict);
     }
   }

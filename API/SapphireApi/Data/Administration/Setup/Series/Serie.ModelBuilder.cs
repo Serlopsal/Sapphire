@@ -4,7 +4,7 @@ using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Shared.Normalize;
 
 namespace SapphireApi.Data.Adminsitration.Setup.Series{
-  public class SerieModelBuilder: AuditableModelBuilder<SerieModel>{
+  public class SerieModelBuilder: IdentificableModelBuilder<SerieModel>{
     public override void Configure(EntityTypeBuilder<SerieModel> builder)
     {
       base.Configure(builder);

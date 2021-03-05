@@ -3,6 +3,7 @@ using SapphireApi.Data.Adminsitration.Setup.UOM;
 using SapphireApi.Data.Inventory.Batches;
 using SapphireApi.Data.Inventory.ItemsGroup;
 using SapphireApi.Data.Inventory.Manufacters;
+using SapphireApi.Data.Inventory.Transactions.Batch;
 using SapphireApi.Data.Shared.Models;
 
 namespace SapphireApi.Data.Inventory.Items{

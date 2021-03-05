@@ -180,9 +180,7 @@ namespace SapphireApi.Migrations
                 schema: "INV",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    itemCode = table.Column<int>(type: "int", nullable: false),
+                    itemCode = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     batchNum = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     mnfSerial = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     expDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -196,7 +194,7 @@ namespace SapphireApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OBTN", x => x.id);
+                    table.PrimaryKey("PK_OBTN", x => new { x.itemCode, x.batchNum });
                     table.ForeignKey(
                         name: "FK_OBTN_AspNetUsers_createdBy",
                         column: x => x.createdBy,
@@ -214,7 +212,7 @@ namespace SapphireApi.Migrations
                         column: x => x.itemCode,
                         principalSchema: "INV",
                         principalTable: "OITM",
-                        principalColumn: "id",
+                        principalColumn: "itemCode",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -223,12 +221,6 @@ namespace SapphireApi.Migrations
                 schema: "INV",
                 table: "OBTN",
                 column: "createdBy");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OBTN_itemCode",
-                schema: "INV",
-                table: "OBTN",
-                column: "itemCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OBTN_updatedBy",

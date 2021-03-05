@@ -2,15 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace SapphireApi.Data.Shared.Models {
-  public class DocumentableDetailsModelBuilder<TEntity, DetailOf>: AuditableModelBuilder<TEntity> 
+  public abstract class DocumentableDetailsModelBuilder<TEntity, DetailOf>: AuditableModelBuilder<TEntity> 
   where DetailOf: DocumentableModel 
   where TEntity: DocumentableDetailsModel<DetailOf> {
     public override void Configure(EntityTypeBuilder<TEntity> builder) {
-      // Avoid Configure Key
-      base.ConfigureWithoutBase(builder);
-      // Configure relationships of base
-      IdentificableModelRelationshipsBuilder<TEntity>.BuildRelationships(builder);
-
+      base.Configure(builder);
+      
       // Configuring Key [START]
       builder
         .HasKey(
@@ -43,7 +40,7 @@ namespace SapphireApi.Data.Shared.Models {
 
       builder
         .Property(model => model.itemCode)
-        .IsRequired();
+        .IsLongCode();
 
       builder
         .Property(model => model.quantity)

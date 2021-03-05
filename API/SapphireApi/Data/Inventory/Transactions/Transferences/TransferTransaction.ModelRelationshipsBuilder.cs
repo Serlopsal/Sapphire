@@ -9,13 +9,13 @@ namespace SapphireApi.Data.Inventory.Transactions.Transferences {
       builder
         .HasOne(PK => PK.fromWhs)
         .WithMany()
-        .HasForeignKey(PK => PK.fromWhsId)
+        .HasForeignKey(PK => PK.fromWhsCode)
         .OnDelete(DeleteBehavior.Restrict);
 
       builder
         .HasOne(PK => PK.toWhs)
         .WithMany()
-        .HasForeignKey(PK => PK.toWhsId)
+        .HasForeignKey(PK => PK.toWhsCode)
         .OnDelete(DeleteBehavior.Restrict);
     }
   }

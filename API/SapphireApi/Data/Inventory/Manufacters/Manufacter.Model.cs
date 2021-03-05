@@ -3,7 +3,7 @@ using SapphireApi.Data.Inventory.Items;
 using SapphireApi.Data.Shared.Models;
 
 namespace SapphireApi.Data.Inventory.Manufacters {
-  public class ManufacterModel: AuditableModel {
+  public class ManufacterModel: IdentificableModel {
     public ManufacterModel() {
       items = new HashSet<ItemModel>();
     }

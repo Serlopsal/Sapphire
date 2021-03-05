@@ -25,6 +25,7 @@ using SapphireApi.Data.Adminsitration.Locations.Cities;
 using SapphireApi.Data.Inventory.Warehouses;
 using SapphireApi.Data.Inventory.Transactions.Transferences.Request;
 using SapphireApi.Data.Inventory.Transactions.Transferences.Documents;
+using SapphireApi.Data.Inventory.Transactions.Batch;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -47,6 +48,8 @@ namespace SapphireApi.Data{
     public DbSet<UOMConverterModel> UOMConverter { get; set; }
 
     // SCHEMA [INV]
+    public DbSet<BatchTransactionModel> BatchTransactions { get; set; }
+    public DbSet<BatchTransactionDetailModel> BatchTransactionDetails { get; set; }
     public DbSet<WarehouseModel> Warehouse { get; set; }
     public DbSet<ManufacterModel> Manufacter { get; set; }
     public DbSet<ItemsGroupModel> ItemsGroup { get; set; }
@@ -57,6 +60,7 @@ namespace SapphireApi.Data{
     public DbSet<ReceiptDetailsModel> ItemsReceiptDetails { get; set; }
     public DbSet<DispatchModel> ItemDispatches { get; set; }
     public DbSet<DispatchDetailsModel> ItemDispatchDetails { get; set; }
+    public DbSet<DispatchBatchDetailModel> ItemDispatchBatchDetail { get; set; }
     public DbSet<TransferRequestModel> TrasnferRequest { get; set; }
     public DbSet<TransferRequestDetailsModel> TrasnferRequestDetails { get; set; }
     public DbSet<TransferenceModel> Transference { get; set; }
@@ -77,6 +81,8 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new UOMModelBuilder());
       builder.ApplyConfiguration(new UOMConverterModelBuilder());
       // SCHEMA [INV]
+      builder.ApplyConfiguration(new BatchTransactionModelBuilder());
+      builder.ApplyConfiguration(new BatchTransactionDetailModelBuilder());
       builder.ApplyConfiguration(new WarehouseModelBuilder());
       builder.ApplyConfiguration(new ManufacterModelBuilder());
       builder.ApplyConfiguration(new ItemsGroupModelBuilder());
@@ -87,6 +93,7 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new ReceiptDetailsModelBuilder());
       builder.ApplyConfiguration(new DispatchModelBuilder());
       builder.ApplyConfiguration(new DispatchDetailsModelBuilder());
+      builder.ApplyConfiguration(new DispatchBatchDetailModelBuilder());
       builder.ApplyConfiguration(new TransferRequestModelBuilder());
       builder.ApplyConfiguration(new TransferRequestDetailsModelBuilder());
       builder.ApplyConfiguration(new TransferenceModelBuilder());
@@ -134,12 +141,36 @@ namespace SapphireApi.Data{
         .HasForeignKey<ObjectModel>(PK => PK.defaultSerieId)
         .OnDelete(DeleteBehavior.Restrict);
 
+      // 1 Object => * Batch Transactions
+      builder
+        .Entity<BatchTransactionModel>()
+        .HasOne(PK => PK.masterObjType)
+        .WithMany(FK => FK.batchTransactions)
+        .HasForeignKey(PK => PK.masterObjTypeId)
+        .OnDelete(DeleteBehavior.Restrict);
+
       // 1 Object => * Series
       builder
         .Entity<SerieModel>()
         .HasOne(PK => PK.obj)
         .WithMany(FK => FK.series)
         .HasForeignKey(PK => PK.objType)
+        .OnDelete(DeleteBehavior.Restrict);
+
+      // 1 Serie => * Batch Transactions
+      builder
+        .Entity<BatchTransactionModel>()
+        .HasOne(PK => PK.masterSerie)
+        .WithMany(FK => FK.batchTransactions)
+        .HasForeignKey(PK => PK.masterSerieId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+      // 1 Batch Transaction => * Batch Transaction Details
+      builder
+        .Entity<BatchTransactionDetailModel>()
+        .HasOne(PK => PK.batchTransaction)
+        .WithMany(FK => FK.details)
+        .HasForeignKey(PK => new { PK.masterObjTypeId, PK.masterId })
         .OnDelete(DeleteBehavior.Restrict);
 
       // 1 Country => * Company
@@ -238,6 +269,14 @@ namespace SapphireApi.Data{
           .HasForeignKey(PK => PK.itemCode)
           .OnDelete(DeleteBehavior.Restrict);
 
+        // 1 Batch => * Batch Transaction Details
+        builder
+          .Entity<BatchTransactionDetailModel>()
+          .HasOne(PK => PK.batch)
+          .WithMany(FK => FK.batchTransactionDetails)
+          .HasForeignKey(PK => new { PK.itemCode, PK.batchId })
+          .OnDelete(DeleteBehavior.Restrict);
+        
       // Seeding
       // ONLY FIRST
       // new IdentitySeed(builder);

@@ -2,7 +2,7 @@ using System;
 using SapphireApi.Data.Adminsitration.Setup.Series;
 
 namespace SapphireApi.Data.Shared.Models {
-  public abstract class DocumentableModel: AuditableModel, ICalendarizable, ICancelable, IPrintable, IClosable, INumerable, ICommentable, IReferenceable {
+  public abstract class DocumentableModel: IdentificableModel, ICalendarizable, ICancelable, IPrintable, IClosable, INumerable, ICommentable, IReferenceable {
     public DateTime docDate { get; set; }
     public bool isCanceled { get; set; }
     public bool isPrinted { get; set; }

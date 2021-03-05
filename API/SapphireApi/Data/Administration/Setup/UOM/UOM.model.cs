@@ -4,7 +4,7 @@ using SapphireApi.Data.Inventory.Items;
 using SapphireApi.Data.Shared.Models;
 
 namespace SapphireApi.Data.Adminsitration.Setup.UOM {
-  public class UOMModel: AuditableModel {
+  public class UOMModel: IdentificableModel {
     public UOMModel() {
       uomConverter_from = new HashSet<UOMConverterModel>();
       uomConverter_to = new HashSet<UOMConverterModel>();

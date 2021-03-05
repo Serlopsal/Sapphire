@@ -8,6 +8,16 @@ namespace SapphireApi.Data.Inventory.Batches {
     public override void Configure(EntityTypeBuilder<BatchModel> builder)
     {
       base.Configure(builder);
+      
+      // Configuring Key [START]
+      builder
+        .HasKey(
+          PK => new {
+            PK.itemCode,
+            PK.batchNum
+          }
+        );
+      // Configuring Key [END]
 
       builder.ToTable(Tables.BATCH, Schemas.INV);
 
