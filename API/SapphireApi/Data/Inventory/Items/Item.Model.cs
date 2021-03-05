@@ -10,7 +10,6 @@ namespace SapphireApi.Data.Inventory.Items{
   public class ItemModel: AuditableModel{
     public ItemModel() {
       batches = new HashSet<BatchModel>();
-      // batchTransactionDetails = new HashSet<BatchTransactionDetailModel>();
     }
     public string itemCode { get; set; }
     public string itemName { get; set; }
@@ -31,6 +30,5 @@ namespace SapphireApi.Data.Inventory.Items{
     public virtual UOMModel sellUOM { get; set; }
     public virtual UOMModel inventoryUOM { get; set; }
     public virtual ICollection<BatchModel> batches { get; set; }
-    // public virtual ICollection<BatchTransactionDetailModel> batchTransactionDetails { get; set; }
   }
 }
