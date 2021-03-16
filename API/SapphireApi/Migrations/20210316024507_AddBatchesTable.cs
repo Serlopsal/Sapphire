@@ -3,19 +3,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SapphireApi.Migrations
 {
-    public partial class AddUomTable : Migration
+    public partial class AddBatchesTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "OUOM",
-                schema: "ADM",
+                name: "OBTN",
+                schema: "INV",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
-                    uomType = table.Column<int>(type: "int", nullable: false),
+                    itemCode = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    batchNum = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    mnfSerial = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    expDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    inDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    mnfDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    qty = table.Column<float>(type: "real", nullable: false),
                     objType = table.Column<int>(type: "int", nullable: false),
                     createdAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     createdBy = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
@@ -24,21 +27,28 @@ namespace SapphireApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OUOM", x => x.id);
+                    table.PrimaryKey("PK_OBTN", x => new { x.itemCode, x.batchNum });
                     table.ForeignKey(
-                        name: "FK_OUOM_AspNetUsers_createdBy",
+                        name: "FK_OBTN_AspNetUsers_createdBy",
                         column: x => x.createdBy,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OUOM_AspNetUsers_updatedBy",
+                        name: "FK_OBTN_AspNetUsers_updatedBy",
                         column: x => x.updatedBy,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OUOM_OOBJ_objType",
+                        name: "FK_OBTN_OITM_itemCode",
+                        column: x => x.itemCode,
+                        principalSchema: "INV",
+                        principalTable: "OITM",
+                        principalColumn: "itemCode",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OBTN_OOBJ_objType",
                         column: x => x.objType,
                         principalSchema: "ADM",
                         principalTable: "OOBJ",
@@ -47,29 +57,29 @@ namespace SapphireApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OUOM_createdBy",
-                schema: "ADM",
-                table: "OUOM",
+                name: "IX_OBTN_createdBy",
+                schema: "INV",
+                table: "OBTN",
                 column: "createdBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OUOM_objType",
-                schema: "ADM",
-                table: "OUOM",
+                name: "IX_OBTN_objType",
+                schema: "INV",
+                table: "OBTN",
                 column: "objType");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OUOM_updatedBy",
-                schema: "ADM",
-                table: "OUOM",
+                name: "IX_OBTN_updatedBy",
+                schema: "INV",
+                table: "OBTN",
                 column: "updatedBy");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OUOM",
-                schema: "ADM");
+                name: "OBTN",
+                schema: "INV");
         }
     }
 }

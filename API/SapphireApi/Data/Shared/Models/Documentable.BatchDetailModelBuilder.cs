@@ -12,8 +12,6 @@ namespace SapphireApi.Data.Shared.Models {
     public override void Configure(EntityTypeBuilder<BuilderOf> builder) {
       base.Configure(builder);
 
-      builder.ToTable(Tables.ITEMS_DISPATCH_BATCH_DETAILS, Schemas.INV);
-
       builder
         .Property(model => model.itemCode)
         .IsLongCode();

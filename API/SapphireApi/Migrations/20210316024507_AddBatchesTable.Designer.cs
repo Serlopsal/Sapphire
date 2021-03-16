@@ -10,8 +10,8 @@ using SapphireApi.Data;
 namespace SapphireApi.Migrations
 {
     [DbContext(typeof(Sapphire_Context))]
-    [Migration("20210209210747_Signing")]
-    partial class Signing
+    [Migration("20210316024507_AddBatchesTable")]
+    partial class AddBatchesTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -152,7 +152,58 @@ namespace SapphireApi.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Country.CountryModel", b =>
+            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Locations.Cities.CityModel", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("countryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("createdAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("createdBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<int>("objType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("updatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("updatedBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("countryId");
+
+                    b.HasIndex("createdBy");
+
+                    b.HasIndex("objType");
+
+                    b.HasIndex("updatedBy");
+
+                    b.ToTable("OCST", "ADM");
+                });
+
+            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Locations.Country.CountryModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -165,6 +216,8 @@ namespace SapphireApi.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("createdBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("key")
@@ -177,21 +230,156 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("nvarchar(120)");
 
+                    b.Property<int>("objType")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("updatedBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("id");
 
                     b.HasIndex("createdBy");
 
+                    b.HasIndex("key")
+                        .IsUnique();
+
+                    b.HasIndex("name")
+                        .IsUnique();
+
+                    b.HasIndex("objType");
+
                     b.HasIndex("updatedBy");
 
                     b.ToTable("OCRY", "ADM");
+                });
+
+            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("code")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
+
+                    b.Property<DateTime>("createdAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("createdBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("defaultSerieId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("docPrefix")
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
+
+                    b.Property<int>("objType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("updatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("updatedBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("createdBy");
+
+                    b.HasIndex("defaultSerieId")
+                        .IsUnique()
+                        .HasFilter("[defaultSerieId] IS NOT NULL");
+
+                    b.HasIndex("objType");
+
+                    b.HasIndex("updatedBy");
+
+                    b.ToTable("OOBJ", "ADM");
+                });
+
+            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Setup.Series.SerieModel", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("createdAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("createdBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("firstNumber")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isClosed")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int?>("lastNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("nextNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("objType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("seriesName")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<DateTime>("updatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("updatedBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("createdBy");
+
+                    b.HasIndex("objType");
+
+                    b.HasIndex("updatedBy");
+
+                    b.ToTable("ONNM", "ADM");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.Setup.UOM.Converter.UOMConverterModel", b =>
@@ -207,9 +395,14 @@ namespace SapphireApi.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("createdBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("fromOneId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("objType")
                         .HasColumnType("int");
 
                     b.Property<float>("rate")
@@ -224,6 +417,8 @@ namespace SapphireApi.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("updatedBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("id");
@@ -231,6 +426,8 @@ namespace SapphireApi.Migrations
                     b.HasIndex("createdBy");
 
                     b.HasIndex("fromOneId");
+
+                    b.HasIndex("objType");
 
                     b.HasIndex("toManyId");
 
@@ -252,12 +449,17 @@ namespace SapphireApi.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("createdBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("name")
                         .IsRequired()
                         .HasMaxLength(120)
                         .HasColumnType("nvarchar(120)");
+
+                    b.Property<int>("objType")
+                        .HasColumnType("int");
 
                     b.Property<int>("uomType")
                         .HasColumnType("int");
@@ -268,11 +470,15 @@ namespace SapphireApi.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("updatedBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("id");
 
                     b.HasIndex("createdBy");
+
+                    b.HasIndex("objType");
 
                     b.HasIndex("updatedBy");
 
@@ -308,12 +514,17 @@ namespace SapphireApi.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("createdBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("mainCur")
                         .IsRequired()
                         .HasMaxLength(3)
                         .HasColumnType("nvarchar(3)");
+
+                    b.Property<int>("objType")
+                        .HasColumnType("int");
 
                     b.Property<string>("phone1")
                         .HasMaxLength(8)
@@ -334,6 +545,8 @@ namespace SapphireApi.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("updatedBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("webPage")
@@ -349,6 +562,8 @@ namespace SapphireApi.Migrations
                     b.HasIndex("countryId");
 
                     b.HasIndex("createdBy");
+
+                    b.HasIndex("objType");
 
                     b.HasIndex("updatedBy");
 
@@ -431,8 +646,72 @@ namespace SapphireApi.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("SapphireApi.Data.Inventory.Batches.BatchModel", b =>
+                {
+                    b.Property<string>("itemCode")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("batchNum")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("createdAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("createdBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("expDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("inDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("mnfDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("mnfSerial")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("objType")
+                        .HasColumnType("int");
+
+                    b.Property<float>("qty")
+                        .HasColumnType("real");
+
+                    b.Property<DateTime>("updatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("updatedBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("itemCode", "batchNum");
+
+                    b.HasIndex("createdBy");
+
+                    b.HasIndex("objType");
+
+                    b.HasIndex("updatedBy");
+
+                    b.ToTable("OBTN", "INV");
+                });
+
             modelBuilder.Entity("SapphireApi.Data.Inventory.Items.ItemModel", b =>
                 {
+                    b.Property<string>("itemCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("barCode")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -443,6 +722,8 @@ namespace SapphireApi.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("createdBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("inventoryItem")
@@ -450,11 +731,6 @@ namespace SapphireApi.Migrations
 
                     b.Property<int>("inventoryUomId")
                         .HasColumnType("int");
-
-                    b.Property<string>("itemCode")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("itemName")
                         .IsRequired()
@@ -471,6 +747,9 @@ namespace SapphireApi.Migrations
                         .HasColumnType("real");
 
                     b.Property<int?>("mrcCode")
+                        .HasColumnType("int");
+
+                    b.Property<int>("objType")
                         .HasColumnType("int");
 
                     b.Property<bool>("purchaseItem")
@@ -491,6 +770,8 @@ namespace SapphireApi.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("updatedBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("itemCode");
@@ -502,6 +783,8 @@ namespace SapphireApi.Migrations
                     b.HasIndex("itemsGroupId");
 
                     b.HasIndex("mrcCode");
+
+                    b.HasIndex("objType");
 
                     b.HasIndex("purchaseUomId");
 
@@ -525,6 +808,8 @@ namespace SapphireApi.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("createdBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("itmsGrpNam")
@@ -532,17 +817,24 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("nvarchar(120)");
 
+                    b.Property<int>("objType")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("updatedBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("id");
 
                     b.HasIndex("createdBy");
+
+                    b.HasIndex("objType");
 
                     b.HasIndex("updatedBy");
 
@@ -562,6 +854,8 @@ namespace SapphireApi.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("createdBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("firmName")
@@ -569,21 +863,83 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("nvarchar(120)");
 
+                    b.Property<int>("objType")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("updatedBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("id");
 
                     b.HasIndex("createdBy");
 
+                    b.HasIndex("objType");
+
                     b.HasIndex("updatedBy");
 
                     b.ToTable("OMRC", "INV");
+                });
+
+            modelBuilder.Entity("SapphireApi.Data.Inventory.Warehouses.WarehouseModel", b =>
+                {
+                    b.Property<string>("whsCode")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<string>("address")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("cityId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("createdAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("createdBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("objType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("updatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("updatedBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("whsName")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.HasKey("whsCode");
+
+                    b.HasIndex("cityId");
+
+                    b.HasIndex("createdBy");
+
+                    b.HasIndex("objType");
+
+                    b.HasIndex("updatedBy");
+
+                    b.ToTable("OWHS", "INV");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -637,19 +993,125 @@ namespace SapphireApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Country.CountryModel", b =>
+            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Locations.Cities.CityModel", b =>
                 {
+                    b.HasOne("SapphireApi.Data.Adminsitration.Locations.Country.CountryModel", "country")
+                        .WithMany("cities")
+                        .HasForeignKey("countryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
                         .WithMany()
                         .HasForeignKey("createdBy")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
+                        .WithMany()
+                        .HasForeignKey("objType")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
                         .WithMany()
                         .HasForeignKey("updatedBy")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("country");
 
                     b.Navigation("creatorUsr");
+
+                    b.Navigation("obj");
+
+                    b.Navigation("updaterUsr");
+                });
+
+            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Locations.Country.CountryModel", b =>
+                {
+                    b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
+                        .WithMany()
+                        .HasForeignKey("createdBy")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
+                        .WithMany()
+                        .HasForeignKey("objType")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
+                        .WithMany()
+                        .HasForeignKey("updatedBy")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("creatorUsr");
+
+                    b.Navigation("obj");
+
+                    b.Navigation("updaterUsr");
+                });
+
+            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", b =>
+                {
+                    b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
+                        .WithMany()
+                        .HasForeignKey("createdBy")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Series.SerieModel", "deafultSerie")
+                        .WithOne("objects")
+                        .HasForeignKey("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "defaultSerieId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
+                        .WithMany()
+                        .HasForeignKey("objType")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
+                        .WithMany()
+                        .HasForeignKey("updatedBy")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("creatorUsr");
+
+                    b.Navigation("deafultSerie");
+
+                    b.Navigation("obj");
+
+                    b.Navigation("updaterUsr");
+                });
+
+            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Setup.Series.SerieModel", b =>
+                {
+                    b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
+                        .WithMany()
+                        .HasForeignKey("createdBy")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
+                        .WithMany("series")
+                        .HasForeignKey("objType")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
+                        .WithMany()
+                        .HasForeignKey("updatedBy")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("creatorUsr");
+
+                    b.Navigation("obj");
 
                     b.Navigation("updaterUsr");
                 });
@@ -659,11 +1121,18 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
                         .WithMany()
                         .HasForeignKey("createdBy")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Adminsitration.Setup.UOM.UOMModel", "fromOne")
                         .WithMany("uomConverter_from")
                         .HasForeignKey("fromOneId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
+                        .WithMany()
+                        .HasForeignKey("objType")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -676,11 +1145,14 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
                         .WithMany()
                         .HasForeignKey("updatedBy")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("creatorUsr");
 
                     b.Navigation("fromOne");
+
+                    b.Navigation("obj");
 
                     b.Navigation("toMany");
 
@@ -692,21 +1164,31 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
                         .WithMany()
                         .HasForeignKey("createdBy")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
+                        .WithMany()
+                        .HasForeignKey("objType")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
                         .WithMany()
                         .HasForeignKey("updatedBy")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("creatorUsr");
+
+                    b.Navigation("obj");
 
                     b.Navigation("updaterUsr");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.SystemInitialization.Company.CompanyModel", b =>
                 {
-                    b.HasOne("SapphireApi.Data.Adminsitration.Country.CountryModel", "country")
+                    b.HasOne("SapphireApi.Data.Adminsitration.Locations.Country.CountryModel", "country")
                         .WithMany("company")
                         .HasForeignKey("countryId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -715,16 +1197,26 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
                         .WithMany()
                         .HasForeignKey("createdBy")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
+                        .WithMany()
+                        .HasForeignKey("objType")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
                         .WithMany()
                         .HasForeignKey("updatedBy")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("country");
 
                     b.Navigation("creatorUsr");
+
+                    b.Navigation("obj");
 
                     b.Navigation("updaterUsr");
                 });
@@ -739,12 +1231,48 @@ namespace SapphireApi.Migrations
                     b.Navigation("company");
                 });
 
+            modelBuilder.Entity("SapphireApi.Data.Inventory.Batches.BatchModel", b =>
+                {
+                    b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
+                        .WithMany()
+                        .HasForeignKey("createdBy")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Inventory.Items.ItemModel", "item")
+                        .WithMany("batches")
+                        .HasForeignKey("itemCode")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
+                        .WithMany()
+                        .HasForeignKey("objType")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
+                        .WithMany()
+                        .HasForeignKey("updatedBy")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("creatorUsr");
+
+                    b.Navigation("item");
+
+                    b.Navigation("obj");
+
+                    b.Navigation("updaterUsr");
+                });
+
             modelBuilder.Entity("SapphireApi.Data.Inventory.Items.ItemModel", b =>
                 {
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
                         .WithMany()
                         .HasForeignKey("createdBy")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Adminsitration.Setup.UOM.UOMModel", "inventoryUOM")
                         .WithMany("invItm")
@@ -763,6 +1291,12 @@ namespace SapphireApi.Migrations
                         .HasForeignKey("mrcCode")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
+                        .WithMany()
+                        .HasForeignKey("objType")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("SapphireApi.Data.Adminsitration.Setup.UOM.UOMModel", "purchaseUOM")
                         .WithMany("purItm")
                         .HasForeignKey("purchaseUomId")
@@ -778,7 +1312,8 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
                         .WithMany()
                         .HasForeignKey("updatedBy")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("creatorUsr");
 
@@ -787,6 +1322,8 @@ namespace SapphireApi.Migrations
                     b.Navigation("itemsGroup");
 
                     b.Navigation("manufacter");
+
+                    b.Navigation("obj");
 
                     b.Navigation("purchaseUOM");
 
@@ -800,14 +1337,24 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
                         .WithMany()
                         .HasForeignKey("createdBy")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
+                        .WithMany()
+                        .HasForeignKey("objType")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
                         .WithMany()
                         .HasForeignKey("updatedBy")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("creatorUsr");
+
+                    b.Navigation("obj");
 
                     b.Navigation("updaterUsr");
                 });
@@ -817,21 +1364,83 @@ namespace SapphireApi.Migrations
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
                         .WithMany()
                         .HasForeignKey("createdBy")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
+                        .WithMany()
+                        .HasForeignKey("objType")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
                         .WithMany()
                         .HasForeignKey("updatedBy")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("creatorUsr");
+
+                    b.Navigation("obj");
 
                     b.Navigation("updaterUsr");
                 });
 
-            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Country.CountryModel", b =>
+            modelBuilder.Entity("SapphireApi.Data.Inventory.Warehouses.WarehouseModel", b =>
                 {
+                    b.HasOne("SapphireApi.Data.Adminsitration.Locations.Cities.CityModel", "city")
+                        .WithMany("warehouses")
+                        .HasForeignKey("cityId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
+                        .WithMany()
+                        .HasForeignKey("createdBy")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
+                        .WithMany()
+                        .HasForeignKey("objType")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
+                        .WithMany()
+                        .HasForeignKey("updatedBy")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("city");
+
+                    b.Navigation("creatorUsr");
+
+                    b.Navigation("obj");
+
+                    b.Navigation("updaterUsr");
+                });
+
+            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Locations.Cities.CityModel", b =>
+                {
+                    b.Navigation("warehouses");
+                });
+
+            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Locations.Country.CountryModel", b =>
+                {
+                    b.Navigation("cities");
+
                     b.Navigation("company");
+                });
+
+            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", b =>
+                {
+                    b.Navigation("series");
+                });
+
+            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Setup.Series.SerieModel", b =>
+                {
+                    b.Navigation("objects");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.Setup.UOM.UOMModel", b =>
@@ -850,6 +1459,11 @@ namespace SapphireApi.Migrations
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.SystemInitialization.Company.CompanyModel", b =>
                 {
                     b.Navigation("users");
+                });
+
+            modelBuilder.Entity("SapphireApi.Data.Inventory.Items.ItemModel", b =>
+                {
+                    b.Navigation("batches");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.ItemsGroup.ItemsGroupModel", b =>

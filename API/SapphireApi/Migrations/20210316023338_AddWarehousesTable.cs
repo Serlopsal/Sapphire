@@ -3,10 +3,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SapphireApi.Migrations
 {
-    public partial class AddWarehouses : Migration
+    public partial class AddWarehousesTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "INV");
+
             migrationBuilder.CreateTable(
                 name: "OWHS",
                 schema: "INV",
@@ -16,6 +19,7 @@ namespace SapphireApi.Migrations
                     whsName = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
                     cityId = table.Column<int>(type: "int", nullable: false),
                     address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    objType = table.Column<int>(type: "int", nullable: false),
                     createdAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     createdBy = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     updatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
@@ -43,6 +47,13 @@ namespace SapphireApi.Migrations
                         principalTable: "OCST",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OWHS_OOBJ_objType",
+                        column: x => x.objType,
+                        principalSchema: "ADM",
+                        principalTable: "OOBJ",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -56,6 +67,12 @@ namespace SapphireApi.Migrations
                 schema: "INV",
                 table: "OWHS",
                 column: "createdBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OWHS_objType",
+                schema: "INV",
+                table: "OWHS",
+                column: "objType");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OWHS_updatedBy",

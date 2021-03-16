@@ -10,8 +10,8 @@ using SapphireApi.Data;
 namespace SapphireApi.Migrations
 {
     [DbContext(typeof(Sapphire_Context))]
-    [Migration("20210127215520_FK_AspNetUsers_COMPANY")]
-    partial class FK_AspNetUsers_COMPANY
+    [Migration("20210125211920_AddObjectsTable")]
+    partial class AddObjectsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -152,102 +152,62 @@ namespace SapphireApi.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Country.CountryModel", b =>
+            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
+
+                    b.Property<string>("code")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<string>("key")
+                    b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                    b.Property<int?>("defaultSerieId")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("updatedAt")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.HasKey("id");
-
-                    b.ToTable("OCRY", "ADM");
-                });
-
-            modelBuilder.Entity("SapphireApi.Data.Adminsitration.SystemInitialization.Company.CompanyModel", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("city")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("companyAddress")
+                    b.Property<string>("description")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("companyName")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                    b.Property<string>("docPrefix")
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
 
-                    b.Property<int>("countryId")
+                    b.Property<int>("objType")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("createdAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("mainCur")
-                        .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
-
-                    b.Property<string>("phone1")
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
-
-                    b.Property<string>("phone2")
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
-
-                    b.Property<string>("sysCur")
-                        .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<string>("webPage")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("zipCode")
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
+                    b.Property<string>("updatedBy")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("id");
 
-                    b.HasIndex("countryId");
+                    b.HasIndex("createdBy");
 
-                    b.ToTable("OADM", "ADM");
+                    b.HasIndex("objType");
+
+                    b.HasIndex("updatedBy");
+
+                    b.ToTable("OOBJ", "ADM");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Identity.UserModel", b =>
@@ -302,9 +262,6 @@ namespace SapphireApi.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int?>("companyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("fullName")
                         .IsRequired()
                         .HasMaxLength(120)
@@ -320,8 +277,6 @@ namespace SapphireApi.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("companyId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -377,35 +332,31 @@ namespace SapphireApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SapphireApi.Data.Adminsitration.SystemInitialization.Company.CompanyModel", b =>
+            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", b =>
                 {
-                    b.HasOne("SapphireApi.Data.Adminsitration.Country.CountryModel", "country")
-                        .WithMany("company")
-                        .HasForeignKey("countryId")
+                    b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
+                        .WithMany()
+                        .HasForeignKey("createdBy")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("country");
-                });
+                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
+                        .WithMany()
+                        .HasForeignKey("objType")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-            modelBuilder.Entity("SapphireApi.Data.Identity.UserModel", b =>
-                {
-                    b.HasOne("SapphireApi.Data.Adminsitration.SystemInitialization.Company.CompanyModel", "company")
-                        .WithMany("users")
-                        .HasForeignKey("companyId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
+                        .WithMany()
+                        .HasForeignKey("updatedBy")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.Navigation("company");
-                });
+                    b.Navigation("creatorUsr");
 
-            modelBuilder.Entity("SapphireApi.Data.Adminsitration.Country.CountryModel", b =>
-                {
-                    b.Navigation("company");
-                });
+                    b.Navigation("obj");
 
-            modelBuilder.Entity("SapphireApi.Data.Adminsitration.SystemInitialization.Company.CompanyModel", b =>
-                {
-                    b.Navigation("users");
+                    b.Navigation("updaterUsr");
                 });
 #pragma warning restore 612, 618
         }

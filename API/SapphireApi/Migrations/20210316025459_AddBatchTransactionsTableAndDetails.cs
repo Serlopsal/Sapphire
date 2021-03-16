@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SapphireApi.Migrations
 {
-    public partial class BatchTransactionsAndDetails : Migration
+    public partial class AddBatchTransactionsTableAndDetails : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

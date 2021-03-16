@@ -3,19 +3,18 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SapphireApi.Migrations
 {
-    public partial class AddUomTable : Migration
+    public partial class AddItemGroupsTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "OUOM",
-                schema: "ADM",
+                name: "OITB",
+                schema: "INV",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
-                    uomType = table.Column<int>(type: "int", nullable: false),
+                    itmsGrpNam = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
                     objType = table.Column<int>(type: "int", nullable: false),
                     createdAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     createdBy = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
@@ -24,21 +23,21 @@ namespace SapphireApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OUOM", x => x.id);
+                    table.PrimaryKey("PK_OITB", x => x.id);
                     table.ForeignKey(
-                        name: "FK_OUOM_AspNetUsers_createdBy",
+                        name: "FK_OITB_AspNetUsers_createdBy",
                         column: x => x.createdBy,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OUOM_AspNetUsers_updatedBy",
+                        name: "FK_OITB_AspNetUsers_updatedBy",
                         column: x => x.updatedBy,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OUOM_OOBJ_objType",
+                        name: "FK_OITB_OOBJ_objType",
                         column: x => x.objType,
                         principalSchema: "ADM",
                         principalTable: "OOBJ",
@@ -47,29 +46,29 @@ namespace SapphireApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OUOM_createdBy",
-                schema: "ADM",
-                table: "OUOM",
+                name: "IX_OITB_createdBy",
+                schema: "INV",
+                table: "OITB",
                 column: "createdBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OUOM_objType",
-                schema: "ADM",
-                table: "OUOM",
+                name: "IX_OITB_objType",
+                schema: "INV",
+                table: "OITB",
                 column: "objType");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OUOM_updatedBy",
-                schema: "ADM",
-                table: "OUOM",
+                name: "IX_OITB_updatedBy",
+                schema: "INV",
+                table: "OITB",
                 column: "updatedBy");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OUOM",
-                schema: "ADM");
+                name: "OITB",
+                schema: "INV");
         }
     }
 }
