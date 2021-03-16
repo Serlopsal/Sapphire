@@ -3,3 +3,4 @@ API/SapphireAPI/bin
 API/vol/mssql/
 publish/
 *.vpp.*
+API/SapphireApi/appsettings.DockerMac.json

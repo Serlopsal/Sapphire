@@ -28,7 +28,7 @@ using SapphireApi.Data.Inventory.Transactions.Batch;
 using SapphireApi.Data.Inventory.Transactions.IO.Receipts;
 using SapphireApi.Data.Inventory.Transactions.IO.Dispatches;
 using SapphireApi.Data.Inventory.Transactions.Transferences.Request;
-// using SapphireApi.Data.Inventory.Transactions.Transferences.Documents;
+using SapphireApi.Data.Inventory.Transactions.Transferences.Documents;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -74,9 +74,9 @@ namespace SapphireApi.Data{
     public DbSet<TransferRequestDetailsModel> TrasnferRequestDetails { get; set; }
     public DbSet<TransferRequestBatchDetailsModel> TransferRequestBatchDetail { get; set; }
 
-    // public DbSet<TransferenceModel> Transference { get; set; }
-    // public DbSet<TransferenceDetailsModel> TrasnferenceDetails { get; set; }
-    // public DbSet<TransferenceDetailsModel> TrasnferenceDetails { get; set; }
+    public DbSet<TransferenceModel> Transference { get; set; }
+    public DbSet<TransferenceDetailsModel> TrasnferenceDetails { get; set; }
+    public DbSet<TransferenceBatchDetailsModel> TrasnferencesBatchDetails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
@@ -115,9 +115,11 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new TransferRequestModelBuilder());
       builder.ApplyConfiguration(new TransferRequestDetailsModelBuilder());
       builder.ApplyConfiguration(new TransferRequestBatchDetailsModelBuilder());
+      //    [ITEMS TRANSFERRENCES TRANSACTIONS]
+      builder.ApplyConfiguration(new TransferenceModelBuilder());
+      builder.ApplyConfiguration(new TransferenceDetailsModelBuilder());
+      builder.ApplyConfiguration(new TransferenceBatchDetailsModelBuilder());
 
-      // builder.ApplyConfiguration(new TransferenceModelBuilder());
-      // builder.ApplyConfiguration(new TransferenceDetailsModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP
