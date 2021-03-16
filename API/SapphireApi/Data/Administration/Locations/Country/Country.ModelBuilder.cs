@@ -17,6 +17,14 @@ namespace SapphireApi.Data.Adminsitration.Locations.Country{
       builder
         .Property(model => model.key)
         .IsShortCode();
+
+      builder
+        .HasIndex(model => model.key)
+        .IsUnique();
+
+      builder
+        .HasIndex(model => model.name)
+        .IsUnique();
     }
   }
 }

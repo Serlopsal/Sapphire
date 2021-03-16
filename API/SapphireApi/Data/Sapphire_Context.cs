@@ -1,31 +1,34 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using SapphireApi.Data.Identity;
-using SapphireApi.Data.Adminsitration.Locations.Country;
-using SapphireApi.Data.Adminsitration.SystemInitialization.Company;
-using SapphireApi.Data.Adminsitration.Setup.UOM;
-using SapphireApi.Data.Adminsitration.Setup.UOM.Converter;
-using SapphireApi.Data.Inventory.ItemsGroup;
-using SapphireApi.Data.Inventory.Manufacters;
-using SapphireApi.Data.Inventory.Items;
 using System.Linq;
-using SapphireApi.Data.Shared.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.Threading;
-using SapphireApi.Data.Inventory.Batches;
+
+using SapphireApi.Data.Shared.Models;
+using SapphireApi.Data.Identity;
+
 using SapphireApi.Data.Adminsitration.Setup.Objects;
+using SapphireApi.Data.Adminsitration.Locations.Country;
+using SapphireApi.Data.Adminsitration.Locations.Cities;
+using SapphireApi.Data.Adminsitration.SystemInitialization.Company;
 using SapphireApi.Data.Adminsitration.Setup.Series;
+using SapphireApi.Data.Adminsitration.Setup.UOM;
+using SapphireApi.Data.Adminsitration.Setup.UOM.Converter;
+
+using SapphireApi.Data.Inventory.Warehouses;
+using SapphireApi.Data.Inventory.Manufacters;
+using SapphireApi.Data.Inventory.ItemsGroup;
+using SapphireApi.Data.Inventory.Items;
+using SapphireApi.Data.Inventory.Batches;
 using SapphireApi.Data.Inventory.Transactions.IO.KindOfMovements;
+using SapphireApi.Data.Inventory.Transactions.Batch;
 using SapphireApi.Data.Inventory.Transactions.IO.Receipts;
 using SapphireApi.Data.Inventory.Transactions.IO.Dispatches;
-using SapphireApi.Data.Adminsitration.Locations.Cities;
-using SapphireApi.Data.Inventory.Warehouses;
 using SapphireApi.Data.Inventory.Transactions.Transferences.Request;
-using SapphireApi.Data.Inventory.Transactions.Transferences.Documents;
-using SapphireApi.Data.Inventory.Transactions.Batch;
+// using SapphireApi.Data.Inventory.Transactions.Transferences.Documents;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -40,31 +43,40 @@ namespace SapphireApi.Data{
 
     // SCHEMA [ADM]
     public DbSet<ObjectModel> Objects { get; set; }
-    public DbSet<SerieModel> Series { get; set; }
     public DbSet<CountryModel> Country { get; set; }
     public DbSet<CityModel> City { get; set; }
     public DbSet<CompanyModel> Company { get; set; }
+    public DbSet<SerieModel> Series { get; set; }
     public DbSet<UOMModel> UOM { get; set; }
     public DbSet<UOMConverterModel> UOMConverter { get; set; }
 
     // SCHEMA [INV]
-    public DbSet<BatchTransactionModel> BatchTransactions { get; set; }
-    public DbSet<BatchTransactionDetailModel> BatchTransactionDetails { get; set; }
     public DbSet<WarehouseModel> Warehouse { get; set; }
     public DbSet<ManufacterModel> Manufacter { get; set; }
     public DbSet<ItemsGroupModel> ItemsGroup { get; set; }
     public DbSet<ItemModel> Item { get; set; }
     public DbSet<BatchModel> Batch { get; set; }
     public DbSet<KoMModel> KindOfMovements { get; set; }
+
+    public DbSet<BatchTransactionModel> BatchTransactions { get; set; }
+    public DbSet<BatchTransactionDetailModel> BatchTransactionDetails { get; set; }
+
     public DbSet<ReceiptModel> ItemsReceipts { get; set; }
     public DbSet<ReceiptDetailsModel> ItemsReceiptDetails { get; set; }
+    public DbSet<ReceiptBatchDetailsModel> ItemReceiptBatchDetail { get; set; }
+
     public DbSet<DispatchModel> ItemDispatches { get; set; }
     public DbSet<DispatchDetailsModel> ItemDispatchDetails { get; set; }
-    public DbSet<DispatchBatchDetailModel> ItemDispatchBatchDetail { get; set; }
+    public DbSet<DispatchBatchDetailsModel> ItemDispatchBatchDetail { get; set; }
+
+
     public DbSet<TransferRequestModel> TrasnferRequest { get; set; }
     public DbSet<TransferRequestDetailsModel> TrasnferRequestDetails { get; set; }
-    public DbSet<TransferenceModel> Transference { get; set; }
-    public DbSet<TransferenceDetailsModel> TrasnferenceDetails { get; set; }
+    public DbSet<TransferRequestBatchDetailsModel> TransferRequestBatchDetail { get; set; }
+
+    // public DbSet<TransferenceModel> Transference { get; set; }
+    // public DbSet<TransferenceDetailsModel> TrasnferenceDetails { get; set; }
+    // public DbSet<TransferenceDetailsModel> TrasnferenceDetails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
@@ -74,30 +86,38 @@ namespace SapphireApi.Data{
       // SCHEMA [ADM]
       builder.ApplyConfiguration(new UserModelBuilder());
       builder.ApplyConfiguration(new ObjectModelBuilder());
-      builder.ApplyConfiguration(new SerieModelBuilder());
       builder.ApplyConfiguration(new CountryModelBuilder());
       builder.ApplyConfiguration(new CityModelBuilder());
       builder.ApplyConfiguration(new CompanyModelBuilder());
+      builder.ApplyConfiguration(new SerieModelBuilder());
       builder.ApplyConfiguration(new UOMModelBuilder());
       builder.ApplyConfiguration(new UOMConverterModelBuilder());
       // SCHEMA [INV]
-      builder.ApplyConfiguration(new BatchTransactionModelBuilder());
-      builder.ApplyConfiguration(new BatchTransactionDetailModelBuilder());
       builder.ApplyConfiguration(new WarehouseModelBuilder());
       builder.ApplyConfiguration(new ManufacterModelBuilder());
       builder.ApplyConfiguration(new ItemsGroupModelBuilder());
       builder.ApplyConfiguration(new ItemModelBuilder());
       builder.ApplyConfiguration(new BatchModelBuilder());
       builder.ApplyConfiguration(new KoMModelBuilder());
+      // SCHEMA [INV]-[Transactions]
+      //    [BATCH TRANSACTIONS]
+      builder.ApplyConfiguration(new BatchTransactionModelBuilder());
+      builder.ApplyConfiguration(new BatchTransactionDetailModelBuilder());
+      //    [RECEIPT ITEMS TRANSACTIONS]
       builder.ApplyConfiguration(new ReceiptModelBuilder());
       builder.ApplyConfiguration(new ReceiptDetailsModelBuilder());
+      builder.ApplyConfiguration(new ReceiptBatchDetailsModelBuilder());
+      //    [DISPATCH ITEMS TRANSACTIONS]
       builder.ApplyConfiguration(new DispatchModelBuilder());
       builder.ApplyConfiguration(new DispatchDetailsModelBuilder());
-      builder.ApplyConfiguration(new DispatchBatchDetailModelBuilder());
+      builder.ApplyConfiguration(new DispatchBatchDetailsModelBuilder());
+      //    [ITEMS TRANSFER REQUEST TRANSACTIONS]
       builder.ApplyConfiguration(new TransferRequestModelBuilder());
       builder.ApplyConfiguration(new TransferRequestDetailsModelBuilder());
-      builder.ApplyConfiguration(new TransferenceModelBuilder());
-      builder.ApplyConfiguration(new TransferenceDetailsModelBuilder());
+      builder.ApplyConfiguration(new TransferRequestBatchDetailsModelBuilder());
+
+      // builder.ApplyConfiguration(new TransferenceModelBuilder());
+      // builder.ApplyConfiguration(new TransferenceDetailsModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP
@@ -141,20 +161,20 @@ namespace SapphireApi.Data{
         .HasForeignKey<ObjectModel>(PK => PK.defaultSerieId)
         .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 Object => * Batch Transactions
-      builder
-        .Entity<BatchTransactionModel>()
-        .HasOne(PK => PK.masterObjType)
-        .WithMany(FK => FK.batchTransactions)
-        .HasForeignKey(PK => PK.masterObjTypeId)
-        .OnDelete(DeleteBehavior.Restrict);
-
       // 1 Object => * Series
       builder
         .Entity<SerieModel>()
         .HasOne(PK => PK.obj)
         .WithMany(FK => FK.series)
         .HasForeignKey(PK => PK.objType)
+        .OnDelete(DeleteBehavior.Restrict);
+
+      // 1 Object => * Batch Transactions
+      builder
+        .Entity<BatchTransactionModel>()
+        .HasOne(PK => PK.masterObjType)
+        .WithMany(FK => FK.batchTransactions)
+        .HasForeignKey(PK => PK.masterObjTypeId)
         .OnDelete(DeleteBehavior.Restrict);
 
       // 1 Serie => * Batch Transactions
@@ -237,45 +257,45 @@ namespace SapphireApi.Data{
         .HasForeignKey(PK => PK.mrcCode)
         .OnDelete(DeleteBehavior.Restrict);
 
-        // 1 UOM (Purchase) => * Items
-        builder
-          .Entity<ItemModel>()
-          .HasOne(PK => PK.purchaseUOM)
-          .WithMany(FK => FK.purItm)
-          .HasForeignKey(PK => PK.purchaseUomId)
-          .OnDelete(DeleteBehavior.Restrict);
+      // 1 UOM (Purchase) => * Items
+      builder
+        .Entity<ItemModel>()
+        .HasOne(PK => PK.purchaseUOM)
+        .WithMany(FK => FK.purItm)
+        .HasForeignKey(PK => PK.purchaseUomId)
+        .OnDelete(DeleteBehavior.Restrict);
 
-        // 1 UOM (Sell) => * Items
-        builder
-          .Entity<ItemModel>()
-          .HasOne(PK => PK.sellUOM)
-          .WithMany(FK => FK.sellItm)
-          .HasForeignKey(PK => PK.sellUomId)
-          .OnDelete(DeleteBehavior.Restrict);
+      // 1 UOM (Sell) => * Items
+      builder
+        .Entity<ItemModel>()
+        .HasOne(PK => PK.sellUOM)
+        .WithMany(FK => FK.sellItm)
+        .HasForeignKey(PK => PK.sellUomId)
+        .OnDelete(DeleteBehavior.Restrict);
 
-        // 1 UOM (Inventory) => * Items
-        builder
-          .Entity<ItemModel>()
-          .HasOne(PK => PK.inventoryUOM)
-          .WithMany(FK => FK.invItm)
-          .HasForeignKey(PK => PK.inventoryUomId)
-          .OnDelete(DeleteBehavior.Restrict);
+      // 1 UOM (Inventory) => * Items
+      builder
+        .Entity<ItemModel>()
+        .HasOne(PK => PK.inventoryUOM)
+        .WithMany(FK => FK.invItm)
+        .HasForeignKey(PK => PK.inventoryUomId)
+        .OnDelete(DeleteBehavior.Restrict);
 
-        // 1 UOM (Item) => * Batches
-        builder
-          .Entity<BatchModel>()
-          .HasOne(PK => PK.item)
-          .WithMany(FK => FK.batches)
-          .HasForeignKey(PK => PK.itemCode)
-          .OnDelete(DeleteBehavior.Restrict);
+      // 1 Item => * Batches
+      builder
+        .Entity<BatchModel>()
+        .HasOne(PK => PK.item)
+        .WithMany(FK => FK.batches)
+        .HasForeignKey(PK => PK.itemCode)
+        .OnDelete(DeleteBehavior.Restrict);
 
-        // 1 Batch => * Batch Transaction Details
-        builder
-          .Entity<BatchTransactionDetailModel>()
-          .HasOne(PK => PK.batch)
-          .WithMany(FK => FK.batchTransactionDetails)
-          .HasForeignKey(PK => new { PK.itemCode, PK.batchId })
-          .OnDelete(DeleteBehavior.Restrict);
+      // 1 Batch => * Batch Transaction Details
+      builder
+        .Entity<BatchTransactionDetailModel>()
+        .HasOne(PK => PK.batch)
+        .WithMany(FK => FK.batchTransactionDetails)
+        .HasForeignKey(PK => new { PK.itemCode, PK.batchId })
+        .OnDelete(DeleteBehavior.Restrict);
         
       // Seeding
       // ONLY FIRST
