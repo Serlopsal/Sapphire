@@ -16,6 +16,12 @@ namespace SapphireApi.Data.Shared.Models {
         .WithMany()
         .HasForeignKey(PK => PK.updatedBy)
         .OnDelete(DeleteBehavior.Restrict);
+        
+      builder
+        .HasOne(model => model.obj)
+        .WithMany()
+        .HasForeignKey(model => model.objType)
+        .OnDelete(DeleteBehavior.Restrict);
     }
   }
 }

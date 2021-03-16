@@ -4,7 +4,7 @@ using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Shared.Normalize;
 
 namespace SapphireApi.Data.Adminsitration.Locations.Country{
-  public partial class CountryModelBuilder: AuditableModelBuilder<CountryModel> {
+  public partial class CountryModelBuilder: IdentificableModelBuilder<CountryModel> {
     public override void Configure(EntityTypeBuilder<CountryModel> builder) {
       base.Configure(builder);
 
@@ -17,6 +17,14 @@ namespace SapphireApi.Data.Adminsitration.Locations.Country{
       builder
         .Property(model => model.key)
         .IsShortCode();
+
+      builder
+        .HasIndex(model => model.key)
+        .IsUnique();
+
+      builder
+        .HasIndex(model => model.name)
+        .IsUnique();
     }
   }
 }
