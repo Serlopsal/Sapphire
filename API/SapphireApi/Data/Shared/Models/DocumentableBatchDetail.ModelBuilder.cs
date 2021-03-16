@@ -5,8 +5,8 @@ using SapphireApi.Data.Inventory.Batches;
 using SapphireApi.Data.Shared.Normalize;
 
 namespace SapphireApi.Data.Shared.Models {
-  public abstract class DocumentableBatchDetailModelBuilder<BuilderOf, BatchOf, DetailOf>: IdentificableModelBuilder<BuilderOf> 
-  where BuilderOf: DocumentableBatchDetailModel<BatchOf, DetailOf>
+  public abstract class DocumentableBatchDetailsModelBuilder<BuilderOf, BatchOf, DetailOf>: IdentificableModelBuilder<BuilderOf> 
+  where BuilderOf: DocumentableBatchDetailsModel<BatchOf, DetailOf>
   where BatchOf: DocumentableDetailsModel<DetailOf>
   where DetailOf: DocumentableModel {
     public override void Configure(EntityTypeBuilder<BuilderOf> builder) {

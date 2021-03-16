@@ -9,7 +9,7 @@ using SapphireApi.Data.Shared.Models;
 namespace SapphireApi.Data.Inventory.Transactions.Batch {
   public class BatchTransactionModel: AuditableModel{
     public BatchTransactionModel(){
-      details = new HashSet<BatchTransactionDetailModel>();
+      details = new HashSet<BatchTransactionDetailsModel>();
     }
     public int masterObjTypeId { get; set; }
     public int masterSerieId { get; set; }  
@@ -17,6 +17,6 @@ namespace SapphireApi.Data.Inventory.Transactions.Batch {
     public int masterRef { get; set; } // docNum
     public virtual ObjectModel masterObjType { get; set; }
     public virtual SerieModel masterSerie { get; set; }
-    public virtual ICollection<BatchTransactionDetailModel> details { get; set; }
+    public virtual ICollection<BatchTransactionDetailsModel> details { get; set; }
   }
 }

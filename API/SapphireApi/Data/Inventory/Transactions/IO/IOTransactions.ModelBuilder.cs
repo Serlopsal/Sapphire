@@ -15,7 +15,7 @@ namespace SapphireApi.Data.Inventory.Transactions.IO {
         .Property(model => model.whsCode)
         .IsCode();
 
-      IOTransactionModelRelationShips<TEntity>.BuildRelationships(builder);
+      IOTransactionModelRelationshipsBuilder<TEntity>.BuildRelationships(builder);
     }
   }
 }

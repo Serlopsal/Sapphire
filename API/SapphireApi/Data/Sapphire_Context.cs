@@ -59,7 +59,7 @@ namespace SapphireApi.Data{
     public DbSet<KoMModel> KindOfMovements { get; set; }
 
     public DbSet<BatchTransactionModel> BatchTransactions { get; set; }
-    public DbSet<BatchTransactionDetailModel> BatchTransactionDetails { get; set; }
+    public DbSet<BatchTransactionDetailsModel> BatchTransactionDetails { get; set; }
 
     public DbSet<ReceiptModel> ItemsReceipts { get; set; }
     public DbSet<ReceiptDetailsModel> ItemsReceiptDetails { get; set; }
@@ -102,7 +102,7 @@ namespace SapphireApi.Data{
       // SCHEMA [INV]-[Transactions]
       //    [BATCH TRANSACTIONS]
       builder.ApplyConfiguration(new BatchTransactionModelBuilder());
-      builder.ApplyConfiguration(new BatchTransactionDetailModelBuilder());
+      builder.ApplyConfiguration(new BatchTransactionDetailsModelBuilder());
       //    [RECEIPT ITEMS TRANSACTIONS]
       builder.ApplyConfiguration(new ReceiptModelBuilder());
       builder.ApplyConfiguration(new ReceiptDetailsModelBuilder());
@@ -189,7 +189,7 @@ namespace SapphireApi.Data{
 
       // 1 Batch Transaction => * Batch Transaction Details
       builder
-        .Entity<BatchTransactionDetailModel>()
+        .Entity<BatchTransactionDetailsModel>()
         .HasOne(PK => PK.batchTransaction)
         .WithMany(FK => FK.details)
         .HasForeignKey(PK => new { PK.masterObjTypeId, PK.masterId })
@@ -293,7 +293,7 @@ namespace SapphireApi.Data{
 
       // 1 Batch => * Batch Transaction Details
       builder
-        .Entity<BatchTransactionDetailModel>()
+        .Entity<BatchTransactionDetailsModel>()
         .HasOne(PK => PK.batch)
         .WithMany(FK => FK.batchTransactionDetails)
         .HasForeignKey(PK => new { PK.itemCode, PK.batchId })

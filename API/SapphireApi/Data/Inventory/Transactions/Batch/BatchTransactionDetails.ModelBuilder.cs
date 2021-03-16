@@ -9,8 +9,8 @@ using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Shared.Normalize;
 
 namespace SapphireApi.Data.Inventory.Transactions.Batch {
-  public class BatchTransactionDetailModelBuilder: AuditableModelBuilder<BatchTransactionDetailModel>{
-    public override void Configure(EntityTypeBuilder<BatchTransactionDetailModel> builder) {
+  public class BatchTransactionDetailsModelBuilder: AuditableModelBuilder<BatchTransactionDetailsModel>{
+    public override void Configure(EntityTypeBuilder<BatchTransactionDetailsModel> builder) {
       base.Configure(builder);
       
       builder.ToTable(Tables.ITEMS_BATCH_TRANSACTION_DETAILS, Schemas.INV);

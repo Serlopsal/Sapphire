@@ -29,7 +29,7 @@ namespace SapphireApi.Data.Shared.Models {
         .IsRequired()
         .HasMaxLength(450);
 
-      AuditableModelRelationShips<TEntity>.BuildRelationShips(builder);
+      AuditableModelRelationshipsBuilder<TEntity>.BuildRelationShips(builder);
     }
   }
 }

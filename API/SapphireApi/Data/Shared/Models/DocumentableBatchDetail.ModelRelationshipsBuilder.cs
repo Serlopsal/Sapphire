@@ -6,7 +6,7 @@ using SapphireApi.Data.Inventory.Batches;
 namespace SapphireApi.Data.Shared.Models {
   
   public static class DocumentableBatchDetailModelRelationshipsBuilder<BuilderOf, BatchOf, DetailOf> 
-  where BuilderOf: DocumentableBatchDetailModel<BatchOf, DetailOf>
+  where BuilderOf: DocumentableBatchDetailsModel<BatchOf, DetailOf>
   where BatchOf: DocumentableDetailsModel<DetailOf>
   where DetailOf: DocumentableModel {
     public static void BuildRelationships(EntityTypeBuilder<BuilderOf> builder) {

@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace SapphireApi.Data.Shared.Models {
-  public static class AuditableModelRelationShips<TEntity> where TEntity: AuditableModel {
+  public static class AuditableModelRelationshipsBuilder<TEntity> where TEntity: AuditableModel {
     public static void BuildRelationShips(EntityTypeBuilder<TEntity> builder){
       
       builder

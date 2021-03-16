@@ -3,7 +3,7 @@ using SapphireApi.Data.Inventory.Batches;
 using SapphireApi.Data.Inventory.Items;
 
 namespace SapphireApi.Data.Shared.Models {
-  public abstract class DocumentableBatchDetailModel<BatchOf, DetailOf>: IdentificableModel, IClosable 
+  public abstract class DocumentableBatchDetailsModel<BatchOf, DetailOf>: IdentificableModel, IClosable 
   where BatchOf: DocumentableDetailsModel<DetailOf>
   where DetailOf: DocumentableModel {
     public string batchNum { get; set; }

@@ -5,7 +5,7 @@ using SapphireApi.Data.Shared;
 using SapphireApi.Data.Shared.Models;
 
 namespace SapphireApi.Data.Inventory.Transactions.Batch {
-  public class BatchTransactionDetailModel: AuditableModel {
+  public class BatchTransactionDetailsModel: AuditableModel {
     public int masterObjTypeId { get; set; }
     public int masterId { get; set; }
     public string itemCode { get; set; }
