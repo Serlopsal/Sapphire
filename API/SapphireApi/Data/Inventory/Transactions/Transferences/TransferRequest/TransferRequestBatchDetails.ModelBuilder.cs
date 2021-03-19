@@ -8,7 +8,7 @@ namespace SapphireApi.Data.Inventory.Transactions.Transferences.Request {
     public override void Configure(EntityTypeBuilder<TransferRequestBatchDetailsModel> builder) {
       base.Configure(builder);
 
-      builder.ToTable(Tables.TRANSFER_REQUEST_BATCH_DETAILS, Schemas.INV);
+      builder.ToTable(Schemas.INV + Tables.TRANSFER_REQUEST_BATCH_DETAILS);
     }
   }
 }

@@ -7,7 +7,7 @@ namespace SapphireApi.Data.Adminsitration.Setup.Objects {
   public class ObjectModel: IdentificableModel {
     public ObjectModel(){
       series = new HashSet<SerieModel>();
-      batchTransactions = new HashSet<BatchTransactionModel>();
+      // batchTransactions = new HashSet<BatchTransactionModel>();
     }
     public string code { get; set; }
     public string description { get; set; }
@@ -15,6 +15,6 @@ namespace SapphireApi.Data.Adminsitration.Setup.Objects {
     public int? defaultSerieId { get; set; }
     public virtual ICollection<SerieModel> series { get; set; }
     public virtual SerieModel deafultSerie { get; set; }
-    public virtual ICollection<BatchTransactionModel> batchTransactions { get; set; }
+    // public virtual ICollection<BatchTransactionModel> batchTransactions { get; set; }
   } 
 } 

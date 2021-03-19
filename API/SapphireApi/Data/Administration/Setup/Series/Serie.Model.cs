@@ -7,7 +7,7 @@ using SapphireApi.Data.Shared.Models;
 namespace SapphireApi.Data.Adminsitration.Setup.Series {
   public class SerieModel: IdentificableModel, IClosable {
     public SerieModel(){
-      batchTransactions = new HashSet<BatchTransactionModel>();
+      // batchTransactions = new HashSet<BatchTransactionModel>();
     }
     public string seriesName { get; set; }
     public int firstNumber { get; set; }
@@ -15,6 +15,6 @@ namespace SapphireApi.Data.Adminsitration.Setup.Series {
     public int nextNumber { get; set; }
     public bool isClosed { get; set; }
     public virtual ObjectModel objects { get; set; }
-    public virtual ICollection<BatchTransactionModel> batchTransactions { get; set; }
+    // public virtual ICollection<BatchTransactionModel> batchTransactions { get; set; }
   }
 }

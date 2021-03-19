@@ -8,7 +8,7 @@ namespace SapphireApi.Data.Adminsitration.Setup.UOM {
     public override void Configure(EntityTypeBuilder<UOMModel> builder) {
       base.Configure(builder);
 
-      builder.ToTable(Tables.UOM, Schemas.ADM);
+      builder.ToTable(Schemas.ADM + Tables.UOM);
 
       builder
         .Property(model => model.name)

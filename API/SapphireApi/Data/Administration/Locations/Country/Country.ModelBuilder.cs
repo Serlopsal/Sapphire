@@ -8,7 +8,7 @@ namespace SapphireApi.Data.Adminsitration.Locations.Country{
     public override void Configure(EntityTypeBuilder<CountryModel> builder) {
       base.Configure(builder);
 
-      builder.ToTable(Tables.COUNTRY, Schemas.ADM);
+      builder.ToTable(Schemas.ADM + Tables.COUNTRY);
 
       builder
         .Property(model => model.name)

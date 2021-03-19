@@ -8,7 +8,7 @@ namespace SapphireApi.Data.Inventory.Manufacters {
     public override void Configure(EntityTypeBuilder<ManufacterModel> builder) {
       base.Configure(builder);
 
-      builder.ToTable(Tables.MANUFACTER, Schemas.INV);
+      builder.ToTable(Schemas.INV + Tables.MANUFACTER);
 
       builder
         .Property(model => model.firmName)

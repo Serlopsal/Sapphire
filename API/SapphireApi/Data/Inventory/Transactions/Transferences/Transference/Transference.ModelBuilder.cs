@@ -7,7 +7,7 @@ namespace SapphireApi.Data.Inventory.Transactions.Transferences.Documents {
     public override void Configure(EntityTypeBuilder<TransferenceModel> builder) {
       base.Configure(builder);
 
-      builder.ToTable(Tables.TRANSFERENCE, Schemas.INV);
+      builder.ToTable(Schemas.INV + Tables.TRANSFERENCE);
     }
   }
 }

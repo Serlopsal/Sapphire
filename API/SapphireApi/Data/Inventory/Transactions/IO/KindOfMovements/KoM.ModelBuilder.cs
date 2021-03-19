@@ -8,7 +8,7 @@ namespace SapphireApi.Data.Inventory.Transactions.IO.KindOfMovements {
     public override void Configure(EntityTypeBuilder<KoMModel> builder) {
       base.Configure(builder);
 
-      builder.ToTable(Tables.KIND_OF_MOVEMENTS, Schemas.INV);
+      builder.ToTable(Schemas.INV + Tables.KIND_OF_MOVEMENTS);
 
       builder
         .Property(model => model.name)

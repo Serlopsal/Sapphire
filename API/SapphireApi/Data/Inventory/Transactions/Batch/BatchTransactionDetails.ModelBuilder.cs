@@ -13,7 +13,7 @@ namespace SapphireApi.Data.Inventory.Transactions.Batch {
     public override void Configure(EntityTypeBuilder<BatchTransactionDetailsModel> builder) {
       base.Configure(builder);
       
-      builder.ToTable(Tables.ITEMS_BATCH_TRANSACTION_DETAILS, Schemas.INV);
+      builder.ToTable(Schemas.INV + Tables.ITEMS_BATCH_TRANSACTION_DETAILS);
 
       builder
         .HasKey(

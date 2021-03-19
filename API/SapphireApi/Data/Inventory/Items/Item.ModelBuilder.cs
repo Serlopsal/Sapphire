@@ -10,7 +10,7 @@ namespace SapphireApi.Data.Inventory.Items {
 
       builder.HasKey(model => model.itemCode);
 
-      builder.ToTable(Tables.ITEMS, Schemas.INV);
+      builder.ToTable(Schemas.INV + Tables.ITEMS);
 
       builder
         .Property(model => model.itemCode)

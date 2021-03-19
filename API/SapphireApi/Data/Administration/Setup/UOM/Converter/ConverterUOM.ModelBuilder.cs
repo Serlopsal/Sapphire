@@ -9,7 +9,7 @@ namespace SapphireApi.Data.Adminsitration.Setup.UOM.Converter {
     public override void Configure(EntityTypeBuilder<UOMConverterModel> builder) {
       base.Configure(builder);
 
-      builder.ToTable(Tables.UOMConverter, Schemas.ADM);
+      builder.ToTable(Schemas.ADM + Tables.UOMConverter);
 
       builder
         .Property(model => model.fromOneId)

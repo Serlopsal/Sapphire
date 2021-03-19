@@ -8,7 +8,7 @@ namespace SapphireApi.Data.Inventory.Warehouses {
     public override void Configure(EntityTypeBuilder<WarehouseModel> builder) {
       base.Configure(builder);
 
-      builder.ToTable(Tables.WAREHOUSES, Schemas.INV);
+      builder.ToTable(Schemas.INV + Tables.WAREHOUSES);
 
       builder
         .Property(model => model.whsCode)

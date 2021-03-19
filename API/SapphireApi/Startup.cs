@@ -48,10 +48,14 @@ namespace SapphireApi
             
             services.AddDbContext<Sapphire_Context>(
                 options => {
-                    options.UseSqlServer(
-                        Configuration.GetConnectionString("Default")
+                    // options.UseSqlServer(
+                    //     Configuration.GetConnectionString("Default")
+                    // );
+                    options.UseMySQL(
+                        Configuration.GetConnectionString("MYSQL")
                     );
                 }
+                
             );
 
             services
