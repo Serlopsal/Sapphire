@@ -23,10 +23,6 @@ namespace SapphireApi.Data.Adminsitration.Setup.Objects{
       builder
         .Property(model => model.docPrefix)
         .HasMaxLength(2);
-
-      builder
-        .HasIndex(model => model.defaultSerieId)
-        .HasDatabaseName("IX_OOBJ_defaultSerieId");
     }
   }
 }
