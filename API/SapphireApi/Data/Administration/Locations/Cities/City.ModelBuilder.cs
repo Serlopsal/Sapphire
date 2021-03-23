@@ -7,7 +7,7 @@ namespace SapphireApi.Data.Adminsitration.Locations.Cities {
     public override void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<CityModel> builder) {
       base.Configure(builder);
 
-      builder.ToTable(Tables.CITIES, Schemas.ADM);
+      builder.ToTable(Schemas.ADM + Tables.CITIES);
 
       builder
         .Property(model => model.name)

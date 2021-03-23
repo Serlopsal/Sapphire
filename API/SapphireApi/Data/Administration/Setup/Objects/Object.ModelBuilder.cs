@@ -9,7 +9,7 @@ namespace SapphireApi.Data.Adminsitration.Setup.Objects{
     {
       base.Configure(builder);
 
-      builder.ToTable(Tables.OBJECTS, Schemas.ADM);
+      builder.ToTable(Schemas.ADM + Tables.OBJECTS);
 
       builder
         .Property(model => model.code)

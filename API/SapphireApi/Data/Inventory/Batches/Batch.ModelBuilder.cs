@@ -19,7 +19,7 @@ namespace SapphireApi.Data.Inventory.Batches {
         );
       // Configuring Key [END]
 
-      builder.ToTable(Tables.BATCH, Schemas.INV);
+      builder.ToTable(Schemas.INV + Tables.BATCH);
 
       builder
         .Property(model => model.batchNum)

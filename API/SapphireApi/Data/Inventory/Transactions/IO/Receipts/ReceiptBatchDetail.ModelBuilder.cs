@@ -8,7 +8,7 @@ namespace SapphireApi.Data.Inventory.Transactions.IO.Receipts {
     public override void Configure(EntityTypeBuilder<ReceiptBatchDetailsModel> builder) {
       base.Configure(builder);
 
-      builder.ToTable(Tables.ITEMS_RECEIPT_BATCH_DETAILS, Schemas.INV);
+      builder.ToTable(Schemas.INV + Tables.ITEMS_RECEIPT_BATCH_DETAILS);
     }
   }
 }

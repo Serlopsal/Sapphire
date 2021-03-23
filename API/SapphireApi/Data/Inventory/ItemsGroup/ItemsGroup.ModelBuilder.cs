@@ -9,7 +9,7 @@ namespace SapphireApi.Data.Inventory.ItemsGroup {
     public override void Configure(EntityTypeBuilder<ItemsGroupModel> builder) {
       base.Configure(builder);
 
-      builder.ToTable(Tables.ITEMS_GROUP, Schemas.INV);
+      builder.ToTable(Schemas.INV + Tables.ITEMS_GROUP);
 
       builder
         .Property(model => model.itmsGrpNam)

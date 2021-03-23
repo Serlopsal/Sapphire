@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SapphireApi.Data;
@@ -17,41 +16,40 @@ namespace SapphireApi.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
                         new
                         {
-                            Id = "cbb0f3cf-0290-4d56-a41f-01f8a99d991d",
-                            ConcurrencyStamp = "0104755b-26f0-4be3-91fb-878ee5a9b101",
+                            Id = "5999435d-5956-435a-b31d-83fd6fcc9950",
+                            ConcurrencyStamp = "5c586d09-3afb-4f4d-9b8a-068251264803",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -61,18 +59,17 @@ namespace SapphireApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("Id");
 
@@ -85,18 +82,17 @@ namespace SapphireApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("Id");
 
@@ -108,17 +104,19 @@ namespace SapphireApi.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -130,10 +128,12 @@ namespace SapphireApi.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -144,24 +144,27 @@ namespace SapphireApi.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "426b62aa-425c-4431-8d11-a0157c2037ca",
-                            RoleId = "cbb0f3cf-0290-4d56-a41f-01f8a99d991d"
+                            UserId = "40709ea0-0908-4bea-8468-433bd706cedd",
+                            RoleId = "5999435d-5956-435a-b31d-83fd6fcc9950"
                         });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -171,59 +174,60 @@ namespace SapphireApi.Migrations
             modelBuilder.Entity("SapphireApi.Data.Identity.UserModel", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("fullName")
                         .IsRequired()
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)")
+                        .HasColumnType("varchar(120)")
                         .HasColumnName("FullName");
 
                     b.HasKey("Id");
@@ -233,23 +237,22 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
                         new
                         {
-                            Id = "426b62aa-425c-4431-8d11-a0157c2037ca",
+                            Id = "40709ea0-0908-4bea-8468-433bd706cedd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d00a84f0-9c91-4fe8-a177-f86eeca98b6d",
+                            ConcurrencyStamp = "e06c2418-01e3-4536-b55d-7dc3bf962a45",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEImN59j9Szmx4wKigtPZ+Yvc5azuZGLsYX+rY3dL5mZ6lLn9JJXNcaxG5KFScq0QUA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEcu9YJmr/MVLS5s+XfUqpzsEa4Cq9kfd8AEE0TBxo/+TTpDCLrCiNntqqkT9rTDJg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "885705f0-8450-4d7e-bf1c-605aa04616ca",
+                            SecurityStamp = "5b8390ab-d526-4849-b380-488c5275c7e3",
                             TwoFactorEnabled = false,
                             UserName = "Admin",
                             fullName = "Administrator"

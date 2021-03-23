@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SapphireApi.Data;
 
@@ -15,33 +14,32 @@ namespace SapphireApi.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
                 });
@@ -50,18 +48,17 @@ namespace SapphireApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("Id");
 
@@ -74,18 +71,17 @@ namespace SapphireApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("Id");
 
@@ -97,17 +93,19 @@ namespace SapphireApi.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -119,10 +117,12 @@ namespace SapphireApi.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -134,16 +134,19 @@ namespace SapphireApi.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -154,39 +157,38 @@ namespace SapphireApi.Migrations
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<int>("countryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("name")
                         .IsRequired()
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("varchar(120)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("id");
 
@@ -198,48 +200,47 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("OCST", "ADM");
+                    b.ToTable("ADM_OCST");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.Locations.Country.CountryModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("key")
                         .IsRequired()
                         .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
+                        .HasColumnType("varchar(3)");
 
                     b.Property<string>("name")
                         .IsRequired()
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("varchar(120)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("id");
 
@@ -255,30 +256,29 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("OCRY", "ADM");
+                    b.ToTable("ADM_OCRY");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<string>("code")
                         .IsRequired()
                         .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
+                        .HasColumnType("varchar(4)");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<int?>("defaultSerieId")
                         .HasColumnType("int");
@@ -286,63 +286,60 @@ namespace SapphireApi.Migrations
                     b.Property<string>("description")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("docPrefix")
                         .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
+                        .HasColumnType("varchar(2)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("id");
 
                     b.HasIndex("createdBy");
 
                     b.HasIndex("defaultSerieId")
-                        .IsUnique()
-                        .HasFilter("[defaultSerieId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("objType");
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("OOBJ", "ADM");
+                    b.ToTable("ADM_OOBJ");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.Setup.Series.SerieModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<int>("firstNumber")
                         .HasColumnType("int");
 
                     b.Property<bool>("isClosed")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false);
 
                     b.Property<int?>("lastNumber")
@@ -357,17 +354,17 @@ namespace SapphireApi.Migrations
                     b.Property<string>("seriesName")
                         .IsRequired()
                         .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasColumnType("varchar(8)");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("id");
 
@@ -377,25 +374,24 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("ONNM", "ADM");
+                    b.ToTable("ADM_ONNM");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.Setup.UOM.Converter.UOMConverterModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<int>("fromOneId")
                         .HasColumnType("int");
@@ -404,20 +400,20 @@ namespace SapphireApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<float>("rate")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<int>("toManyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("id");
 
@@ -431,30 +427,29 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("OUGP", "ADM");
+                    b.ToTable("ADM_OUGP");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.Setup.UOM.UOMModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("name")
                         .IsRequired()
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("varchar(120)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
@@ -464,13 +459,13 @@ namespace SapphireApi.Migrations
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("id");
 
@@ -480,80 +475,79 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("OUOM", "ADM");
+                    b.ToTable("ADM_OUOM");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.SystemInitialization.Company.CompanyModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<string>("city")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("companyAddress")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("companyName")
                         .IsRequired()
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("varchar(120)");
 
                     b.Property<int>("countryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("mainCur")
                         .IsRequired()
                         .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
+                        .HasColumnType("varchar(3)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
 
                     b.Property<string>("phone1")
                         .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasColumnType("varchar(8)");
 
                     b.Property<string>("phone2")
                         .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasColumnType("varchar(8)");
 
                     b.Property<string>("sysCur")
                         .IsRequired()
                         .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
+                        .HasColumnType("varchar(3)");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("webPage")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("zipCode")
                         .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
+                        .HasColumnType("varchar(5)");
 
                     b.HasKey("id");
 
@@ -565,60 +559,61 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("OADM", "ADM");
+                    b.ToTable("ADM_OADM");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Identity.UserModel", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<int?>("companyId")
                         .HasColumnType("int");
@@ -626,7 +621,7 @@ namespace SapphireApi.Migrations
                     b.Property<string>("fullName")
                         .IsRequired()
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)")
+                        .HasColumnType("varchar(120)")
                         .HasColumnName("FullName");
 
                     b.HasKey("Id");
@@ -636,8 +631,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.HasIndex("companyId");
 
@@ -647,51 +641,51 @@ namespace SapphireApi.Migrations
             modelBuilder.Entity("SapphireApi.Data.Inventory.Batches.BatchModel", b =>
                 {
                     b.Property<string>("itemCode")
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("batchNum")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<DateTime>("expDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime>("inDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime>("mnfDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("mnfSerial")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
 
                     b.Property<float>("qty")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("itemCode", "batchNum");
 
@@ -701,31 +695,31 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("OBTN", "INV");
+                    b.ToTable("INV_OBTN");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Items.ItemModel", b =>
                 {
                     b.Property<string>("itemCode")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("barCode")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<bool>("inventoryItem")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("inventoryUomId")
                         .HasColumnType("int");
@@ -733,16 +727,16 @@ namespace SapphireApi.Migrations
                     b.Property<string>("itemName")
                         .IsRequired()
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("varchar(120)");
 
                     b.Property<int>("itemsGroupId")
                         .HasColumnType("int");
 
                     b.Property<float?>("maxInvLvl")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<float?>("minInvLvl")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<int?>("mrcCode")
                         .HasColumnType("int");
@@ -751,26 +745,26 @@ namespace SapphireApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("purchaseItem")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("purchaseUomId")
                         .HasColumnType("int");
 
                     b.Property<bool>("sellItem")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("sellUomId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("itemCode");
 
@@ -790,43 +784,42 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("OITM", "INV");
+                    b.ToTable("INV_OITM");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.ItemsGroup.ItemsGroupModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("itmsGrpNam")
                         .IsRequired()
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("varchar(120)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("id");
 
@@ -836,43 +829,42 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("OITB", "INV");
+                    b.ToTable("INV_OITB");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Manufacters.ManufacterModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("firmName")
                         .IsRequired()
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("varchar(120)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("id");
 
@@ -882,10 +874,10 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("OMRC", "INV");
+                    b.ToTable("INV_OMRC");
                 });
 
-            modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.Batch.BatchTransactionDetailModel", b =>
+            modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.Batch.BatchTransactionDetailsModel", b =>
                 {
                     b.Property<int>("masterObjTypeId")
                         .HasColumnType("int");
@@ -895,37 +887,37 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("itemCode")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("batchId")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
 
                     b.Property<float>("quantity")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("masterObjTypeId", "masterId", "itemCode", "batchId");
 
@@ -937,7 +929,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("itemCode", "batchId");
 
-                    b.ToTable("ITL1", "INV");
+                    b.ToTable("INV_ITL1");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.Batch.BatchTransactionModel", b =>
@@ -950,13 +942,13 @@ namespace SapphireApi.Migrations
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<int>("masterRef")
                         .HasColumnType("int");
@@ -969,13 +961,13 @@ namespace SapphireApi.Migrations
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("masterObjTypeId", "masterId");
 
@@ -987,39 +979,37 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("OITL", "INV");
+                    b.ToTable("INV_OITL");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.IO.Dispatches.DispatchBatchDetailsModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<string>("batchNum")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<bool>("isClosed")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false);
 
                     b.Property<string>("itemCode")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("masterId")
                         .HasColumnType("int");
@@ -1031,20 +1021,20 @@ namespace SapphireApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<float>("openQty")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<float>("quantity")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("id");
 
@@ -1058,7 +1048,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("masterId", "masterLine");
 
-                    b.ToTable("IGE2", "INV");
+                    b.ToTable("INV_IGE2");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.IO.Dispatches.DispatchDetailsModel", b =>
@@ -1073,46 +1063,45 @@ namespace SapphireApi.Migrations
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<DateTime>("docDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<bool>("isClosed")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false)
                         .HasColumnName("isClosed");
 
                     b.Property<string>("itemCode")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
 
                     b.Property<float>("openQty")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<float>("quantity")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("masterId", "id");
 
@@ -1124,7 +1113,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("IGE1", "INV");
+                    b.ToTable("INV_IGE1");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.IO.Dispatches.DispatchModel", b =>
@@ -1132,44 +1121,40 @@ namespace SapphireApi.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("docId")
-                        .UseIdentityColumn();
+                        .HasColumnName("docId");
 
                     b.Property<string>("comment")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<DateTime>("docDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("docNum")
                         .HasColumnType("int");
 
                     b.Property<bool>("isCanceled")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false)
                         .HasColumnName("isCanceled");
 
                     b.Property<bool>("isClosed")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false)
                         .HasColumnName("isClosed");
 
                     b.Property<bool>("isPrinted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false)
                         .HasColumnName("isPrinted");
 
@@ -1181,25 +1166,25 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("reference")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("serieId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("whsCode")
                         .IsRequired()
                         .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasColumnType("varchar(8)");
 
                     b.HasKey("id");
 
@@ -1215,43 +1200,42 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("whsCode");
 
-                    b.ToTable("OIGE", "INV");
+                    b.ToTable("INV_OIGE");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.IO.KindOfMovements.KoMModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("name")
                         .IsRequired()
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("varchar(120)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("id");
 
@@ -1261,39 +1245,37 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("OKOM", "INV");
+                    b.ToTable("INV_OKOM");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.IO.Receipts.ReceiptBatchDetailsModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<string>("batchNum")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<bool>("isClosed")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false);
 
                     b.Property<string>("itemCode")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("masterId")
                         .HasColumnType("int");
@@ -1305,20 +1287,20 @@ namespace SapphireApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<float>("openQty")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<float>("quantity")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("id");
 
@@ -1332,7 +1314,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("masterId", "masterLine");
 
-                    b.ToTable("IGN2", "INV");
+                    b.ToTable("INV_IGN2");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.IO.Receipts.ReceiptDetailsModel", b =>
@@ -1347,46 +1329,45 @@ namespace SapphireApi.Migrations
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<DateTime>("docDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<bool>("isClosed")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false)
                         .HasColumnName("isClosed");
 
                     b.Property<string>("itemCode")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
 
                     b.Property<float>("openQty")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<float>("quantity")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("masterId", "id");
 
@@ -1398,7 +1379,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("IGN1", "INV");
+                    b.ToTable("INV_IGN1");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.IO.Receipts.ReceiptModel", b =>
@@ -1406,44 +1387,40 @@ namespace SapphireApi.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("docId")
-                        .UseIdentityColumn();
+                        .HasColumnName("docId");
 
                     b.Property<string>("comment")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<DateTime>("docDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("docNum")
                         .HasColumnType("int");
 
                     b.Property<bool>("isCanceled")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false)
                         .HasColumnName("isCanceled");
 
                     b.Property<bool>("isClosed")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false)
                         .HasColumnName("isClosed");
 
                     b.Property<bool>("isPrinted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false)
                         .HasColumnName("isPrinted");
 
@@ -1455,25 +1432,25 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("reference")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("serieId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("whsCode")
                         .IsRequired()
                         .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasColumnType("varchar(8)");
 
                     b.HasKey("id");
 
@@ -1489,39 +1466,37 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("whsCode");
 
-                    b.ToTable("OIGN", "INV");
+                    b.ToTable("INV_OIGN");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.Transferences.Documents.TransferenceBatchDetailsModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<string>("batchNum")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<bool>("isClosed")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false);
 
                     b.Property<string>("itemCode")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("masterId")
                         .HasColumnType("int");
@@ -1533,20 +1508,20 @@ namespace SapphireApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<float>("openQty")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<float>("quantity")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("id");
 
@@ -1560,7 +1535,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("masterId", "masterLine");
 
-                    b.ToTable("WTR2", "INV");
+                    b.ToTable("INV_WTR2");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.Transferences.Documents.TransferenceDetailsModel", b =>
@@ -1575,46 +1550,45 @@ namespace SapphireApi.Migrations
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<DateTime>("docDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<bool>("isClosed")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false)
                         .HasColumnName("isClosed");
 
                     b.Property<string>("itemCode")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
 
                     b.Property<float>("openQty")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<float>("quantity")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("masterId", "id");
 
@@ -1626,7 +1600,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("WTR1", "INV");
+                    b.ToTable("INV_WTR1");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.Transferences.Documents.TransferenceModel", b =>
@@ -1634,25 +1608,24 @@ namespace SapphireApi.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("docId")
-                        .UseIdentityColumn();
+                        .HasColumnName("docId");
 
                     b.Property<string>("comment")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<DateTime>("docDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("docNum")
                         .HasColumnType("int");
@@ -1660,23 +1633,20 @@ namespace SapphireApi.Migrations
                     b.Property<string>("fromWhsCode")
                         .IsRequired()
                         .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasColumnType("varchar(8)");
 
                     b.Property<bool>("isCanceled")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false)
                         .HasColumnName("isCanceled");
 
                     b.Property<bool>("isClosed")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false)
                         .HasColumnName("isClosed");
 
                     b.Property<bool>("isPrinted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false)
                         .HasColumnName("isPrinted");
 
@@ -1685,7 +1655,7 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("reference")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("serieId")
                         .HasColumnType("int");
@@ -1693,17 +1663,17 @@ namespace SapphireApi.Migrations
                     b.Property<string>("toWhsCode")
                         .IsRequired()
                         .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasColumnType("varchar(8)");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("id");
 
@@ -1719,39 +1689,37 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("OWTR", "INV");
+                    b.ToTable("INV_OWTR");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.Transferences.Request.TransferRequestBatchDetailsModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<string>("batchNum")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<bool>("isClosed")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false);
 
                     b.Property<string>("itemCode")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("masterId")
                         .HasColumnType("int");
@@ -1763,20 +1731,20 @@ namespace SapphireApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<float>("openQty")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<float>("quantity")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("id");
 
@@ -1790,7 +1758,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("masterId", "masterLine");
 
-                    b.ToTable("WTQ2", "INV");
+                    b.ToTable("INV_WTQ2");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.Transferences.Request.TransferRequestDetailsModel", b =>
@@ -1805,46 +1773,45 @@ namespace SapphireApi.Migrations
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<DateTime>("docDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<bool>("isClosed")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false)
                         .HasColumnName("isClosed");
 
                     b.Property<string>("itemCode")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
 
                     b.Property<float>("openQty")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<float>("quantity")
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("masterId", "id");
 
@@ -1856,7 +1823,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("WTQ1", "INV");
+                    b.ToTable("INV_WTQ1");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.Transferences.Request.TransferRequestModel", b =>
@@ -1864,25 +1831,24 @@ namespace SapphireApi.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("docId")
-                        .UseIdentityColumn();
+                        .HasColumnName("docId");
 
                     b.Property<string>("comment")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<DateTime>("docDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("docNum")
                         .HasColumnType("int");
@@ -1890,23 +1856,20 @@ namespace SapphireApi.Migrations
                     b.Property<string>("fromWhsCode")
                         .IsRequired()
                         .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasColumnType("varchar(8)");
 
                     b.Property<bool>("isCanceled")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false)
                         .HasColumnName("isCanceled");
 
                     b.Property<bool>("isClosed")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false)
                         .HasColumnName("isClosed");
 
                     b.Property<bool>("isPrinted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false)
                         .HasColumnName("isPrinted");
 
@@ -1915,7 +1878,7 @@ namespace SapphireApi.Migrations
 
                     b.Property<string>("reference")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("serieId")
                         .HasColumnType("int");
@@ -1923,17 +1886,17 @@ namespace SapphireApi.Migrations
                     b.Property<string>("toWhsCode")
                         .IsRequired()
                         .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasColumnType("varchar(8)");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.HasKey("id");
 
@@ -1949,50 +1912,50 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("OWTQ", "INV");
+                    b.ToTable("INV_OWTQ");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Warehouses.WarehouseModel", b =>
                 {
                     b.Property<string>("whsCode")
                         .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasColumnType("varchar(8)");
 
                     b.Property<string>("address")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("cityId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("createdAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("createdBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<int>("objType")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("updatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("updatedBy")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127)");
 
                     b.Property<string>("whsName")
                         .IsRequired()
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("varchar(120)");
 
                     b.HasKey("whsCode");
 
@@ -2004,7 +1967,7 @@ namespace SapphireApi.Migrations
 
                     b.HasIndex("updatedBy");
 
-                    b.ToTable("OWHS", "INV");
+                    b.ToTable("INV_OWHS");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -2451,7 +2414,7 @@ namespace SapphireApi.Migrations
                     b.Navigation("updaterUsr");
                 });
 
-            modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.Batch.BatchTransactionDetailModel", b =>
+            modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.Batch.BatchTransactionDetailsModel", b =>
                 {
                     b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
                         .WithMany()

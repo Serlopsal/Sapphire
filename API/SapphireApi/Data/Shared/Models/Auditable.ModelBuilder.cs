@@ -7,7 +7,7 @@ namespace SapphireApi.Data.Shared.Models {
     public virtual void Configure(EntityTypeBuilder<TEntity> builder){
       builder
         .Property(model => model.createdAt)
-        .HasDefaultValueSql("GETDATE()")
+        .HasDefaultValueSql("CURRENT_TIMESTAMP")
         .ValueGeneratedOnAdd()
         .Metadata
         .SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
@@ -15,11 +15,11 @@ namespace SapphireApi.Data.Shared.Models {
       builder
         .Property(model => model.createdBy)
         .IsRequired()
-        .HasMaxLength(450);
+        .HasMaxLength(127);
 
       builder
         .Property(model => model.updatedAt)
-        .HasDefaultValueSql("GETDATE()")
+        .HasDefaultValueSql("CURRENT_TIMESTAMP")
         .ValueGeneratedOnAddOrUpdate()
         .Metadata
         .SetAfterSaveBehavior(PropertySaveBehavior.Throw);
@@ -27,7 +27,7 @@ namespace SapphireApi.Data.Shared.Models {
       builder
         .Property(model => model.updatedBy)
         .IsRequired()
-        .HasMaxLength(450);
+        .HasMaxLength(127);
 
       AuditableModelRelationshipsBuilder<TEntity>.BuildRelationShips(builder);
     }

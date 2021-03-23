@@ -9,7 +9,7 @@ namespace SapphireApi.Data.Adminsitration.Setup.Series{
     {
       base.Configure(builder);
 
-      builder.ToTable(Tables.SERIES, Schemas.ADM);
+      builder.ToTable(Schemas.ADM + Tables.SERIES);
 
       builder
         .Property(model => model.seriesName)

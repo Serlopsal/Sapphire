@@ -7,7 +7,7 @@ namespace SapphireApi.Data.Shared.Models {
       base.Configure(builder);
 
       builder.HasKey(b => b.id);
-      builder.Property(p => p.id).UseIdentityColumn();
+      builder.Property(p => p.id).ValueGeneratedOnAdd();
     }
   }
 }

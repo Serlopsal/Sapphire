@@ -46,12 +46,22 @@ namespace SapphireApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SapphireApi", Version = "v1" });
             });
             
+            Console.WriteLine("-----------------------------------------");
+            Console.WriteLine("----        CONNECTION STRING        ----");
+            Console.WriteLine("-----------------------------------------");
+            Console.WriteLine( Configuration.GetConnectionString("MYSQL"));
+            Console.WriteLine("-----------------------------------------");
+
             services.AddDbContext<Sapphire_Context>(
                 options => {
-                    options.UseSqlServer(
-                        Configuration.GetConnectionString("Default")
+                    // options.UseSqlServer(
+                    //     Configuration.GetConnectionString("Default")
+                    // );
+                    options.UseMySQL(
+                        Configuration.GetConnectionString("MYSQL")
                     );
                 }
+                
             );
 
             services

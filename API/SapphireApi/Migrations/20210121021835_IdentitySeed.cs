@@ -9,17 +9,17 @@ namespace SapphireApi.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "cbb0f3cf-0290-4d56-a41f-01f8a99d991d", "0104755b-26f0-4be3-91fb-878ee5a9b101", "Administrator", "ADMINISTRATOR" });
+                values: new object[] { "5999435d-5956-435a-b31d-83fd6fcc9950", "5c586d09-3afb-4f4d-9b8a-068251264803", "Administrator", "ADMINISTRATOR" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "FullName" },
-                values: new object[] { "426b62aa-425c-4431-8d11-a0157c2037ca", 0, "d00a84f0-9c91-4fe8-a177-f86eeca98b6d", null, false, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEImN59j9Szmx4wKigtPZ+Yvc5azuZGLsYX+rY3dL5mZ6lLn9JJXNcaxG5KFScq0QUA==", null, false, "885705f0-8450-4d7e-bf1c-605aa04616ca", false, "Admin", "Administrator" });
+                values: new object[] { "40709ea0-0908-4bea-8468-433bd706cedd", 0, "e06c2418-01e3-4536-b55d-7dc3bf962a45", null, false, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEEcu9YJmr/MVLS5s+XfUqpzsEa4Cq9kfd8AEE0TBxo/+TTpDCLrCiNntqqkT9rTDJg==", null, false, "5b8390ab-d526-4849-b380-488c5275c7e3", false, "Admin", "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "cbb0f3cf-0290-4d56-a41f-01f8a99d991d", "426b62aa-425c-4431-8d11-a0157c2037ca" });
+                values: new object[] { "5999435d-5956-435a-b31d-83fd6fcc9950", "40709ea0-0908-4bea-8468-433bd706cedd" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -27,17 +27,17 @@ namespace SapphireApi.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetUserRoles",
                 keyColumns: new[] { "RoleId", "UserId" },
-                keyValues: new object[] { "cbb0f3cf-0290-4d56-a41f-01f8a99d991d", "426b62aa-425c-4431-8d11-a0157c2037ca" });
+                keyValues: new object[] { "5999435d-5956-435a-b31d-83fd6fcc9950", "40709ea0-0908-4bea-8468-433bd706cedd" });
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "cbb0f3cf-0290-4d56-a41f-01f8a99d991d");
+                keyValue: "5999435d-5956-435a-b31d-83fd6fcc9950");
 
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "426b62aa-425c-4431-8d11-a0157c2037ca");
+                keyValue: "40709ea0-0908-4bea-8468-433bd706cedd");
         }
     }
 }

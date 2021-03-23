@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using MySql.EntityFrameworkCore.Metadata;
 
 namespace SapphireApi.Migrations
 {
@@ -8,67 +9,61 @@ namespace SapphireApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "OKOM",
-                schema: "INV",
+                name: "INV_OKOM",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    name = table.Column<string>(type: "varchar(120)", maxLength: 120, nullable: false),
                     objType = table.Column<int>(type: "int", nullable: false),
-                    createdAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    createdBy = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    updatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    updatedBy = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
+                    createdAt = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    createdBy = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: false),
+                    updatedAt = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    updatedBy = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OKOM", x => x.id);
+                    table.PrimaryKey("PK_INV_OKOM", x => x.id);
                     table.ForeignKey(
-                        name: "FK_OKOM_AspNetUsers_createdBy",
+                        name: "FK_INV_OKOM_ADM_OOBJ_objType",
+                        column: x => x.objType,
+                        principalTable: "ADM_OOBJ",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_INV_OKOM_AspNetUsers_createdBy",
                         column: x => x.createdBy,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OKOM_AspNetUsers_updatedBy",
+                        name: "FK_INV_OKOM_AspNetUsers_updatedBy",
                         column: x => x.updatedBy,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OKOM_OOBJ_objType",
-                        column: x => x.objType,
-                        principalSchema: "ADM",
-                        principalTable: "OOBJ",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OKOM_createdBy",
-                schema: "INV",
-                table: "OKOM",
+                name: "IX_INV_OKOM_createdBy",
+                table: "INV_OKOM",
                 column: "createdBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OKOM_objType",
-                schema: "INV",
-                table: "OKOM",
+                name: "IX_INV_OKOM_objType",
+                table: "INV_OKOM",
                 column: "objType");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OKOM_updatedBy",
-                schema: "INV",
-                table: "OKOM",
+                name: "IX_INV_OKOM_updatedBy",
+                table: "INV_OKOM",
                 column: "updatedBy");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OKOM",
-                schema: "INV");
+                name: "INV_OKOM");
         }
     }
 }

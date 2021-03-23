@@ -7,85 +7,74 @@ namespace SapphireApi.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.EnsureSchema(
-                name: "INV");
-
             migrationBuilder.CreateTable(
-                name: "OWHS",
-                schema: "INV",
+                name: "INV_OWHS",
                 columns: table => new
                 {
-                    whsCode = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
-                    whsName = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
+                    whsCode = table.Column<string>(type: "varchar(8)", maxLength: 8, nullable: false),
+                    whsName = table.Column<string>(type: "varchar(120)", maxLength: 120, nullable: false),
                     cityId = table.Column<int>(type: "int", nullable: false),
-                    address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    address = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     objType = table.Column<int>(type: "int", nullable: false),
-                    createdAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    createdBy = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    updatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    updatedBy = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
+                    createdAt = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    createdBy = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: false),
+                    updatedAt = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    updatedBy = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OWHS", x => x.whsCode);
+                    table.PrimaryKey("PK_INV_OWHS", x => x.whsCode);
                     table.ForeignKey(
-                        name: "FK_OWHS_AspNetUsers_createdBy",
+                        name: "FK_INV_OWHS_ADM_OCST_cityId",
+                        column: x => x.cityId,
+                        principalTable: "ADM_OCST",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_INV_OWHS_ADM_OOBJ_objType",
+                        column: x => x.objType,
+                        principalTable: "ADM_OOBJ",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_INV_OWHS_AspNetUsers_createdBy",
                         column: x => x.createdBy,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OWHS_AspNetUsers_updatedBy",
+                        name: "FK_INV_OWHS_AspNetUsers_updatedBy",
                         column: x => x.updatedBy,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OWHS_OCST_cityId",
-                        column: x => x.cityId,
-                        principalSchema: "ADM",
-                        principalTable: "OCST",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OWHS_OOBJ_objType",
-                        column: x => x.objType,
-                        principalSchema: "ADM",
-                        principalTable: "OOBJ",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OWHS_cityId",
-                schema: "INV",
-                table: "OWHS",
+                name: "IX_INV_OWHS_cityId",
+                table: "INV_OWHS",
                 column: "cityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OWHS_createdBy",
-                schema: "INV",
-                table: "OWHS",
+                name: "IX_INV_OWHS_createdBy",
+                table: "INV_OWHS",
                 column: "createdBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OWHS_objType",
-                schema: "INV",
-                table: "OWHS",
+                name: "IX_INV_OWHS_objType",
+                table: "INV_OWHS",
                 column: "objType");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OWHS_updatedBy",
-                schema: "INV",
-                table: "OWHS",
+                name: "IX_INV_OWHS_updatedBy",
+                table: "INV_OWHS",
                 column: "updatedBy");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OWHS",
-                schema: "INV");
+                name: "INV_OWHS");
         }
     }
 }

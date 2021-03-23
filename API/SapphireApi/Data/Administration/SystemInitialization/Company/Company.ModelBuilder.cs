@@ -10,7 +10,7 @@ namespace SapphireApi.Data.Adminsitration.SystemInitialization.Company{
     {
       base.Configure(builder);
 
-      builder.ToTable(Tables.COMPANY, Schemas.ADM);
+      builder.ToTable(Schemas.ADM + Tables.COMPANY);
 
       builder
         .Property(model => model.companyName)

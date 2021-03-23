@@ -41,25 +41,26 @@ namespace SapphireApi.Data{
     // Add Models DataSets [HERE]
     // Ex: public DbSet<DataModel> Model { get; set; }
 
-    // SCHEMA [ADM]
+    // // SCHEMA [ADM]
     public DbSet<ObjectModel> Objects { get; set; }
     public DbSet<CountryModel> Country { get; set; }
-    public DbSet<CityModel> City { get; set; }
     public DbSet<CompanyModel> Company { get; set; }
-    public DbSet<SerieModel> Series { get; set; }
     public DbSet<UOMModel> UOM { get; set; }
     public DbSet<UOMConverterModel> UOMConverter { get; set; }
+    public DbSet<CityModel> City { get; set; }
+    public DbSet<SerieModel> Series { get; set; }
 
-    // SCHEMA [INV]
+    // // SCHEMA [INV]
     public DbSet<WarehouseModel> Warehouse { get; set; }
     public DbSet<ManufacterModel> Manufacter { get; set; }
     public DbSet<ItemsGroupModel> ItemsGroup { get; set; }
     public DbSet<ItemModel> Item { get; set; }
     public DbSet<BatchModel> Batch { get; set; }
-    public DbSet<KoMModel> KindOfMovements { get; set; }
 
     public DbSet<BatchTransactionModel> BatchTransactions { get; set; }
     public DbSet<BatchTransactionDetailsModel> BatchTransactionDetails { get; set; }
+
+    public DbSet<KoMModel> KindOfMovements { get; set; }
 
     public DbSet<ReceiptModel> ItemsReceipts { get; set; }
     public DbSet<ReceiptDetailsModel> ItemsReceiptDetails { get; set; }
@@ -68,7 +69,6 @@ namespace SapphireApi.Data{
     public DbSet<DispatchModel> ItemDispatches { get; set; }
     public DbSet<DispatchDetailsModel> ItemDispatchDetails { get; set; }
     public DbSet<DispatchBatchDetailsModel> ItemDispatchBatchDetail { get; set; }
-
 
     public DbSet<TransferRequestModel> TrasnferRequest { get; set; }
     public DbSet<TransferRequestDetailsModel> TrasnferRequestDetails { get; set; }
@@ -80,6 +80,26 @@ namespace SapphireApi.Data{
 
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
+      // Identity MySql Fixing
+        // Shorten key length for Identity
+        builder.Entity<UserModel>(entity => entity.Property(m => m.Id).HasMaxLength(127));
+        builder.Entity<IdentityRole>(entity => entity.Property(m => m.Id).HasMaxLength(127));
+        builder.Entity<IdentityUserLogin<string>>(entity =>
+        {
+          entity.Property(m => m.LoginProvider).HasMaxLength(127);
+          entity.Property(m => m.ProviderKey).HasMaxLength(127);
+        });
+        builder.Entity<IdentityUserRole<string>>(entity =>
+        {
+          entity.Property(m => m.UserId).HasMaxLength(127);
+          entity.Property(m => m.RoleId).HasMaxLength(127);
+        });
+        builder.Entity<IdentityUserToken<string>>(entity =>
+        {
+          entity.Property(m => m.UserId).HasMaxLength(127);
+          entity.Property(m => m.LoginProvider).HasMaxLength(127);
+          entity.Property(m => m.Name).HasMaxLength(127);
+        });
 
       // Add Model Configuration Properties [HERE]
       // Ex: builder.ApplyConfiguration(new DataModelBuilder());
@@ -87,22 +107,24 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new UserModelBuilder());
       builder.ApplyConfiguration(new ObjectModelBuilder());
       builder.ApplyConfiguration(new CountryModelBuilder());
-      builder.ApplyConfiguration(new CityModelBuilder());
       builder.ApplyConfiguration(new CompanyModelBuilder());
-      builder.ApplyConfiguration(new SerieModelBuilder());
       builder.ApplyConfiguration(new UOMModelBuilder());
       builder.ApplyConfiguration(new UOMConverterModelBuilder());
+      builder.ApplyConfiguration(new CityModelBuilder());
+      builder.ApplyConfiguration(new SerieModelBuilder());
       // SCHEMA [INV]
       builder.ApplyConfiguration(new WarehouseModelBuilder());
       builder.ApplyConfiguration(new ManufacterModelBuilder());
       builder.ApplyConfiguration(new ItemsGroupModelBuilder());
       builder.ApplyConfiguration(new ItemModelBuilder());
       builder.ApplyConfiguration(new BatchModelBuilder());
-      builder.ApplyConfiguration(new KoMModelBuilder());
       // SCHEMA [INV]-[Transactions]
       //    [BATCH TRANSACTIONS]
       builder.ApplyConfiguration(new BatchTransactionModelBuilder());
       builder.ApplyConfiguration(new BatchTransactionDetailsModelBuilder());
+
+      builder.ApplyConfiguration(new KoMModelBuilder());
+
       //    [RECEIPT ITEMS TRANSACTIONS]
       builder.ApplyConfiguration(new ReceiptModelBuilder());
       builder.ApplyConfiguration(new ReceiptDetailsModelBuilder());
@@ -115,7 +137,7 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new TransferRequestModelBuilder());
       builder.ApplyConfiguration(new TransferRequestDetailsModelBuilder());
       builder.ApplyConfiguration(new TransferRequestBatchDetailsModelBuilder());
-      //    [ITEMS TRANSFERRENCES TRANSACTIONS]
+      //    [ITEMS TRANSFERENCES TRANSACTIONS]
       builder.ApplyConfiguration(new TransferenceModelBuilder());
       builder.ApplyConfiguration(new TransferenceDetailsModelBuilder());
       builder.ApplyConfiguration(new TransferenceBatchDetailsModelBuilder());
@@ -155,153 +177,163 @@ namespace SapphireApi.Data{
       //    TransferTrasnsactionsDetailsModels
       //        Items
 
-      // 1 Object => 1 Series
-      builder
-        .Entity<ObjectModel>()
-        .HasOne(PK => PK.deafultSerie)
-        .WithOne(FK => FK.objects)
-        .HasForeignKey<ObjectModel>(PK => PK.defaultSerieId)
-        .OnDelete(DeleteBehavior.Restrict);
+      // ON AddCompanyTable Migration
+        // 1 Country => * Company
+        builder
+          .Entity<CompanyModel>()
+          .HasOne(PK => PK.country)
+          .WithMany(FK => FK.company)
+          .HasForeignKey(PK => PK.countryId)
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 Object => * Series
-      builder
-        .Entity<SerieModel>()
-        .HasOne(PK => PK.obj)
-        .WithMany(FK => FK.series)
-        .HasForeignKey(PK => PK.objType)
-        .OnDelete(DeleteBehavior.Restrict);
+        // 1 Company => * User
+        builder
+          .Entity<UserModel>()
+          .HasOne(PK => PK.company)
+          .WithMany(FK => FK.users)
+          .HasForeignKey(PK => PK.companyId)
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 Object => * Batch Transactions
-      builder
-        .Entity<BatchTransactionModel>()
-        .HasOne(PK => PK.masterObjType)
-        .WithMany(FK => FK.batchTransactions)
-        .HasForeignKey(PK => PK.masterObjTypeId)
-        .OnDelete(DeleteBehavior.Restrict);
+      // ON AddUOMConverterTable Migration
+        // 1 UOM (From) => * Converter
+        builder
+          .Entity<UOMConverterModel>()
+          .HasOne(PK => PK.fromOne)
+          .WithMany(FK => FK.uomConverter_from)
+          .HasForeignKey(PK => PK.fromOneId)
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 Serie => * Batch Transactions
-      builder
-        .Entity<BatchTransactionModel>()
-        .HasOne(PK => PK.masterSerie)
-        .WithMany(FK => FK.batchTransactions)
-        .HasForeignKey(PK => PK.masterSerieId)
-        .OnDelete(DeleteBehavior.Restrict);
+        // 1 UOM (To) => * Converter
+        builder
+          .Entity<UOMConverterModel>()
+          .HasOne(PK => PK.toMany)
+          .WithMany(FK => FK.uomConverter_to)
+          .HasForeignKey(PK => PK.toManyId)
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 Batch Transaction => * Batch Transaction Details
-      builder
-        .Entity<BatchTransactionDetailsModel>()
-        .HasOne(PK => PK.batchTransaction)
-        .WithMany(FK => FK.details)
-        .HasForeignKey(PK => new { PK.masterObjTypeId, PK.masterId })
-        .OnDelete(DeleteBehavior.Restrict);
+      // ON AddCityTable Migration
+        // 1 Country => * Cities
+        builder
+          .Entity<CityModel>()
+          .HasOne(PK => PK.country)
+          .WithMany(FK => FK.cities)
+          .HasForeignKey(PK => PK.countryId)
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 Country => * Company
-      builder
-        .Entity<CompanyModel>()
-        .HasOne(PK => PK.country)
-        .WithMany(FK => FK.company)
-        .HasForeignKey(PK => PK.countryId)
-        .OnDelete(DeleteBehavior.Restrict);
+      // ON AddSeriesTable Migration
+        // 1 Object => 1 Series
+        builder
+          .Entity<ObjectModel>()
+          .HasOne(PK => PK.deafultSerie)
+          .WithOne(FK => FK.objects)
+          .HasForeignKey<ObjectModel>(PK => PK.defaultSerieId)
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 Country => * Cities
-      builder
-        .Entity<CityModel>()
-        .HasOne(PK => PK.country)
-        .WithMany(FK => FK.cities)
-        .HasForeignKey(PK => PK.countryId)
-        .OnDelete(DeleteBehavior.Restrict);
+        // 1 Object => * Series
+        builder
+          .Entity<SerieModel>()
+          .HasOne(PK => PK.obj)
+          .WithMany(FK => FK.series)
+          .HasForeignKey(PK => PK.objType)
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 City => * Warehouse
-      builder
-        .Entity<WarehouseModel>()
-        .HasOne(PK => PK.city)
-        .WithMany(FK => FK.warehouses)
-        .HasForeignKey(PK => PK.cityId)
-        .OnDelete(DeleteBehavior.Restrict);
+      // ON AddWarehousesTable Migration
+        // 1 City => * Warehouse
+        builder
+          .Entity<WarehouseModel>()
+          .HasOne(PK => PK.city)
+          .WithMany(FK => FK.warehouses)
+          .HasForeignKey(PK => PK.cityId)
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 Company => * User
-      builder
-        .Entity<UserModel>()
-        .HasOne(PK => PK.company)
-        .WithMany(FK => FK.users)
-        .HasForeignKey(PK => PK.companyId)
-        .OnDelete(DeleteBehavior.Restrict);
+      // ON AddItemsTable Migration
+        // 1 Item Group => * Items
+        builder
+          .Entity<ItemModel>()
+          .HasOne(PK => PK.itemsGroup)
+          .WithMany(FK => FK.items)
+          .HasForeignKey(PK => PK.itemsGroupId)
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 UOM (From) => * Converter
-      builder
-        .Entity<UOMConverterModel>()
-        .HasOne(PK => PK.fromOne)
-        .WithMany(FK => FK.uomConverter_from)
-        .HasForeignKey(PK => PK.fromOneId)
-        .OnDelete(DeleteBehavior.Restrict);
+        // 1 Manufacter => * Items
+        builder
+          .Entity<ItemModel>()
+          .HasOne(PK => PK.manufacter)
+          .WithMany(FK => FK.items)
+          .HasForeignKey(PK => PK.mrcCode)
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 UOM (To) => * Converter
-      builder
-        .Entity<UOMConverterModel>()
-        .HasOne(PK => PK.toMany)
-        .WithMany(FK => FK.uomConverter_to)
-        .HasForeignKey(PK => PK.toManyId)
-        .OnDelete(DeleteBehavior.Restrict);
+        // 1 UOM (Purchase) => * Items
+        builder
+          .Entity<ItemModel>()
+          .HasOne(PK => PK.purchaseUOM)
+          .WithMany(FK => FK.purItm)
+          .HasForeignKey(PK => PK.purchaseUomId)
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 Item Group => * Items
-      builder
-        .Entity<ItemModel>()
-        .HasOne(PK => PK.itemsGroup)
-        .WithMany(FK => FK.items)
-        .HasForeignKey(PK => PK.itemsGroupId)
-        .OnDelete(DeleteBehavior.Restrict);
+        // 1 UOM (Sell) => * Items
+        builder
+          .Entity<ItemModel>()
+          .HasOne(PK => PK.sellUOM)
+          .WithMany(FK => FK.sellItm)
+          .HasForeignKey(PK => PK.sellUomId)
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 Manufacter => * Items
-      builder
-        .Entity<ItemModel>()
-        .HasOne(PK => PK.manufacter)
-        .WithMany(FK => FK.items)
-        .HasForeignKey(PK => PK.mrcCode)
-        .OnDelete(DeleteBehavior.Restrict);
+        // 1 UOM (Inventory) => * Items
+        builder
+          .Entity<ItemModel>()
+          .HasOne(PK => PK.inventoryUOM)
+          .WithMany(FK => FK.invItm)
+          .HasForeignKey(PK => PK.inventoryUomId)
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 UOM (Purchase) => * Items
-      builder
-        .Entity<ItemModel>()
-        .HasOne(PK => PK.purchaseUOM)
-        .WithMany(FK => FK.purItm)
-        .HasForeignKey(PK => PK.purchaseUomId)
-        .OnDelete(DeleteBehavior.Restrict);
+      // ON AddBatchesTable Migration
+        // 1 Item => * Batches
+        builder
+          .Entity<BatchModel>()
+          .HasOne(PK => PK.item)
+          .WithMany(FK => FK.batches)
+          .HasForeignKey(PK => PK.itemCode)
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 UOM (Sell) => * Items
-      builder
-        .Entity<ItemModel>()
-        .HasOne(PK => PK.sellUOM)
-        .WithMany(FK => FK.sellItm)
-        .HasForeignKey(PK => PK.sellUomId)
-        .OnDelete(DeleteBehavior.Restrict);
+      // ON AddBatchTransactionsTableAndDetails Migration
+        // 1 Object => * Batch Transactions
+        builder
+          .Entity<BatchTransactionModel>()
+          .HasOne(PK => PK.masterObjType)
+          .WithMany(FK => FK.batchTransactions)
+          .HasForeignKey(PK => PK.masterObjTypeId)
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 UOM (Inventory) => * Items
-      builder
-        .Entity<ItemModel>()
-        .HasOne(PK => PK.inventoryUOM)
-        .WithMany(FK => FK.invItm)
-        .HasForeignKey(PK => PK.inventoryUomId)
-        .OnDelete(DeleteBehavior.Restrict);
+        // 1 Serie => * Batch Transactions
+        builder
+          .Entity<BatchTransactionModel>()
+          .HasOne(PK => PK.masterSerie)
+          .WithMany(FK => FK.batchTransactions)
+          .HasForeignKey(PK => PK.masterSerieId)
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 Item => * Batches
-      builder
-        .Entity<BatchModel>()
-        .HasOne(PK => PK.item)
-        .WithMany(FK => FK.batches)
-        .HasForeignKey(PK => PK.itemCode)
-        .OnDelete(DeleteBehavior.Restrict);
+        // 1 Batch Transaction => * Batch Transaction Details
+        builder
+          .Entity<BatchTransactionDetailsModel>()
+          .HasOne(PK => PK.batchTransaction)
+          .WithMany(FK => FK.details)
+          .HasForeignKey(PK => new { PK.masterObjTypeId, PK.masterId })
+          .OnDelete(DeleteBehavior.Restrict);
 
-      // 1 Batch => * Batch Transaction Details
-      builder
-        .Entity<BatchTransactionDetailsModel>()
-        .HasOne(PK => PK.batch)
-        .WithMany(FK => FK.batchTransactionDetails)
-        .HasForeignKey(PK => new { PK.itemCode, PK.batchId })
-        .OnDelete(DeleteBehavior.Restrict);
+        // 1 Batch => * Batch Transaction Details
+        builder
+          .Entity<BatchTransactionDetailsModel>()
+          .HasOne(PK => PK.batch)
+          .WithMany(FK => FK.batchTransactionDetails)
+          .HasForeignKey(PK => new { PK.itemCode, PK.batchId })
+          .OnDelete(DeleteBehavior.Restrict);
+
         
       // Seeding
       // ONLY FIRST
       // new IdentitySeed(builder);
+      // new ObjectSeed(builder);
     }
 
     private void Sign(){

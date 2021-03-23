@@ -7,7 +7,7 @@ namespace SapphireApi.Data.Inventory.Transactions.IO.Dispatches {
     public override void Configure(EntityTypeBuilder<DispatchModel> builder) {
       base.Configure(builder);
 
-      builder.ToTable(Tables.ITEMS_DISPATCHES, Schemas.INV);
+      builder.ToTable(Schemas.INV + Tables.ITEMS_DISPATCHES);
     }
   }
 }

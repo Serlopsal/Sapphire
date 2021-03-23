@@ -13,8 +13,8 @@ namespace SapphireApi.Data.Adminsitration.Setup.Objects {
     public string description { get; set; }
     public string docPrefix { get; set; }
     public int? defaultSerieId { get; set; }
-    public virtual ICollection<SerieModel> series { get; set; }
     public virtual SerieModel deafultSerie { get; set; }
+    public virtual ICollection<SerieModel> series { get; set; }
     public virtual ICollection<BatchTransactionModel> batchTransactions { get; set; }
   } 
 } 
