@@ -11,6 +11,8 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using SapphireApi.Data.Identity.SharedModels;
+using Microsoft.EntityFrameworkCore;
+using SapphireApi.Data.Shared.Normalize;
 
 namespace SapphireApi.Data.Identity {
   [Route("api/[controller]")]
@@ -67,7 +69,10 @@ namespace SapphireApi.Data.Identity {
       var roles = await _userManager.GetRolesAsync(user);
       var _options = new IdentityOptions();
 
-      var _claims = new List<Claim> { new Claim("uid", user.Id.ToString()) };
+      var _claims = new List<Claim> { 
+          new Claim(Claims.UID, user.Id.ToString()), 
+          new Claim(Claims.COMPANY, user.companyId.ToString())
+        };
 
       _claims.AddRange(
         roles.Select(
@@ -92,7 +97,7 @@ namespace SapphireApi.Data.Identity {
     [HttpPost]
     [Route("login")]
     public async Task<IActionResult> Login(LoginModel model) {
-      var user = await _userManager.FindByNameAsync(model.user);
+      var user = await _userManager.Users.IgnoreQueryFilters().FirstAsync(filter => filter.UserName == model.user);
       if (user != null && await _userManager.CheckPasswordAsync(user, model.password)) {
         var token = await GenerateToken(user);
         return Ok(new { token });
@@ -104,11 +109,37 @@ namespace SapphireApi.Data.Identity {
 
     [HttpGet]
     [Authorize]
+    [Route("All")]
+    public IActionResult GetAll() {
+      try {
+        var data = _context.Users.IgnoreQueryFilters().ToList();
+        return Ok(new { data = data });
+      }
+      catch {
+        return BadRequest(new { message = "Error interno, contactar a soporte." });
+      }
+    }
+
+    [HttpGet]
+    [Authorize]
+    [Route("")]
+    public IActionResult Get() {
+      try {
+        var data = _context.Users.ToList();
+        return Ok(new { data = data });
+      }
+      catch {
+        return BadRequest(new { message = "Error interno, contactar a soporte." });
+      }
+    }
+
+    [HttpGet]
+    [Authorize]
     [Route("RenewToken")]
     public async Task<IActionResult> RenewToken() {
       try{
         var token = Request.Headers["Authorization"].ToString().Substring("Bearer ".Length);        
-        string userId = User.Claims.First(c => c.Type == "uid").Value;
+        string userId = User.Claims.First(c => c.Type == Claims.UID).Value;
         var user = await _userManager.FindByIdAsync(userId);
         token = await GenerateToken(user);
         return Ok(new { token });

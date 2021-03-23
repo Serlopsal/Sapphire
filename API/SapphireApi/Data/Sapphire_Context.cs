@@ -329,6 +329,8 @@ namespace SapphireApi.Data{
           .HasForeignKey(PK => new { PK.itemCode, PK.batchId })
           .OnDelete(DeleteBehavior.Restrict);
 
+      // Query Filters
+      builder.Entity<UserModel>().HasQueryFilter(x => x.companyId == this.getCompany());
         
       // Seeding
       // ONLY FIRST
@@ -341,6 +343,8 @@ namespace SapphireApi.Data{
       var selectedEntityList = ChangeTracker.Entries()  
                               .Where(x => x.Entity is AuditableModel && (x.State == EntityState.Added || x.State == EntityState.Modified));  
    
+      var company = this.getCompany();
+
       foreach(var entity in selectedEntityList)
         if(entity.State == EntityState.Added){
           ((AuditableModel)entity.Entity).createdBy = uid;
