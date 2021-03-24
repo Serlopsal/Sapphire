@@ -364,12 +364,13 @@ namespace SapphireApi.Data{
           .OnDelete(DeleteBehavior.Restrict);
 
       // On AddCurrencyRatesTable Migration
-      builder
-        .Entity<CurrencyRateModel>()
-        .HasOne(PK => PK.currency)
-        .WithMany(FK => FK.currRates)
-        .HasForeignKey(PK => PK.curCode)
-        .OnDelete(DeleteBehavior.Restrict);
+        // 1 Currency => * Rates
+        builder
+          .Entity<CurrencyRateModel>()
+          .HasOne(PK => PK.currency)
+          .WithMany(FK => FK.currRates)
+          .HasForeignKey(PK => PK.curCode)
+          .OnDelete(DeleteBehavior.Restrict);
 
       // On AddPriceListTableAndDetails Migration
         // 1 Currency => * PriceLists
