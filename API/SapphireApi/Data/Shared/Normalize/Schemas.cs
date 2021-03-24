@@ -6,5 +6,6 @@ namespace SapphireApi.Data.Shared.Normalize {
     // public readonly static string KEY = "VALUE";
     internal static readonly string ADM = "ADM_";
     internal static readonly string INV = "INV_";
+    internal static readonly string MKT = "MKT_";
   }
 }

@@ -30,5 +30,7 @@ namespace SapphireApi.Data.Shared.Normalize {
     internal static readonly string TRANSFERENCE = "OWTR";
     internal static readonly string TRANSFERENCE_DETAILS = "WTR1";
     internal static readonly string TRANSFERENCE_BATCH_DETAILS = "WTR2";
+    internal static readonly string PRICE_LIST = "OPLN";
+    internal static readonly string PRICE_LIST_DETAILS = "ITM1";
   }
 }

@@ -31,6 +31,7 @@ using SapphireApi.Data.Inventory.Transactions.Transferences.Request;
 using SapphireApi.Data.Inventory.Transactions.Transferences.Documents;
 using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies;
 using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies.Rates;
+using SapphireApi.Data.Marketing.Pricing.PriceList;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -84,6 +85,9 @@ namespace SapphireApi.Data{
     public DbSet<CurrencyModel> Currencies { get; set; }
     public DbSet<CurrencyRateModel> CurrencyRates { get; set; }
 
+    // SCHEMA [MKT]
+    public DbSet<PriceListModel> PriceLists { get; set; }
+    public DbSet<PriceListDetailModel> PriceListDetails { get; set; }
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
       // Identity MySql Fixing
@@ -151,6 +155,10 @@ namespace SapphireApi.Data{
     // SCHEMA [ADM]
       builder.ApplyConfiguration(new CurrencyModelBuilder());
       builder.ApplyConfiguration(new CurrencyRateModelBuilder());
+
+    // SCHEMA [MKT]
+      builder.ApplyConfiguration(new PriceListModelBuilder());
+      builder.ApplyConfiguration(new PriceListDetailModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP
@@ -362,6 +370,31 @@ namespace SapphireApi.Data{
         .WithMany(FK => FK.currRates)
         .HasForeignKey(PK => PK.curCode)
         .OnDelete(DeleteBehavior.Restrict);
+
+      // On AddPriceListTableAndDetails Migration
+        // 1 Currency => * PriceLists
+        builder 
+          .Entity<PriceListModel>()
+          .HasOne(PK => PK.currency)
+          .WithMany(FK => FK.priceLists)
+          .HasForeignKey(PK => PK.curCode)
+          .OnDelete(DeleteBehavior.Restrict);
+
+        // 1 PriceList => * PriceListDetails
+        builder
+          .Entity<PriceListDetailModel>()
+          .HasOne(PK => PK.priceList)
+          .WithMany(FK => FK.details)
+          .HasForeignKey(PK => PK.priceListId)
+          .OnDelete(DeleteBehavior.Restrict);
+
+        // 1 Item => * PriceListDetail 
+        builder
+          .Entity<PriceListDetailModel>()
+          .HasOne(PK => PK.item)
+          .WithMany(FK => FK.prices)
+          .HasForeignKey(PK => PK.itemCode)
+          .OnDelete(DeleteBehavior.Restrict);
 
       // Query Filters
       builder.Entity<UserModel>().HasQueryFilter(x => x.companyId == this.getCompany());
