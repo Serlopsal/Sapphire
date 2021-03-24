@@ -21,6 +21,10 @@ namespace SapphireApi.Data.Marketing.Pricing.PriceList {
       builder
         .Property(model => model.curCode)
         .IsShortCode();
+
+      builder
+        .Property(model => model.isLocked)
+        .IsFalsy();
     }
   }
 }

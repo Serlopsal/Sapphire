@@ -2152,6 +2152,10 @@ namespace SapphireApi.Migrations
                     b.Property<float?>("factor")
                         .HasColumnType("float");
 
+                    b.Property<bool>("isLocked")
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("listName")
                         .IsRequired()
                         .HasMaxLength(120)
