@@ -32,6 +32,7 @@ using SapphireApi.Data.Inventory.Transactions.Transferences.Documents;
 using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies;
 using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies.Rates;
 using SapphireApi.Data.Marketing.Pricing.PriceList;
+using SapphireApi.Data.Marketing.BusinessPartners.BusinessPartnerGroup;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -88,6 +89,7 @@ namespace SapphireApi.Data{
     // SCHEMA [MKT]
     public DbSet<PriceListModel> PriceLists { get; set; }
     public DbSet<PriceListDetailModel> PriceListDetails { get; set; }
+    public DbSet<BusinessPartnerCardGroupModel> BusinessPartnerCardGroups { get; set; }
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
       // Identity MySql Fixing
@@ -159,6 +161,7 @@ namespace SapphireApi.Data{
     // SCHEMA [MKT]
       builder.ApplyConfiguration(new PriceListModelBuilder());
       builder.ApplyConfiguration(new PriceListDetailModelBuilder());
+      builder.ApplyConfiguration(new BusinessPartnerCardGroupModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP
@@ -395,6 +398,15 @@ namespace SapphireApi.Data{
           .HasOne(PK => PK.item)
           .WithMany(FK => FK.prices)
           .HasForeignKey(PK => PK.itemCode)
+          .OnDelete(DeleteBehavior.Restrict);
+
+      // On AddBusinessPartnerCardGroup Migration
+        // 1 PriceList => * BusinessPartnerCardGroups
+        builder
+          .Entity<BusinessPartnerCardGroupModel>()
+          .HasOne(PK => PK.defaultPriceList)
+          .WithMany(FK => FK.businessPartnerCardGroups)
+          .HasForeignKey(PK => PK.defaultPriceListId)
           .OnDelete(DeleteBehavior.Restrict);
 
       // Query Filters

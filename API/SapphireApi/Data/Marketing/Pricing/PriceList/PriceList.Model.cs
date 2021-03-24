@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies;
+using SapphireApi.Data.Marketing.BusinessPartners.BusinessPartnerGroup;
 using SapphireApi.Data.Shared;
 using SapphireApi.Data.Shared.Models;
 
@@ -12,5 +13,6 @@ namespace SapphireApi.Data.Marketing.Pricing.PriceList {
     public bool isActive { get; set; }
     public virtual CurrencyModel currency { get; set; }
     public virtual ICollection<PriceListDetailModel> details { get; set; }
+    public virtual ICollection<BusinessPartnerCardGroupModel> businessPartnerCardGroups { get; set; }
   }
 }
