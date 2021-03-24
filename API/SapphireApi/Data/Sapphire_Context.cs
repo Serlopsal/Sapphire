@@ -30,6 +30,7 @@ using SapphireApi.Data.Inventory.Transactions.IO.Dispatches;
 using SapphireApi.Data.Inventory.Transactions.Transferences.Request;
 using SapphireApi.Data.Inventory.Transactions.Transferences.Documents;
 using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies;
+using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies.Rates;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -81,6 +82,7 @@ namespace SapphireApi.Data{
 
     // SCHEMA [ADM]
     public DbSet<CurrencyModel> Currencies { get; set; }
+    public DbSet<CurrencyRateModel> CurrencyRates { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
@@ -148,6 +150,7 @@ namespace SapphireApi.Data{
 
     // SCHEMA [ADM]
       builder.ApplyConfiguration(new CurrencyModelBuilder());
+      builder.ApplyConfiguration(new CurrencyRateModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP
@@ -351,6 +354,14 @@ namespace SapphireApi.Data{
           .WithOne(FK => FK.sysFor)
           .HasForeignKey<CompanyModel>(PK => PK.sysCur)
           .OnDelete(DeleteBehavior.Restrict);
+
+      // On AddCurrencyRatesTable Migration
+      builder
+        .Entity<CurrencyRateModel>()
+        .HasOne(PK => PK.currency)
+        .WithMany(FK => FK.currRates)
+        .HasForeignKey(PK => PK.curCode)
+        .OnDelete(DeleteBehavior.Restrict);
 
       // Query Filters
       builder.Entity<UserModel>().HasQueryFilter(x => x.companyId == this.getCompany());

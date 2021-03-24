@@ -7,6 +7,7 @@ namespace SapphireApi.Data.Shared.Normalize {
     internal static readonly string CITIES = "OCST";
     internal static readonly string COMPANY = "OADM";
     internal static readonly string CURRENCIES = "OCRN";
+    internal static readonly string CURRENCIES_RATES = "ORTT";
     internal static readonly string WAREHOUSES = "OWHS";
     internal static readonly string UOM = "OUOM";
     internal static readonly string UOMConverter = "OUGP";
