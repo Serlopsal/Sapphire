@@ -29,6 +29,7 @@ using SapphireApi.Data.Inventory.Transactions.IO.Receipts;
 using SapphireApi.Data.Inventory.Transactions.IO.Dispatches;
 using SapphireApi.Data.Inventory.Transactions.Transferences.Request;
 using SapphireApi.Data.Inventory.Transactions.Transferences.Documents;
+using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -41,7 +42,7 @@ namespace SapphireApi.Data{
     // Add Models DataSets [HERE]
     // Ex: public DbSet<DataModel> Model { get; set; }
 
-    // // SCHEMA [ADM]
+    // SCHEMA [ADM]
     public DbSet<ObjectModel> Objects { get; set; }
     public DbSet<CountryModel> Country { get; set; }
     public DbSet<CompanyModel> Company { get; set; }
@@ -50,7 +51,7 @@ namespace SapphireApi.Data{
     public DbSet<CityModel> City { get; set; }
     public DbSet<SerieModel> Series { get; set; }
 
-    // // SCHEMA [INV]
+    // SCHEMA [INV]
     public DbSet<WarehouseModel> Warehouse { get; set; }
     public DbSet<ManufacterModel> Manufacter { get; set; }
     public DbSet<ItemsGroupModel> ItemsGroup { get; set; }
@@ -77,6 +78,9 @@ namespace SapphireApi.Data{
     public DbSet<TransferenceModel> Transference { get; set; }
     public DbSet<TransferenceDetailsModel> TrasnferenceDetails { get; set; }
     public DbSet<TransferenceBatchDetailsModel> TrasnferencesBatchDetails { get; set; }
+
+    // SCHEMA [ADM]
+    public DbSet<CurrencyModel> Currencies { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
@@ -142,6 +146,8 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new TransferenceDetailsModelBuilder());
       builder.ApplyConfiguration(new TransferenceBatchDetailsModelBuilder());
 
+    // SCHEMA [ADM]
+      builder.ApplyConfiguration(new CurrencyModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP
@@ -327,6 +333,23 @@ namespace SapphireApi.Data{
           .HasOne(PK => PK.batch)
           .WithMany(FK => FK.batchTransactionDetails)
           .HasForeignKey(PK => new { PK.itemCode, PK.batchId })
+          .OnDelete(DeleteBehavior.Restrict);
+      
+      // On AddCurrenciesTable Migrations
+        // 1 Currency => 1 Company (Main)
+        builder
+          .Entity<CompanyModel>()
+          .HasOne(PK => PK.mainCurrency)
+          .WithOne(FK => FK.mainFor)
+          .HasForeignKey<CompanyModel>(PK => PK.mainCur)
+          .OnDelete(DeleteBehavior.Restrict);
+
+        // 1 Currency => 1 Company (Sys)
+        builder
+          .Entity<CompanyModel>()
+          .HasOne(PK => PK.systemCurrency)
+          .WithOne(FK => FK.sysFor)
+          .HasForeignKey<CompanyModel>(PK => PK.sysCur)
           .OnDelete(DeleteBehavior.Restrict);
 
       // Query Filters
