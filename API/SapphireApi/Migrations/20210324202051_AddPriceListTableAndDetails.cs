@@ -18,7 +18,7 @@ namespace SapphireApi.Migrations
                     curCode = table.Column<string>(type: "varchar(3)", maxLength: 3, nullable: false),
                     baseList = table.Column<int>(type: "int", nullable: true),
                     factor = table.Column<float>(type: "float", nullable: true),
-                    isLocked = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),
+                    isActive = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: true),
                     objType = table.Column<int>(type: "int", nullable: false),
                     createdAt = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     createdBy = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: false),

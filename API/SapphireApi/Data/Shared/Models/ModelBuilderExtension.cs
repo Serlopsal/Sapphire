@@ -54,5 +54,11 @@ namespace SapphireApi.Data.Shared.Models {
         .HasDefaultValue(false)
         .IsRequired();
     }
+    public static PropertyBuilder IsTruly(this PropertyBuilder property)
+    {
+      return property
+        .HasDefaultValue(true)
+        .IsRequired();
+    }
   }
 }
