@@ -33,5 +33,6 @@ namespace SapphireApi.Data.Shared.Normalize {
     internal static readonly string PRICE_LIST = "OPLN";
     internal static readonly string PRICE_LIST_DETAILS = "ITM1";
     internal static readonly string BUSINESS_PARTNER_GROUP = "OCRG";
+    internal static readonly string BUSINESS_PARTNER = "OCRD";
   }
 }

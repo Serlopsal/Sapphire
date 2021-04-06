@@ -33,6 +33,7 @@ using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies;
 using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies.Rates;
 using SapphireApi.Data.Marketing.Pricing.PriceList;
 using SapphireApi.Data.Marketing.BusinessPartners.BusinessPartnerGroup;
+using SapphireApi.Data.Marketing.BusinessPartners.BusinessPartnerCards;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -90,6 +91,7 @@ namespace SapphireApi.Data{
     public DbSet<PriceListModel> PriceLists { get; set; }
     public DbSet<PriceListDetailModel> PriceListDetails { get; set; }
     public DbSet<BusinessPartnerCardGroupModel> BusinessPartnerCardGroups { get; set; }
+    public DbSet<BusinessPartnerCardModel> BusinessPartnerCards { get; set; }
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
       // Identity MySql Fixing
@@ -162,6 +164,7 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new PriceListModelBuilder());
       builder.ApplyConfiguration(new PriceListDetailModelBuilder());
       builder.ApplyConfiguration(new BusinessPartnerCardGroupModelBuilder());
+      builder.ApplyConfiguration(new BusinessPartnerCardModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP
@@ -408,6 +411,24 @@ namespace SapphireApi.Data{
           .WithMany(FK => FK.businessPartnerCardGroups)
           .HasForeignKey(PK => PK.defaultPriceListId)
           .OnDelete(DeleteBehavior.Restrict);
+
+      // On AddBuisinessPartnerCard Migration
+        // 1 Group => * Cards
+        builder
+          .Entity<BusinessPartnerCardModel>()
+          .HasOne(PK => PK.cardGroup)
+          .WithMany(FK => FK.cards)
+          .HasForeignKey(PK => PK.cardGroupId)
+          .OnDelete(DeleteBehavior.Restrict);
+        
+        // 1 Currency => * Cards
+        builder
+          .Entity<BusinessPartnerCardModel>()
+          .HasOne(PK => PK.currency)
+          .WithMany(FK => FK.cards)
+          .HasForeignKey(PK => PK.currCode)
+          .OnDelete(DeleteBehavior.Restrict);
+
 
       // Query Filters
       builder.Entity<UserModel>().HasQueryFilter(x => x.companyId == this.getCompany());
