@@ -1,5 +1,5 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0 as builder
+FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine
 WORKDIR /var/www/app/publish
-COPY publish .
 RUN dotnet dev-certs https --clean
 RUN dotnet dev-certs https --clean; dotnet dev-certs https --trust
+COPY publish .
