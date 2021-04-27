@@ -1,5 +1,5 @@
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine
-WORKDIR /var/www/app/publish
+FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine
 RUN dotnet dev-certs https --clean
-RUN dotnet dev-certs https --clean; dotnet dev-certs https --trust
-COPY publish .
+RUN dotnet dev-certs https --trust -ep /https/aspnetapp.pfx -p password
+WORKDIR /var/www/SapphireApi/
+COPY ./SapphireApi .
