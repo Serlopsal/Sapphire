@@ -9,8 +9,12 @@ namespace SapphireApi.Data.Shared.Models {
         .HasMaxLength(8)
         .IsRequired();
     }
-    public static PropertyBuilder IsLongCode(this PropertyBuilder property)
+    public static PropertyBuilder IsLongCode(this PropertyBuilder property, bool forceRequired = true)
     {
+      if(!forceRequired)
+        return property
+          .HasMaxLength(50);
+
       return property
         .HasMaxLength(50)
         .IsRequired();
@@ -52,6 +56,12 @@ namespace SapphireApi.Data.Shared.Models {
     {
       return property
         .HasDefaultValue(false)
+        .IsRequired();
+    }
+    public static PropertyBuilder IsTruly(this PropertyBuilder property)
+    {
+      return property
+        .HasDefaultValue(true)
         .IsRequired();
     }
   }

@@ -13,9 +13,10 @@ using Microsoft.AspNetCore.Authorization;
 using SapphireApi.Data.Identity.SharedModels;
 using Microsoft.EntityFrameworkCore;
 using SapphireApi.Data.Shared.Normalize;
+using SapphireApi;
 
 namespace SapphireApi.Data.Identity {
-  [Route("api/[controller]")]
+  [Route("api/")]
   [ApiController]
   public class UserController : ControllerBase {
     private Sapphire_Context _context;
@@ -37,7 +38,7 @@ namespace SapphireApi.Data.Identity {
 
     [HttpPost]
     [Authorize]
-    [Route("Register")]
+    [Route("register")]
     public async Task<object> SaveAppUser(NewUserModel newUser) {
        using (var transaction = _context.Database.BeginTransaction()) {
         try {
@@ -97,14 +98,24 @@ namespace SapphireApi.Data.Identity {
     [HttpPost]
     [Route("login")]
     public async Task<IActionResult> Login(LoginModel model) {
-      var user = await _userManager.Users.IgnoreQueryFilters().FirstAsync(filter => filter.UserName == model.user);
-      if (user != null && await _userManager.CheckPasswordAsync(user, model.password)) {
-        var token = await GenerateToken(user);
-        return Ok(new { token });
+      var tag = "ENDPOINT_CALL login";
+      try{
+        if(String.IsNullOrEmpty(model.username))
+          return BadRequest(new {message= "The username must not be empty"});
+        if(String.IsNullOrEmpty(model.password))
+          return BadRequest(new {message= "The password must not be empty"});
+        
+        var user = await _userManager.Users.IgnoreQueryFilters().FirstOrDefaultAsync(filter => filter.UserName == model.username);
+        if (user != null && await _userManager.CheckPasswordAsync(user, model.password)) {
+          var token = await GenerateToken(user);
+          Log.success(tag,"El usuario '"+user+"' ha iniciado sesion exitosamente");
+          return Ok(new { token });
+        }
+      } catch(Exception e) { 
+        Log.error(tag,e.StackTrace);
       }
-      else
+      Log.warning(tag,String.Format("Invalid password for user: '{0}'",model.username));
       return BadRequest(new { message = "Username or password is incorrect." });
-      
     }
 
     [HttpGet]
@@ -135,7 +146,7 @@ namespace SapphireApi.Data.Identity {
 
     [HttpGet]
     [Authorize]
-    [Route("RenewToken")]
+    [Route("renew-token")]
     public async Task<IActionResult> RenewToken() {
       try{
         var token = Request.Headers["Authorization"].ToString().Substring("Bearer ".Length);        
@@ -147,6 +158,14 @@ namespace SapphireApi.Data.Identity {
       catch(Exception e){
         return BadRequest(e);
       }
+    }
+
+    [HttpPost]
+    [Route("forgot-password")]
+    public async Task<IActionResult> RenewToken(string userId) {
+      var user = await _userManager.FindByIdAsync(userId);
+      
+      return Ok();
     }
   }
 }

@@ -37,8 +37,6 @@ namespace SapphireApi
             //Custom Dependency injection
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
-            var origin = Configuration["AppSettings:Client_Url"].ToString();
-
             services.AddHttpContextAccessor();
             
             services.AddSwaggerGen(c =>
@@ -83,13 +81,14 @@ namespace SapphireApi
                     }
                 );
 
+            var origin = Configuration["AppSettings:Client_Url"].ToString();
+
             services
                 .AddCors(
                     options => {
                         options.AddDefaultPolicy(
                             builder => {
                                 builder
-                                // TODO: CHANGE ORIGIN ALLOWED => .WithOrigins(origin)
                                     .AllowAnyOrigin()
                                     .AllowAnyHeader()
                                     .AllowAnyMethod();
@@ -134,18 +133,19 @@ namespace SapphireApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Sapphire_Context db)
         {
-            if (env.IsDevelopment())
+            app.UseCors();
+            if (!env.IsProduction())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SapphireApi v1"));
+            }else{
+                app.UseHttpsRedirection();
             }
 
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseCors();
 
             app.UseAuthentication();
 

@@ -29,6 +29,11 @@ using SapphireApi.Data.Inventory.Transactions.IO.Receipts;
 using SapphireApi.Data.Inventory.Transactions.IO.Dispatches;
 using SapphireApi.Data.Inventory.Transactions.Transferences.Request;
 using SapphireApi.Data.Inventory.Transactions.Transferences.Documents;
+using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies;
+using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies.Rates;
+using SapphireApi.Data.Marketing.Pricing.PriceList;
+using SapphireApi.Data.Marketing.BusinessPartners.BusinessPartnerGroup;
+using SapphireApi.Data.Marketing.BusinessPartners.BusinessPartnerCards;
 
 namespace SapphireApi.Data{
   public class Sapphire_Context: IdentityDbContext<UserModel>{
@@ -41,7 +46,7 @@ namespace SapphireApi.Data{
     // Add Models DataSets [HERE]
     // Ex: public DbSet<DataModel> Model { get; set; }
 
-    // // SCHEMA [ADM]
+    // SCHEMA [ADM]
     public DbSet<ObjectModel> Objects { get; set; }
     public DbSet<CountryModel> Country { get; set; }
     public DbSet<CompanyModel> Company { get; set; }
@@ -50,7 +55,7 @@ namespace SapphireApi.Data{
     public DbSet<CityModel> City { get; set; }
     public DbSet<SerieModel> Series { get; set; }
 
-    // // SCHEMA [INV]
+    // SCHEMA [INV]
     public DbSet<WarehouseModel> Warehouse { get; set; }
     public DbSet<ManufacterModel> Manufacter { get; set; }
     public DbSet<ItemsGroupModel> ItemsGroup { get; set; }
@@ -78,6 +83,15 @@ namespace SapphireApi.Data{
     public DbSet<TransferenceDetailsModel> TrasnferenceDetails { get; set; }
     public DbSet<TransferenceBatchDetailsModel> TrasnferencesBatchDetails { get; set; }
 
+    // SCHEMA [ADM]
+    public DbSet<CurrencyModel> Currencies { get; set; }
+    public DbSet<CurrencyRateModel> CurrencyRates { get; set; }
+
+    // SCHEMA [MKT]
+    public DbSet<PriceListModel> PriceLists { get; set; }
+    public DbSet<PriceListDetailModel> PriceListDetails { get; set; }
+    public DbSet<BusinessPartnerCardGroupModel> BusinessPartnerCardGroups { get; set; }
+    public DbSet<BusinessPartnerCardModel> BusinessPartnerCards { get; set; }
     protected override void OnModelCreating(ModelBuilder builder){
       base.OnModelCreating(builder);
       // Identity MySql Fixing
@@ -142,6 +156,15 @@ namespace SapphireApi.Data{
       builder.ApplyConfiguration(new TransferenceDetailsModelBuilder());
       builder.ApplyConfiguration(new TransferenceBatchDetailsModelBuilder());
 
+    // SCHEMA [ADM]
+      builder.ApplyConfiguration(new CurrencyModelBuilder());
+      builder.ApplyConfiguration(new CurrencyRateModelBuilder());
+
+    // SCHEMA [MKT]
+      builder.ApplyConfiguration(new PriceListModelBuilder());
+      builder.ApplyConfiguration(new PriceListDetailModelBuilder());
+      builder.ApplyConfiguration(new BusinessPartnerCardGroupModelBuilder());
+      builder.ApplyConfiguration(new BusinessPartnerCardModelBuilder());
 
       // Add Relationships Configuration [HERE]
       // TEMPLATE 1 TO MANY RELATIONSHIP
@@ -328,6 +351,84 @@ namespace SapphireApi.Data{
           .WithMany(FK => FK.batchTransactionDetails)
           .HasForeignKey(PK => new { PK.itemCode, PK.batchId })
           .OnDelete(DeleteBehavior.Restrict);
+      
+      // On AddCurrenciesTable Migrations
+        // 1 Currency => 1 Company (Main)
+        builder
+          .Entity<CompanyModel>()
+          .HasOne(PK => PK.mainCurrency)
+          .WithOne(FK => FK.mainFor)
+          .HasForeignKey<CompanyModel>(PK => PK.mainCur)
+          .OnDelete(DeleteBehavior.Restrict);
+
+        // 1 Currency => 1 Company (Sys)
+        builder
+          .Entity<CompanyModel>()
+          .HasOne(PK => PK.systemCurrency)
+          .WithOne(FK => FK.sysFor)
+          .HasForeignKey<CompanyModel>(PK => PK.sysCur)
+          .OnDelete(DeleteBehavior.Restrict);
+
+      // On AddCurrencyRatesTable Migration
+        // 1 Currency => * Rates
+        builder
+          .Entity<CurrencyRateModel>()
+          .HasOne(PK => PK.currency)
+          .WithMany(FK => FK.currRates)
+          .HasForeignKey(PK => PK.curCode)
+          .OnDelete(DeleteBehavior.Restrict);
+
+      // On AddPriceListTableAndDetails Migration
+        // 1 Currency => * PriceLists
+        builder 
+          .Entity<PriceListModel>()
+          .HasOne(PK => PK.currency)
+          .WithMany(FK => FK.priceLists)
+          .HasForeignKey(PK => PK.curCode)
+          .OnDelete(DeleteBehavior.Restrict);
+
+        // 1 PriceList => * PriceListDetails
+        builder
+          .Entity<PriceListDetailModel>()
+          .HasOne(PK => PK.priceList)
+          .WithMany(FK => FK.details)
+          .HasForeignKey(PK => PK.priceListId)
+          .OnDelete(DeleteBehavior.Restrict);
+
+        // 1 Item => * PriceListDetail 
+        builder
+          .Entity<PriceListDetailModel>()
+          .HasOne(PK => PK.item)
+          .WithMany(FK => FK.prices)
+          .HasForeignKey(PK => PK.itemCode)
+          .OnDelete(DeleteBehavior.Restrict);
+
+      // On AddBusinessPartnerCardGroup Migration
+        // 1 PriceList => * BusinessPartnerCardGroups
+        builder
+          .Entity<BusinessPartnerCardGroupModel>()
+          .HasOne(PK => PK.defaultPriceList)
+          .WithMany(FK => FK.businessPartnerCardGroups)
+          .HasForeignKey(PK => PK.defaultPriceListId)
+          .OnDelete(DeleteBehavior.Restrict);
+
+      // On AddBuisinessPartnerCard Migration
+        // 1 Group => * Cards
+        builder
+          .Entity<BusinessPartnerCardModel>()
+          .HasOne(PK => PK.cardGroup)
+          .WithMany(FK => FK.cards)
+          .HasForeignKey(PK => PK.cardGroupId)
+          .OnDelete(DeleteBehavior.Restrict);
+        
+        // 1 Currency => * Cards
+        builder
+          .Entity<BusinessPartnerCardModel>()
+          .HasOne(PK => PK.currency)
+          .WithMany(FK => FK.cards)
+          .HasForeignKey(PK => PK.currCode)
+          .OnDelete(DeleteBehavior.Restrict);
+
 
       // Query Filters
       builder.Entity<UserModel>().HasQueryFilter(x => x.companyId == this.getCompany());

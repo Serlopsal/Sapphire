@@ -6,7 +6,9 @@ services:
       - SYS_NICE
     environment: 
       - MYSQL_ROOT_PASSWORD=Admin@123
-      - MYSQL_DATABASE=Sapphire_Dev
+      - MYSQL_DATABASE=Sapphire
+    volumes: 
+      - ./vol/mssql:/var/lib/mysql
     ports:
       - 3306:3306
     expose:
@@ -18,13 +20,18 @@ services:
     environment:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_ENVIRONMENT=DockerMySql
-    command: bash -c "sleep 15 && dotnet /var/www/app/publish/SapphireApi.dll"
+      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes: 
+      - ./SapphireApi:/var/www/SapphireApi
+    command: ash -c "sleep 15 && dotnet watch --project /var/www/SapphireApi/SapphireApi.csproj run"
     expose: 
       - 80 
       - 443 
     ports:
-      - 80:80
-      - 443:443
+      - 5000:80
+      - 5001:443
     links:
       - mysql
     depends_on:

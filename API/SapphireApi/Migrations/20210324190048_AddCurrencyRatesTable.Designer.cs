@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SapphireApi.Data;
 
 namespace SapphireApi.Migrations
 {
     [DbContext(typeof(Sapphire_Context))]
-    partial class Sapphire_ContextModelSnapshot : ModelSnapshot
+    [Migration("20210324190048_AddCurrencyRatesTable")]
+    partial class AddCurrencyRatesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2069,255 +2071,6 @@ namespace SapphireApi.Migrations
                     b.ToTable("INV_OWHS");
                 });
 
-            modelBuilder.Entity("SapphireApi.Data.Marketing.BusinessPartners.BusinessPartnerCards.BusinessPartnerCardModel", b =>
-                {
-                    b.Property<string>("cardCode")
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<int>("cardGroupId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("cardName")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("varchar(120)");
-
-                    b.Property<int>("cardType")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("createdAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<string>("createdBy")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("varchar(127)");
-
-                    b.Property<string>("currCode")
-                        .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("varchar(3)");
-
-                    b.Property<string>("email")
-                        .HasColumnType("text");
-
-                    b.Property<string>("identifier")
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<bool>("isLocked")
-                        .HasColumnType("tinyint(1)")
-                        .HasDefaultValue(false);
-
-                    b.Property<int>("objType")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("updatedAt")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<string>("updatedBy")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("varchar(127)");
-
-                    b.Property<string>("website")
-                        .HasColumnType("text");
-
-                    b.HasKey("cardCode");
-
-                    b.HasIndex("cardGroupId");
-
-                    b.HasIndex("createdBy");
-
-                    b.HasIndex("currCode");
-
-                    b.HasIndex("objType");
-
-                    b.HasIndex("updatedBy");
-
-                    b.ToTable("MKT_OCRD");
-                });
-
-            modelBuilder.Entity("SapphireApi.Data.Marketing.BusinessPartners.BusinessPartnerGroup.BusinessPartnerCardGroupModel", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("createdAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<string>("createdBy")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("varchar(127)");
-
-                    b.Property<int>("defaultPriceListId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("groupName")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("varchar(120)");
-
-                    b.Property<bool>("isLocked")
-                        .HasColumnType("tinyint(1)")
-                        .HasDefaultValue(false);
-
-                    b.Property<int>("objType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("onlyCardType")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("updatedAt")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<string>("updatedBy")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("varchar(127)");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("createdBy");
-
-                    b.HasIndex("defaultPriceListId");
-
-                    b.HasIndex("objType");
-
-                    b.HasIndex("updatedBy");
-
-                    b.ToTable("MKT_OCRG");
-                });
-
-            modelBuilder.Entity("SapphireApi.Data.Marketing.Pricing.PriceList.PriceListDetailModel", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("createdAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<string>("createdBy")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("varchar(127)");
-
-                    b.Property<string>("itemCode")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("varchar(8)");
-
-                    b.Property<int>("objType")
-                        .HasColumnType("int");
-
-                    b.Property<float>("price")
-                        .HasColumnType("float");
-
-                    b.Property<int>("priceListId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("updatedAt")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<string>("updatedBy")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("varchar(127)");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("createdBy");
-
-                    b.HasIndex("itemCode");
-
-                    b.HasIndex("objType");
-
-                    b.HasIndex("priceListId");
-
-                    b.HasIndex("updatedBy");
-
-                    b.ToTable("MKT_ITM1");
-                });
-
-            modelBuilder.Entity("SapphireApi.Data.Marketing.Pricing.PriceList.PriceListModel", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("listId");
-
-                    b.Property<int?>("baseList")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("createdAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<string>("createdBy")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("varchar(127)");
-
-                    b.Property<string>("curCode")
-                        .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("varchar(3)");
-
-                    b.Property<float?>("factor")
-                        .HasColumnType("float");
-
-                    b.Property<bool>("isActive")
-                        .HasColumnType("tinyint(1)")
-                        .HasDefaultValue(true);
-
-                    b.Property<string>("listName")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("varchar(120)");
-
-                    b.Property<int>("objType")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("updatedAt")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<string>("updatedBy")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("varchar(127)");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("createdBy");
-
-                    b.HasIndex("curCode");
-
-                    b.HasIndex("objType");
-
-                    b.HasIndex("updatedBy");
-
-                    b.ToTable("MKT_OPLN");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -3568,162 +3321,6 @@ namespace SapphireApi.Migrations
                     b.Navigation("updaterUsr");
                 });
 
-            modelBuilder.Entity("SapphireApi.Data.Marketing.BusinessPartners.BusinessPartnerCards.BusinessPartnerCardModel", b =>
-                {
-                    b.HasOne("SapphireApi.Data.Marketing.BusinessPartners.BusinessPartnerGroup.BusinessPartnerCardGroupModel", "cardGroup")
-                        .WithMany("cards")
-                        .HasForeignKey("cardGroupId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
-                        .WithMany()
-                        .HasForeignKey("createdBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SapphireApi.Data.Adminsitration.SystemInitialization.Currencies.CurrencyModel", "currency")
-                        .WithMany("cards")
-                        .HasForeignKey("currCode")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
-                        .WithMany()
-                        .HasForeignKey("objType")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
-                        .WithMany()
-                        .HasForeignKey("updatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("cardGroup");
-
-                    b.Navigation("creatorUsr");
-
-                    b.Navigation("currency");
-
-                    b.Navigation("obj");
-
-                    b.Navigation("updaterUsr");
-                });
-
-            modelBuilder.Entity("SapphireApi.Data.Marketing.BusinessPartners.BusinessPartnerGroup.BusinessPartnerCardGroupModel", b =>
-                {
-                    b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
-                        .WithMany()
-                        .HasForeignKey("createdBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SapphireApi.Data.Marketing.Pricing.PriceList.PriceListModel", "defaultPriceList")
-                        .WithMany("businessPartnerCardGroups")
-                        .HasForeignKey("defaultPriceListId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
-                        .WithMany()
-                        .HasForeignKey("objType")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
-                        .WithMany()
-                        .HasForeignKey("updatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("creatorUsr");
-
-                    b.Navigation("defaultPriceList");
-
-                    b.Navigation("obj");
-
-                    b.Navigation("updaterUsr");
-                });
-
-            modelBuilder.Entity("SapphireApi.Data.Marketing.Pricing.PriceList.PriceListDetailModel", b =>
-                {
-                    b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
-                        .WithMany()
-                        .HasForeignKey("createdBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SapphireApi.Data.Inventory.Items.ItemModel", "item")
-                        .WithMany("prices")
-                        .HasForeignKey("itemCode")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
-                        .WithMany()
-                        .HasForeignKey("objType")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SapphireApi.Data.Marketing.Pricing.PriceList.PriceListModel", "priceList")
-                        .WithMany("details")
-                        .HasForeignKey("priceListId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
-                        .WithMany()
-                        .HasForeignKey("updatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("creatorUsr");
-
-                    b.Navigation("item");
-
-                    b.Navigation("obj");
-
-                    b.Navigation("priceList");
-
-                    b.Navigation("updaterUsr");
-                });
-
-            modelBuilder.Entity("SapphireApi.Data.Marketing.Pricing.PriceList.PriceListModel", b =>
-                {
-                    b.HasOne("SapphireApi.Data.Identity.UserModel", "creatorUsr")
-                        .WithMany()
-                        .HasForeignKey("createdBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SapphireApi.Data.Adminsitration.SystemInitialization.Currencies.CurrencyModel", "currency")
-                        .WithMany("priceLists")
-                        .HasForeignKey("curCode")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SapphireApi.Data.Adminsitration.Setup.Objects.ObjectModel", "obj")
-                        .WithMany()
-                        .HasForeignKey("objType")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SapphireApi.Data.Identity.UserModel", "updaterUsr")
-                        .WithMany()
-                        .HasForeignKey("updatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("creatorUsr");
-
-                    b.Navigation("currency");
-
-                    b.Navigation("obj");
-
-                    b.Navigation("updaterUsr");
-                });
-
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.Locations.Cities.CityModel", b =>
                 {
                     b.Navigation("warehouses");
@@ -3770,13 +3367,9 @@ namespace SapphireApi.Migrations
 
             modelBuilder.Entity("SapphireApi.Data.Adminsitration.SystemInitialization.Currencies.CurrencyModel", b =>
                 {
-                    b.Navigation("cards");
-
                     b.Navigation("currRates");
 
                     b.Navigation("mainFor");
-
-                    b.Navigation("priceLists");
 
                     b.Navigation("sysFor");
                 });
@@ -3789,8 +3382,6 @@ namespace SapphireApi.Migrations
             modelBuilder.Entity("SapphireApi.Data.Inventory.Items.ItemModel", b =>
                 {
                     b.Navigation("batches");
-
-                    b.Navigation("prices");
                 });
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.ItemsGroup.ItemsGroupModel", b =>
@@ -3805,18 +3396,6 @@ namespace SapphireApi.Migrations
 
             modelBuilder.Entity("SapphireApi.Data.Inventory.Transactions.Batch.BatchTransactionModel", b =>
                 {
-                    b.Navigation("details");
-                });
-
-            modelBuilder.Entity("SapphireApi.Data.Marketing.BusinessPartners.BusinessPartnerGroup.BusinessPartnerCardGroupModel", b =>
-                {
-                    b.Navigation("cards");
-                });
-
-            modelBuilder.Entity("SapphireApi.Data.Marketing.Pricing.PriceList.PriceListModel", b =>
-                {
-                    b.Navigation("businessPartnerCardGroups");
-
                     b.Navigation("details");
                 });
 #pragma warning restore 612, 618

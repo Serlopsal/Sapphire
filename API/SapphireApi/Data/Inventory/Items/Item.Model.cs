@@ -4,6 +4,7 @@ using SapphireApi.Data.Inventory.Batches;
 using SapphireApi.Data.Inventory.ItemsGroup;
 using SapphireApi.Data.Inventory.Manufacters;
 using SapphireApi.Data.Inventory.Transactions.Batch;
+using SapphireApi.Data.Marketing.Pricing.PriceList;
 using SapphireApi.Data.Shared.Models;
 
 namespace SapphireApi.Data.Inventory.Items{
@@ -30,5 +31,6 @@ namespace SapphireApi.Data.Inventory.Items{
     public virtual UOMModel sellUOM { get; set; }
     public virtual UOMModel inventoryUOM { get; set; }
     public virtual ICollection<BatchModel> batches { get; set; }
+    public virtual ICollection<PriceListDetailModel> prices { get; set; }
   }
 }

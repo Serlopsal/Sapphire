@@ -6,6 +6,8 @@ namespace SapphireApi.Data.Shared.Normalize {
     internal static readonly string COUNTRY = "OCRY";
     internal static readonly string CITIES = "OCST";
     internal static readonly string COMPANY = "OADM";
+    internal static readonly string CURRENCIES = "OCRN";
+    internal static readonly string CURRENCIES_RATES = "ORTT";
     internal static readonly string WAREHOUSES = "OWHS";
     internal static readonly string UOM = "OUOM";
     internal static readonly string UOMConverter = "OUGP";
@@ -28,5 +30,9 @@ namespace SapphireApi.Data.Shared.Normalize {
     internal static readonly string TRANSFERENCE = "OWTR";
     internal static readonly string TRANSFERENCE_DETAILS = "WTR1";
     internal static readonly string TRANSFERENCE_BATCH_DETAILS = "WTR2";
+    internal static readonly string PRICE_LIST = "OPLN";
+    internal static readonly string PRICE_LIST_DETAILS = "ITM1";
+    internal static readonly string BUSINESS_PARTNER_GROUP = "OCRG";
+    internal static readonly string BUSINESS_PARTNER = "OCRD";
   }
 }

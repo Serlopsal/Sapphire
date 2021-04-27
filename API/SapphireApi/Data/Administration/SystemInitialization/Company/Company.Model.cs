@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using SapphireApi.Data.Adminsitration.Locations.Country;
+using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies;
 using SapphireApi.Data.Identity;
 using SapphireApi.Data.Shared.Models;
 
@@ -22,6 +23,8 @@ namespace SapphireApi.Data.Adminsitration.SystemInitialization.Company{
 
     // Navigation Properties
     public virtual CountryModel country { get; set; }
+    public virtual CurrencyModel mainCurrency { get; set; }
+    public virtual CurrencyModel systemCurrency { get; set; }
     public virtual ICollection<UserModel> users { get; set; }
   }
 }
