@@ -19,6 +19,7 @@ using Microsoft.OpenApi.Models;
 
 using SapphireApi.Data;
 using SapphireApi.Data.Identity;
+using SapphireApi.Services;
 
 namespace SapphireApi
 {
@@ -38,6 +39,8 @@ namespace SapphireApi
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             services.AddHttpContextAccessor();
+
+            services.AddSingleton<IMailService, MailService>();
             
             services.AddSwaggerGen(c =>
             {

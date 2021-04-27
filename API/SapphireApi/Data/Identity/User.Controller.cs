@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using SapphireApi.Data.Identity.SharedModels;
 using Microsoft.EntityFrameworkCore;
 using SapphireApi.Data.Shared.Normalize;
-using SapphireApi;
+using SapphireApi.Services;
 
 namespace SapphireApi.Data.Identity {
   [Route("api/")]
@@ -23,17 +23,20 @@ namespace SapphireApi.Data.Identity {
     private UserManager<UserModel> _userManager;
     private SignInManager<UserModel> _signInManager;
     private AppSettings _appSettings;
+    private IMailService _mailService;
     public UserController(
       Sapphire_Context context,
       UserManager<UserModel> userManager,
       SignInManager<UserModel> signInManager,
-      IOptions<AppSettings> appSettings
+      IOptions<AppSettings> appSettings,
+      IMailService mailService
     )
     {
       _context = context;
       _userManager = userManager;
       _signInManager = signInManager;
       _appSettings = appSettings.Value;
+      _mailService = mailService;
     }
 
     [HttpPost]
@@ -162,9 +165,19 @@ namespace SapphireApi.Data.Identity {
 
     [HttpPost]
     [Route("forgot-password")]
-    public async Task<IActionResult> RenewToken(string userId) {
-      var user = await _userManager.FindByIdAsync(userId);
-      
+    public async Task<IActionResult> ForgotPassword([FromBody] string userId) {
+      var user = await _userManager.Users.IgnoreQueryFilters().FirstOrDefaultAsync(x => x.NormalizedUserName == userId.ToUpper() || x.NormalizedEmail == userId.ToUpper());
+      if(user.EmailConfirmed){
+        try{
+          var task = new System.Threading.Thread(delegate(){_mailService.SendMailAsync(user.Email, "Forgot-Password - Sapphire", "recoverlink");});
+          task.IsBackground = true;
+          task.Start();
+        }
+        catch(Exception e){
+          Log.error("ENDPOINT_CALL forgot-password", e.StackTrace);
+        }
+      }
+
       return Ok();
     }
   }
