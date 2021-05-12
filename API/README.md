@@ -20,6 +20,8 @@ dotnet add package Microsoft.AspNetCore.Cors --version 2.2.0
 dotnet add package Microsoft.EntityFrameworkCore.Tools --version 5.0.2
 dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson --version 5.0.2
 ```
+Note: 
+The Microsoft.EntityFrameworkCore.SqlServer package is only required by scaffolding 
 
 ### Migrations
 
@@ -40,13 +42,18 @@ dotnet ef migrations remove
 
 ### Generate an Controller with CLI
 ```zsh
-dotnet-aspnet-codegenerator controller -name [CONTROLLER_NAME] -api -m [namespace].[classname] -dc Sapphire_Context -outDir [FILE_OUTPUT_PATH] -namespace [namespace]
+dotnet aspnet-codegenerator controller -name [CONTROLLER_NAME] -api -m [namespace].[classname] -dc Sapphire_Context -outDir [FILE_OUTPUT_PATH] -namespace [namespace]
 ```
 
 Example:
 
 ```zsh
-dotnet-aspnet-codegenerator controller -name CountryController -api -m SapphireApi.Data.Adminsitration.Country.CountryModel -dc Sapphire_Context -outDir Data\\Administration\\SystemInitialization\\Country -namespace SapphireApi.Data.Adminsitration.Country
+dotnet aspnet-codegenerator \
+controller -name CountryController -api \
+-m SapphireApi.Data.Adminsitration.Locations.Country.CountryModel \
+-dc Sapphire_Context \
+-outDir Data/Administration/Locations/Country \
+-namespace SapphireApi.Data.Adminsitration.Locations.Country
 ```
 
 ### Docker Images
