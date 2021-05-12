@@ -61,7 +61,8 @@ namespace SapphireApi {
     private static void log(string tag, string message, ColoredConsole.ColorKey textColor, ColoredConsole.ColorKey backgroundColor = ColoredConsole.ColorKey.Black){
       Console.Write(ColoredConsole.getBackground(textColor));
       Console.Write(ColoredConsole.getForeground(backgroundColor));
-      Console.Write(ColoredConsole.getEffect(ColoredConsole.EffectKey.Blink));
+      Console.Write(ColoredConsole.getEffect(ColoredConsole.EffectKey.Bold));
+      Console.Write(ColoredConsole.getEffect(ColoredConsole.EffectKey.Italic));
       Console.Write(tag +" "+ DateTime.Now + ": ");
       Console.Write(ColoredConsole.reset());
       Console.Write(ColoredConsole.getForeground(textColor));
