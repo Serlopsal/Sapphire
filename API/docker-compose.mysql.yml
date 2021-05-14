@@ -1,7 +1,7 @@
 services:
   
   mysql:
-    image: mysql:latest
+    image: mysql:8.0.25
     cap_add:
       - SYS_NICE
     environment: 

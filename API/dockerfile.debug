@@ -1,5 +1,13 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine
+
+# Install https Certs
 RUN dotnet dev-certs https --clean
 RUN dotnet dev-certs https --trust -ep /https/aspnetapp.pfx -p password
+
+# tzdata for timzone
+RUN apk add tzdata
+RUN cp /usr/share/zoneinfo/America/Guatemala /etc/localtime
+RUN apk del tzdata
+
 WORKDIR /var/www/SapphireApi/
 COPY ./SapphireApi .

@@ -19,6 +19,7 @@ using Microsoft.OpenApi.Models;
 
 using SapphireApi.Data;
 using SapphireApi.Data.Identity;
+using SapphireApi.Middleware;
 
 namespace SapphireApi
 {
@@ -150,6 +151,8 @@ namespace SapphireApi
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<RequestLoggerMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
