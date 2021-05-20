@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SapphireApi.Data;
 
-namespace SapphireApi.Data.Adminsitration.Locations.Country
+namespace SapphireApi.Data.Administration.Locations.Country
 {
     [Route("api/[controller]")]
     [ApiController]

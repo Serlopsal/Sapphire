@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using SapphireApi.Data.Adminsitration.Setup.Series;
+using SapphireApi.Data.Administration.Setup.Series;
 using SapphireApi.Data.Inventory.Transactions.Batch;
 using SapphireApi.Data.Shared.Models;
 
-namespace SapphireApi.Data.Adminsitration.Setup.Objects {
+namespace SapphireApi.Data.Administration.Setup.Objects {
   public class ObjectModel: IdentificableModel {
     public ObjectModel(){
       series = new HashSet<SerieModel>();

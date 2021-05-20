@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Shared.Normalize;
 
-namespace SapphireApi.Data.Adminsitration.Locations.Country{
+namespace SapphireApi.Data.Administration.Locations.Country{
   public partial class CountryModelBuilder: IdentificableModelBuilder<CountryModel> {
     public override void Configure(EntityTypeBuilder<CountryModel> builder) {
       base.Configure(builder);

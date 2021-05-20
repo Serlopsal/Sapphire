@@ -1,4 +1,4 @@
-namespace SapphireApi.Data.Adminsitration.Setup.UOM {
+namespace SapphireApi.Data.Administration.Setup.UOM {
   public enum UOMTypes {
     Length = 'A',
     Weight = 'W',

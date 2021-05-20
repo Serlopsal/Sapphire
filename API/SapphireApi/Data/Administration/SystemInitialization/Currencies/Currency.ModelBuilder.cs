@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Shared.Normalize;
 
-namespace SapphireApi.Data.Adminsitration.SystemInitialization.Currencies {
+namespace SapphireApi.Data.Administration.SystemInitialization.Currencies {
   public class CurrencyModelBuilder: AuditableModelBuilder<CurrencyModel> {
     public override void Configure(EntityTypeBuilder<CurrencyModel> builder) {
       base.Configure(builder);

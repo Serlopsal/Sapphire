@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using SapphireApi.Data.Adminsitration.Setup.Objects;
+using SapphireApi.Data.Administration.Setup.Objects;
 using SapphireApi.Data.Inventory.Transactions.Batch;
 using SapphireApi.Data.Shared;
 using SapphireApi.Data.Shared.Models;
 
-namespace SapphireApi.Data.Adminsitration.Setup.Series {
+namespace SapphireApi.Data.Administration.Setup.Series {
   public class SerieModel: IdentificableModel, IClosable {
     public SerieModel(){
       batchTransactions = new HashSet<BatchTransactionModel>();

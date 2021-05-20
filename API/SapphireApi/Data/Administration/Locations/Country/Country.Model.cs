@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using SapphireApi.Data.Administration.Locations.Cities;
+using SapphireApi.Data.Administration.SystemInitialization.Company;
 using SapphireApi.Data.Shared.Models;
-using SapphireApi.Data.Adminsitration.SystemInitialization.Company;
-using SapphireApi.Data.Adminsitration.Locations.Cities;
 
-namespace SapphireApi.Data.Adminsitration.Locations.Country{
+namespace SapphireApi.Data.Administration.Locations.Country{
   public class CountryModel: IdentificableModel {
     public CountryModel() {
       // Navigation Properties

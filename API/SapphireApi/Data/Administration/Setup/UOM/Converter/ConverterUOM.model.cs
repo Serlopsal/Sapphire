@@ -1,6 +1,6 @@
 using SapphireApi.Data.Shared.Models;
 
-namespace SapphireApi.Data.Adminsitration.Setup.UOM.Converter {
+namespace SapphireApi.Data.Administration.Setup.UOM.Converter {
   public class UOMConverterModel: IdentificableModel {
     public int fromOneId { get; set; }
     public int toManyId { get; set; }

@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SapphireApi.Data.Adminsitration.Locations.Country;
+using SapphireApi.Data.Administration.Locations.Country;
 using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Shared.Normalize;
 
-namespace SapphireApi.Data.Adminsitration.SystemInitialization.Company{
+namespace SapphireApi.Data.Administration.SystemInitialization.Company{
   public class CompanyModelBuilder: IdentificableModelBuilder<CompanyModel> {
     public override void Configure(EntityTypeBuilder<CompanyModel> builder)
     {

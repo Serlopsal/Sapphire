@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SapphireApi.Data.Adminsitration.Setup.Objects;
+using SapphireApi.Data.Administration.Setup.Objects;
 using SapphireApi.Data.Identity;
 
 namespace SapphireApi.Data {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using SapphireApi.Data.Adminsitration.Setup.Objects;
-using SapphireApi.Data.Adminsitration.Setup.Series;
+using SapphireApi.Data.Administration.Setup.Objects;
+using SapphireApi.Data.Administration.Setup.Series;
 using SapphireApi.Data.Inventory.Batches;
 using SapphireApi.Data.Inventory.Items;
 using SapphireApi.Data.Shared;

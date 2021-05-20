@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies;
+using SapphireApi.Data.Administration.SystemInitialization.Currencies;
 using SapphireApi.Data.Marketing.BusinessPartners.BusinessPartnerGroup;
 using SapphireApi.Data.Shared;
 using SapphireApi.Data.Shared.Models;

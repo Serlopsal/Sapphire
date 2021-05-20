@@ -1,5 +1,5 @@
 using System;
-using SapphireApi.Data.Adminsitration.Setup.Series;
+using SapphireApi.Data.Administration.Setup.Series;
 
 namespace SapphireApi.Data.Shared.Models {
   public abstract class DocumentableModel: IdentificableModel, ICalendarizable, ICancelable, IPrintable, IClosable, INumerable, ICommentable, IReferenceable {

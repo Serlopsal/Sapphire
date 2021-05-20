@@ -1,6 +1,6 @@
 using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Marketing.BusinessPartners.BusinessPartnerGroup;
-using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies;
+using SapphireApi.Data.Administration.SystemInitialization.Currencies;
 using SapphireApi.Data.Shared;
 
 namespace SapphireApi.Data.Marketing.BusinessPartners.BusinessPartnerCards {

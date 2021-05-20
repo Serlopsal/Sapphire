@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Shared.Normalize;
 
-namespace SapphireApi.Data.Adminsitration.Setup.UOM {
+namespace SapphireApi.Data.Administration.Setup.UOM {
   public class UOMModelBuilder : IdentificableModelBuilder<UOMModel> {
     public override void Configure(EntityTypeBuilder<UOMModel> builder) {
       base.Configure(builder);

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using SapphireApi.Data.Adminsitration.SystemInitialization.Company;
-using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies.Rates;
+using SapphireApi.Data.Administration.SystemInitialization.Company;
+using SapphireApi.Data.Administration.SystemInitialization.Currencies.Rates;
 using SapphireApi.Data.Marketing.BusinessPartners.BusinessPartnerCards;
 using SapphireApi.Data.Marketing.Pricing.PriceList;
 using SapphireApi.Data.Shared.Models;
 
-namespace SapphireApi.Data.Adminsitration.SystemInitialization.Currencies {
+namespace SapphireApi.Data.Administration.SystemInitialization.Currencies {
   public class CurrencyModel: AuditableModel {
     public string currCode { get; set; }
     public string currName { get; set; }

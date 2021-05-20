@@ -1,4 +1,4 @@
-using SapphireApi.Data.Adminsitration.Locations.Cities;
+using SapphireApi.Data.Administration.Locations.Cities;
 using SapphireApi.Data.Shared.Models;
 
 namespace SapphireApi.Data.Inventory.Warehouses {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SapphireApi.Data.Shared.Models;
 using SapphireApi.Data.Shared.Normalize;
 
-namespace SapphireApi.Data.Adminsitration.Setup.Series{
+namespace SapphireApi.Data.Administration.Setup.Series{
   public class SerieModelBuilder: IdentificableModelBuilder<SerieModel>{
     public override void Configure(EntityTypeBuilder<SerieModel> builder)
     {

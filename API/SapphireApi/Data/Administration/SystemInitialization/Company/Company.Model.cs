@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using SapphireApi.Data.Adminsitration.Locations.Country;
-using SapphireApi.Data.Adminsitration.SystemInitialization.Currencies;
+using SapphireApi.Data.Administration.Locations.Country;
+using SapphireApi.Data.Administration.SystemInitialization.Currencies;
 using SapphireApi.Data.Identity;
 using SapphireApi.Data.Shared.Models;
 
-namespace SapphireApi.Data.Adminsitration.SystemInitialization.Company{
+namespace SapphireApi.Data.Administration.SystemInitialization.Company{
   public class CompanyModel: IdentificableModel {
     public CompanyModel() {
       // Navigation Properties

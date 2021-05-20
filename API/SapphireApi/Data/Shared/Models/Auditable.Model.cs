@@ -1,5 +1,5 @@
 using System;
-using SapphireApi.Data.Adminsitration.Setup.Objects;
+using SapphireApi.Data.Administration.Setup.Objects;
 using SapphireApi.Data.Identity;
 
 namespace SapphireApi.Data.Shared.Models {

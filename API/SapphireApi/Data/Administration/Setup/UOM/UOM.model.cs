@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using SapphireApi.Data.Adminsitration.Setup.UOM.Converter;
+using SapphireApi.Data.Administration.Setup.UOM.Converter;
 using SapphireApi.Data.Inventory.Items;
 using SapphireApi.Data.Shared.Models;
 
-namespace SapphireApi.Data.Adminsitration.Setup.UOM {
+namespace SapphireApi.Data.Administration.Setup.UOM {
   public class UOMModel: IdentificableModel {
     public UOMModel() {
       uomConverter_from = new HashSet<UOMConverterModel>();

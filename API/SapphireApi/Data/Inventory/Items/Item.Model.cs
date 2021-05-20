@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using SapphireApi.Data.Adminsitration.Setup.UOM;
+using SapphireApi.Data.Administration.Setup.UOM;
 using SapphireApi.Data.Inventory.Batches;
 using SapphireApi.Data.Inventory.ItemsGroup;
 using SapphireApi.Data.Inventory.Manufacters;

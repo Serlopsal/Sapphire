@@ -1,5 +1,6 @@
 API/SapphireAPI/obj
 API/SapphireAPI/bin
 API/vol/mssql/
+API/SapphireApi/.idea
 publish/
 *.vpp.*

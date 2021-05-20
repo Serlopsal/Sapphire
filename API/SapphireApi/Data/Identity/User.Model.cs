@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-using SapphireApi.Data.Adminsitration.SystemInitialization.Company;
+using SapphireApi.Data.Administration.SystemInitialization.Company;
 
 namespace SapphireApi.Data.Identity {
   public class UserModel: IdentityUser {

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace SapphireApi.Data.Adminsitration.SystemInitialization {
+namespace SapphireApi.Data.Administration.SystemInitialization {
   [Route("api/[controller]")]
   [ApiController]
   public class InitController: ControllerBase {
