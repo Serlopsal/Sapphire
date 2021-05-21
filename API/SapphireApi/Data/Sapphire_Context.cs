@@ -431,7 +431,7 @@ namespace SapphireApi.Data{
 
 
       // Query Filters
-      builder.Entity<UserModel>().HasQueryFilter(x => x.companyId == this.getCompany());
+      // builder.Entity<UserModel>().HasQueryFilter(x => x.companyId == this.getCompany());
         
       // Seeding
       // ONLY FIRST
