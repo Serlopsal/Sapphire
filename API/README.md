@@ -50,10 +50,10 @@ Example:
 ```zsh
 dotnet aspnet-codegenerator \
 controller -name CountryController -api \
--m SapphireApi.Data.Adminsitration.Locations.Country.CountryModel \
+-m SapphireApi.Data.Administration.Locations.Country.CountryModel \
 -dc Sapphire_Context \
 -outDir Data/Administration/Locations/Country \
--namespace SapphireApi.Data.Adminsitration.Locations.Country
+-namespace SapphireApi.Data.Administration.Locations.Country
 ```
 
 ### Docker Images
