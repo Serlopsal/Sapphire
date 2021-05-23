@@ -436,7 +436,7 @@ namespace SapphireApi.Data{
       // Seeding
       // ONLY FIRST
       // new IdentitySeed(builder);
-      // new ObjectSeed(builder);
+      new ObjectSeed(builder);
     }
 
     private void Sign(){
