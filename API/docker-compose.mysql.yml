@@ -23,8 +23,8 @@ services:
       - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
-    volumes: 
-      - ./SapphireApi:/var/www/SapphireApi
+    # volumes: 
+     #  - ./SapphireApi:/var/www/SapphireApi
     command: ash -c "sleep 15 && dotnet watch --project /var/www/SapphireApi/SapphireApi.csproj run"
     expose: 
       - 80 
