@@ -437,6 +437,7 @@ namespace SapphireApi.Data{
       // ONLY FIRST
       // new IdentitySeed(builder);
       new ObjectSeed(builder);
+      new CountrySeed(builder);
     }
 
     private void Sign(){
