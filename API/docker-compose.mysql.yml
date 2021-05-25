@@ -7,8 +7,8 @@ services:
     environment: 
       - MYSQL_ROOT_PASSWORD=Admin@123
       - MYSQL_DATABASE=Sapphire
-    volumes: 
-      - ./vol/mssql:/var/lib/mysql
+    #volumes: 
+    #  - ./vol/mssql:/var/lib/mysql
     ports:
       - 3306:3306
     expose:
@@ -23,9 +23,9 @@ services:
       - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
-    # volumes: 
-     #  - ./SapphireApi:/var/www/SapphireApi
-    command: ash -c "sleep 15 && dotnet watch --project /var/www/SapphireApi/SapphireApi.csproj run"
+    volumes: 
+      - ./SapphireApi:/var/www/SapphireApi
+    command: ash -c "sleep 15 && dotnet clean && dotnet restore && dotnet watch --project /var/www/SapphireApi/SapphireApi.csproj run"
     expose: 
       - 80 
       - 443 
