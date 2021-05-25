@@ -22,16 +22,19 @@ namespace SapphireApi.Data.Administration.Locations.Country
 
         // GET: api/Country
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CountryModel>>> GetCountry()
+        public async Task<ActionResult<IEnumerable<CountryModel>>> GetCountry([FromQuery] bool includeCities = false)
         {
-            return await _context.Country.ToListAsync();
+            if(includeCities)
+                return await _context.Country.Include(x=>x.cities).ToListAsync();
+            else
+                return await _context.Country.ToListAsync();
         }
 
         // GET: api/Country/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CountryModel>> GetCountryModel(int id)
+        public async Task<ActionResult<CountryModel>> GetCountryModel(int id, [FromQuery] bool includeCities = false)
         {
-            var countryModel = await _context.Country.FindAsync(id);
+            var countryModel = includeCities ? await _context.Country.Where(filter => filter.id == id).Include(model => model.cities).FirstOrDefaultAsync() : await _context.Country.FindAsync(id);
 
             if (countryModel == null)
             {
