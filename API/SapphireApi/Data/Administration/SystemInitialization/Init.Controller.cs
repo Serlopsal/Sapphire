@@ -12,6 +12,8 @@ namespace SapphireApi.Data.Administration.SystemInitialization {
   public class InitController: ControllerBase {
     [HttpGet]
     public ActionResult<Boolean> GetWasSystemInitialized(){
+      // Only For testing purposes
+      // TODO: Build the production logic
       return false;
     }
   }

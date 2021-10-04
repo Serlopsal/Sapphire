@@ -25,7 +25,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     volumes: 
       - ./SapphireApi:/var/www/SapphireApi
-    command: ash -c "sleep 15 && dotnet clean && dotnet restore && dotnet watch --project /var/www/SapphireApi/SapphireApi.csproj run"
+    command: ash -c "sleep 15 && dotnet restore /var/www/SapphireApi/SapphireApi.csproj && dotnet watch --project /var/www/SapphireApi/SapphireApi.csproj run"
     expose: 
       - 80 
       - 443 
